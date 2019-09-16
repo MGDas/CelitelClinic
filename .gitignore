@@ -3,3 +3,5 @@ media/
 __pycache__/
 *.pyc
 local.py
+templates_html
+db
