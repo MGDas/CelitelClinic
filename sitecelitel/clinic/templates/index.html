@@ -1,0 +1,1278 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+		<head>
+			<title>Главная</title>
+			<meta charset="utf-8">
+			<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+			<meta name="viewport" content="width=device-width,initial-scale=1">
+			{% include 'includes/meta.html' %}
+			<link href="{% static 'css/styles.css' %}" rel="stylesheet">
+			<!-- FAVICON FOR EVERYBODY, FREE, AND LET NO ONE BE LEFT BEHIND!-->
+			<link href="/favicon.ico" rel="shortcut icon" type="{% static 'images/vnd.microsoft.icon' %}">
+			<link rel="author" href="/humans.txt">
+		</head>
+	<body class="frontpage">
+
+		{% include 'includes/svg/sprite.html' %}
+
+		<header class="header">
+			<div class="container header__container">
+				<a class="logo" href="#">
+					<img src="{% static 'images/logo.png' %}" alt="Logo">
+				</a>
+				<a class="orderLink" href="#" aria-label="Записаться к врачу">
+							<svg width="30" height="30" aria-hidden="true">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#doctor"></use>
+							</svg>
+							<span class="onlyDesktop">Записаться к врачу</span>
+				</a>
+				<nav class="mainMenu">
+					<ul>
+						<li class="mainMenu__item mainMenu__item--active"><a class="mainMenu__link" href="#">Поликлиники</a>
+							<div class="subMenu menuClinics">
+								<ul class="mainMenu__tabs mainMenu__tabs--clinics">
+									<li class="mainMenu__activeTab"><a href="#" data-tab="menuMhk">Махачкала</a></li>
+									<li><a href="#" data-tab="menuKasp">Каспийск</a></li>
+									<li><a href="#" data-tab="menuDerb">Дербент</a></li>
+									<li><a href="#" data-tab="menuKhas">Хасавюрт</a></li>
+								</ul>
+								<div class="menuClinics__wrap">
+									<div class="menuClinics__section menuClinics__section--active" data-tab="menuMhk">
+										<ul>
+											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель»</span>
+													<p>
+																<svg width="12" height="12" aria-hidden="true">
+																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+																</svg>ул. Ш. Алиева, 4А
+													</p><i>Без выходных</i></a></li>
+											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель»</span>
+													<p>
+																<svg width="12" height="12" aria-hidden="true">
+																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+																</svg>ул. Магомедтагирова, 172В
+													</p></a></li>
+											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель» Пирогова</span>
+													<p>
+																<svg width="12" height="12" aria-hidden="true">
+																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+																</svg>ул. Пирогова, 16А
+													</p></a></li>
+											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель» Шамиля</span>
+													<p>
+																<svg width="12" height="12" aria-hidden="true">
+																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+																</svg>пр-т Имама Шамиля, 4
+													</p></a></li>
+											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель» Гоголя</span>
+													<p>
+																<svg width="12" height="12" aria-hidden="true">
+																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+																</svg>ул. Гоголя, 24
+													</p><i>Без выходных, 24/7</i></a></li>
+											<li class="menuClinics__clinic menuClinics__clinic--child"><a href="#"><span>ООО Детская поликлиника «Целитель»</span>
+													<p>
+																<svg width="12" height="12" aria-hidden="true">
+																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+																</svg>ул. Петра 1, 49Е
+													</p></a></li>
+											<li class="menuClinics__clinic menuClinics__clinic--child"><a href="#"><span>ООО Детская поликлиника «Целитель»</span>
+													<p>
+																<svg width="12" height="12" aria-hidden="true">
+																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+																</svg>ул. Юсупа Акаева, 2А
+													</p></a></li>
+											<li class="menuClinics__clinic menuClinics__clinic--child"><a href="#"><span>ООО Детская поликлиника «Целитель»</span>
+													<p>
+																<svg width="12" height="12" aria-hidden="true">
+																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+																</svg>ул. Ш. Алиева, 1А
+													</p></a></li>
+											<li class="menuClinics__clinic menuClinics__clinic--child"><a href="#"><span>ООО Детская поликлиника «Целитель»</span>
+													<p>
+																<svg width="12" height="12" aria-hidden="true">
+																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+																</svg>ул. Акушинского, 34Д
+													</p><i>Без выходных</i></a></li>
+											<li class="menuClinics__clinic menuClinics__clinic--child"><a href="#"><span>ООО Детская поликлиника «Целитель»</span>
+													<p>
+																<svg width="12" height="12" aria-hidden="true">
+																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+																</svg>ул. Чехова, 50
+													</p></a></li>
+											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель»</span>
+													<p>
+																<svg width="12" height="12" aria-hidden="true">
+																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+																</svg>ул. Ш. Алиева, 4А
+													</p><i>Без выходных</i></a></li>
+											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель»</span>
+													<p>
+																<svg width="12" height="12" aria-hidden="true">
+																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+																</svg>ул. Магомедтагирова, 172В
+													</p></a></li>
+											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель» Пирогова</span>
+													<p>
+																<svg width="12" height="12" aria-hidden="true">
+																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+																</svg>ул. Пирогова, 16А
+													</p></a></li>
+											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель» Шамиля</span>
+													<p>
+																<svg width="12" height="12" aria-hidden="true">
+																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+																</svg>пр-т Имама Шамиля, 4
+													</p></a></li>
+										</ul>
+									</div>
+									<div class="menuClinics__section" data-tab="menuKasp">
+										<ul>
+											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель» Каспийск</span>
+													<p>
+																<svg width="12" height="12" aria-hidden="true">
+																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+																</svg>ул. Ш. Алиева, 4А
+													</p><i>Без выходных</i></a></li>
+										</ul>
+									</div>
+									<div class="menuClinics__section" data-tab="menuDerb">
+										<ul>
+											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель» Дербент</span>
+													<p>
+																<svg width="12" height="12" aria-hidden="true">
+																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+																</svg>ул. Ш. Алиева, 4А
+													</p><i>Без выходных</i></a></li>
+										</ul>
+									</div>
+									<div class="menuClinics__section" data-tab="menuKhas">
+										<ul>
+											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель» Хасавюрт</span>
+													<p>
+																<svg width="12" height="12" aria-hidden="true">
+																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+																</svg>ул. Ш. Алиева, 4А
+													</p><i>Без выходных</i></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="mainMenu__item"><a class="mainMenu__link" href="#">Врачи</a>
+							<div class="subMenu menuDoctors">
+								<section class="menuDoctors__section menuDoctors__section--menu">
+									<ul class="subMenu__menu">
+										<li class="orderOneForMobile"><a class="subMenu__active" href="#">Все врачи</a></li>
+										<li><a href="#">Детские врачи</a></li>
+										<li><a href="#">Врачи с большим опытом</a></li>
+										<li><a href="#">Молодые специалисты</a></li>
+										<li><a href="#">Врачи с действующими акциями&nbsp;<span>%</span></a></li>
+									</ul>
+								</section>
+								<section class="menuDoctors__section menuDoctors__section--doctor">
+									<div class="menuDoctors__photo"><img src="assets/faqDoctor.jpg" alt=""></div>
+									<div class="menuDoctors__wrap">
+										<h3 class="menuDoctors__name"><a href="#">Башир Алиасрхабович</a></h3>
+										<div class="menuDoctors__desk">уролог-андролог</div>
+										<div class="menuDoctors__note">Врач-дня</div>
+									</div>
+								</section>
+							</div>
+						</li>
+						<li class="mainMenu__item"><a class="mainMenu__link" href="#">Услуги</a>
+							<div class="subMenu menuServices">
+								<ul class="mainMenu__tabs mainMenu__tabs--services">
+									<li class="mainMenu__activeTab"><a href="#" data-tab="menuAdult">Взрослым</a></li>
+									<li><a href="#" data-tab="menuChildren">Детям</a></li>
+									<li><a href="#" data-tab="menuProgram">Программы</a></li>
+									<li><a href="#" data-tab="menuHospital">Стационар</a></li>
+								</ul>
+								<div class="menuServices__wrap">
+									<div class="menuServices__section menuServices__section--services menuServices__section--adult menuServices__section--active" data-tab="menuAdult">
+										<ul>
+											<li><a class="subMenu__active" href="#"><span>А</span>Аллергология</a></li>
+											<li><a href="#"><span>Г</span>Гинекология</a></li>
+											<li><a href="#"><span>Д</span>Дерматология</a></li>
+											<li><a href="#"><span>И</span>Инфекционные заболевания</a></li>
+											<li><a href="#"><span>К</span>Кардиология</a></li>
+											<li><a href="#"><span></span>Косметология</a></li>
+											<li><a href="#"><span>Л</span>Лаборатория</a></li>
+											<li><a href="#"><span>Н</span>Неврология</a></li>
+											<li><a href="#"><span></span>Невропатология</a></li>
+											<li><a href="#"><span>О</span>Ортопедия</a></li>
+											<li><a href="#"><span></span>Оториноларингология (ЛОР)</a></li>
+											<li><a href="#"><span></span>Офтольмалогия</a></li>
+											<li><a href="#"><span>П</span>Педиатрия</a></li>
+											<li><a href="#"><span></span>Процедурный кабинет</a></li>
+											<li><a href="#"><span>Р</span>Рентгенология</a></li>
+											<li><a href="#"><span>С</span>Стационар</a></li>
+											<li><a href="#"><span></span>Стоматология</a></li>
+											<li><a href="#"><span>Т</span>Терапия</a></li>
+										</ul>
+									</div>
+									<div class="menuServices__section menuServices__section--services menuServices__section--child" data-tab="menuChildren">
+										<ul>
+											<li><a href="#"><span>А</span>Аллергология</a></li>
+											<li><a href="#"><span>Г</span>Гинекология</a></li>
+											<li><a href="#"><span>Д</span>Дерматология</a></li>
+											<li><a href="#"><span>И</span>Инфекционные заболевания</a></li>
+											<li><a href="#"><span>К</span>Кардиология</a></li>
+											<li><a href="#"><span></span>Косметология</a></li>
+											<li><a href="#"><span>Л</span>Лаборотория</a></li>
+											<li><a href="#"><span>Н</span>Неврология</a></li>
+											<li><a href="#"><span></span>Невропатология</a></li>
+											<li><a href="#"><span>О</span>Ортопедия</a></li>
+											<li><a href="#"><span></span>Оториноларингология (ЛОР)</a></li>
+											<li><a href="#"><span></span>Офтольмалогия</a></li>
+											<li><a href="#"><span>П</span>Педиатрия</a></li>
+											<li><a href="#"><span></span>Процедурный кабинет</a></li>
+											<li><a href="#"><span>Р</span>Рентгенология</a></li>
+											<li><a href="#"><span>С</span>Стационар</a></li>
+											<li><a href="#"><span></span>Стоматология</a></li>
+											<li><a href="#"><span>Т</span>Терапия</a></li>
+										</ul>
+									</div>
+									<div class="menuServices__section menuServices__section--programm" data-tab="menuProgram">
+										<ul>
+											<li><a href="#">Планирование семьи у женщины</a></li>
+											<li><a href="#">Комплексное обследование женщин</a></li>
+											<li><a href="#">Забота о женском здоровье до 40 лет</a></li>
+											<li><a href="#">Забота о женском здоровье после 40 лет</a></li>
+											<li><a href="#">Маммологический скрининг до 40 лет</a></li>
+											<li><a href="#">Маммологический скрининг после 40 лет</a></li>
+											<li><a href="#">Диагностика онкологических заболеваний у женщин</a></li>
+											<li><a href="#">Планирование семьи у мужчины</a></li>
+											<li><a href="#">Комплексное обследование мужчин</a></li>
+											<li><a href="#">Мужское здоровье до 50 лет</a></li>
+											<li><a href="#">Мужское здоровье после 50 лет</a></li>
+											<li><a href="#">Диагностика онкологических заболеваний у мужчин</a></li>
+										</ul>
+									</div>
+									<div class="menuServices__section menuServices__section--hospital" data-tab="menuHospital">
+										<div class="menuServices__images"><img src="assets/1.png" alt="" width="580" height="300"><img src="assets/2.png" alt="" width="580" height="300"><img src="assets/3.png" alt="" width="580" height="300"></div>
+										<p>Дневной стационар медицинского центра «Целитель» предназначен для проведения профилактических мероприятий и лечебных процедур.<i> Работает круглосуточно.</i></p>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="mainMenu__item"><a class="mainMenu__link" href="#">События</a>
+							<div class="subMenu menuEvents">
+								<section class="menuEvents__section menuEvents__section--menu">
+									<ul class="subMenu__menu">
+										<li><a class="subMenu__active" href="#">Акции</a></li>
+										<li><a href="#">Новости</a></li>
+										<li><a href="#">Врачи из России</a></li>
+									</ul>
+								</section>
+								<section class="menuEvents__section menuEvents__section--news">
+									<section><img src="assets/doctorFromMoscow.jpg" alt="" width="1024" height="540">
+										<h3><a href="#">Высококвалифицированный врач из Краснодара хирург-эндокринолог, онколог в Махачкале</a></h3>
+									</section>
+									<section><img src="assets/doctorFromMoscow.jpg" alt="" width="1024" height="540">
+										<h3><a href="#">Высококвалифицированный врач из Краснодара хирург-эндокринолог, онколог в Махачкале</a></h3>
+									</section>
+									<section><img src="assets/doctorFromMoscow.jpg" alt="" width="1024" height="540">
+										<h3><a href="#">Высококвалифицированный врач из Краснодара хирург-эндокринолог, онколог в Махачкале</a></h3>
+									</section>
+								</section>
+							</div>
+						</li>
+						<li class="mainMenu__item"><a class="mainMenu__link" href="#">Статьи</a>
+							<div class="subMenu menuArticles">
+								<section class="menuArticles__section menuArticles__section--menu">
+									<ul class="subMenu__menu">
+										<li class="orderOneForMobile"><a class="subMenu__active" href="#">Все статьи</a></li>
+										<li><a href="#">Будущим матерям</a></li>
+										<li><a href="#">Педиатры о детях</a></li>
+										<li><a href="#">Правильно питание</a></li>
+										<li><a href="#">Всё про кожу</a></li>
+									</ul>
+								</section>
+								<section class="menuArticles__section menuArticles__section--articles">
+									<ul class="articles">
+										<li class="articles__item menuArticles__item">
+											<div class="articles__date">19 марта</div>
+											<h3 class="articles__title"><a href="#">Лимфаденопатия у детей и взрослых: причины, симптомы и лечение</a></h3>
+										</li>
+										<li class="articles__item menuArticles__item">
+											<div class="articles__date">19 марта</div>
+											<h3 class="articles__title"><a href="#">Лимфаденопатия у детей и взрослых: причины, симптомы и лечение</a></h3>
+											<div class="articles__author"><img src="assets/faqDoctor.jpg" alt="" width="80" height="80">
+												<div class="articles__wrap">
+													<div class="articles__name">Башир Алиасрхабович</div>
+													<div class="articles__desc">уролог-андролог</div>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</section>
+							</div>
+						</li>
+						<li class="mainMenu__item"><a class="mainMenu__link" href="#">Компания</a>
+							<div class="subMenu menuCompany">
+								<section class="menuCompany__section menuCompany__section--menu">
+									<ul class="subMenu__menu">
+										<li><a class="subMenu__active" href="#">О нас</a></li>
+										<li><a href="#">Вакансии</a></li>
+										<li><a href="#">Вопросы и ответы</a></li>
+									</ul>
+								</section>
+								<section class="menuCompany__section menuCompany__section--social">
+									<ul>
+										<li><a href="#" aria-label="Мы в инстаграм"><img src="{% static 'images/ig.svg' %}" width="60" height="60" alt=""></a></li>
+										<li><a href="#" aria-label="Мы в фейсбук"><img src="{% static 'images/fb.svg' %}" width="60" height="60" alt=""></a></li>
+										<li><a href="#" aria-label="Мы в одноклассниках"><img src="{% static 'images/ok.svg' %}" width="60" height="60" alt=""></a></li>
+										<li><a href="#" aria-label="Мы на ютуб"><img src="{% static 'images/yt.svg' %}" width="60" height="60" alt=""></a></li>
+									</ul>
+								</section>
+							</div>
+						</li>
+						<li class="mainMenu__item"><a class="mainMenu__link mainMenu__link--phone" href="#">8 928 807-39-99</a>
+							<div class="subMenu menuContacts">
+								<div class="menuContacts__wrap">
+									<section class="menuContacts__section menuContacts__section--time"><b>Колл-центр всегда на связи</b>
+										<p>
+													<svg width="16" height="16" aria-hidden="true">
+														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+													</svg>с 8:00 до 20:00
+										</p>
+									</section>
+									<section class="menuContacts__section menuContacts__section--phone"><b>Телефоны для справок</b>
+										<p>
+													<svg width="16" height="16" aria-hidden="true">
+														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+													</svg>56-15-15
+										</p>
+										<p>
+													<svg width="16" height="16" aria-hidden="true">
+														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+													</svg>8 928 807-39-99
+										</p>
+									</section>
+									<section class="menuContacts__section menuContacts__section--email"><b>Электронная почта</b>
+										<p>
+													<svg width="16" height="16" aria-hidden="true">
+														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#email"></use>
+													</svg>info@celitel05.ru
+										</p><span>По вопросам трудоустройства</span>
+										<p>
+													<svg width="16" height="16" aria-hidden="true">
+														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#email"></use>
+													</svg><a href="#">rabota@celitel05.ru</a>
+										</p>
+									</section>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+		<main>
+			<section class="slider">
+				<div class="container">
+					<div class="slider__list">
+						<div class="slider__item slider__item--active"><a href="#">
+								<picture>
+									<source media="(min-width: 720px)" srcset="assets/slider/1.png"><img src="assets/slider/1--mob.png">
+								</picture></a></div>
+						<div class="slider__item"><a href="#">
+								<picture>
+									<source media="(min-width: 720px)" srcset="assets/slider/2.png"><img src="assets/slider/2--mob.png">
+								</picture></a></div>
+						<div class="slider__item"><a href="#">
+								<picture>
+									<source media="(min-width: 720px)" srcset="assets/slider/3.png"><img src="assets/slider/3--mob.png">
+								</picture></a></div>
+						<div class="slider__item"><a href="#">
+								<picture>
+									<source media="(min-width: 720px)" srcset="assets/slider/2.png"><img src="assets/slider/2--mob.png">
+								</picture></a></div>
+						<div class="slider__item"><a href="#">
+								<picture>
+									<source media="(min-width: 720px)" srcset="assets/slider/1.png"><img src="assets/slider/1--mob.png">
+								</picture></a></div>
+						<div class="slider__item"><a href="#">
+								<picture>
+									<source media="(min-width: 720px)" srcset="assets/slider/2.png"><img src="assets/slider/2--mob.png">
+								</picture></a></div>
+					</div>
+					<div class="slider__nav">
+						<button class="slider__btn slider__btn--prev" type="button" aria-label="Предыдущий слайд">
+									<svg width="8" height="15" aria-hidden="true">
+										<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight--slider"></use>
+									</svg>
+						</button>
+						<button class="slider__btn slider__btn--next" type="button" aria-label="Следующий слайд">
+									<svg width="8" height="15" aria-hidden="true">
+										<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight--slider"></use>
+									</svg>
+						</button>
+					</div>
+					<div class="slider__dots"><span class="active"></span><span></span><span></span><span></span><span></span><span></span>
+					</div>
+				</div>
+			</section>
+			<section class="clinicsMD">
+				<div class="container">
+					<div class="mdWrap mdWrap--frontClinics">
+						<h2 class="mdTitle">Поликлиники</h2>
+						<ul class="mdWrap__links">
+							<li class="mdWrap__link mdWrap__link--active"><a href="#" data-city="Махачкала">Махачкала</a></li>
+							<li class="mdWrap__link"><a href="#" data-city="Каспийск">Каспийск</a></li>
+							<li class="mdWrap__link"><a href="#" data-city="Дербент">Дербент</a></li>
+							<li class="mdWrap__link"><a href="#" data-city="Хасавюрт">Хасавюрт</a></li>
+						</ul>
+					</div>
+					<div class="clinicsMD__body clinicsMD__body--active" data-city="Махачкала"><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 0</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Махачкала</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 1</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Махачкала</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 2</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Махачкала</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 3</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Махачкала</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 4</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Махачкала</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 5</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Махачкала</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 6</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Махачкала</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 7</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Махачкала</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 8</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Махачкала</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 9</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Махачкала</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a>
+					</div>
+					<div class="clinicsMD__body" data-city="Каспийск"><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 0</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Каспийск</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 1</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Каспийск</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 2</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Каспийск</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 3</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Каспийск</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 4</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Каспийск</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a>
+					</div>
+					<div class="clinicsMD__body" data-city="Дербент"><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 0</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Дербент</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 1</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Дербент</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 2</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Дербент</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 3</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Дербент</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 4</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Дербент</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a>
+					</div>
+					<div class="clinicsMD__body" data-city="Хасавюрт"><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 0</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Хасавюрт</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 1</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Хасавюрт</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 2</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Хасавюрт</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 3</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Хасавюрт</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a><a class="clinicsMD__item" href="#">
+							<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+							<h3 class="clinicsMD__title">ООО «Целитель» 4</h3>
+							<div class="clinicsMD__contacts">
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+											</svg>
+									<p>на ул. Ш.Алиева, 4А, Хасавюрт</p>
+								</div>
+								<div class="clinicsMD__contact clinicsMD__contact--reverse">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+											</svg>
+									<p>пн-сб — с 08:00 до 22:00</p>
+									<p>вс — с 09:00 до 22:00</p>
+								</div>
+								<div class="clinicsMD__contact">
+											<svg width="16" height="16" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#phone"></use>
+											</svg>
+									<p>+7 928 807-39-99</p>
+								</div>
+							</div></a>
+					</div>
+				</div>
+			</section>
+			<section class="reviews reviews--frontpage">
+				<div class="container">
+					<h2 class="mdTitle">Отзывы пациентов</h2>
+					<div class="mdIntro">Читай новые отзывы и оставь о своём враче на его личной странице.</div>
+					<ul class="reviews__body">
+						<li class="reviews__item">
+							<p>В целом, все было нормально. Я, честно говоря, к назначенному времени не успела, пришлось ждать живую очередь, попала на прием где-то через час. Но доктор мне понравилась, фамилию ее, к сожалению, не запомнила. Мне кажется, что она вполне квалифицированный специалист. Она меня проконсультировала, сделала все необходимое, заключение сразу выдала. В самом помещении были вполне нормальные условия, было уютно и комфортно. Мне даже предложили чай, кофе или воду, на мое усмотрение. Сама клиника расположена тоже удобно, с ее поиском у меня проблем не возникло. С персоналом я, конечно, особо не общалась, больше с врачом, но отношение к пациентам у них вполне нормальное. Претензий у меня в целом нет. Думаю, что я бы еще вернулась в эту клинику, а к конкретному специалисту уж точно.</p>
+							<div class="reviews__author">Анастасия Фёдоровна</div>
+						</li>
+						<li class="reviews__item">
+							<p>В целом, все было нормально. Я, честно говоря, к назначенному времени не успела, пришлось ждать живую очередь, попала на прием где-то через час. Но доктор мне понравилась, фамилию ее, к сожалению, не запомнила. Мне кажется, что она вполне квалифицированный специалист. Она меня проконсультировала, сделала все необходимое, заключение сразу выдала. В самом помещении были вполне нормальные условия, было уютно и комфортно. Мне даже предложили чай, кофе или воду, на мое усмотрение. Сама клиника расположена тоже удобно, с ее поиском у меня проблем не возникло. С персоналом я, конечно, особо не общалась, больше с врачом, но отношение к пациентам у них вполне нормальное. Претензий у меня в целом нет. Думаю, что я бы еще вернулась в эту клинику, а к конкретному специалисту уж точно.</p>
+							<div class="reviews__author">Анастасия Фёдоровна</div>
+						</li>
+						<li class="reviews__item">
+							<p>В целом, все было нормально. Я, честно говоря, к назначенному времени не успела, пришлось ждать живую очередь, попала на прием где-то через час. Но доктор мне понравилась, фамилию ее, к сожалению, не запомнила. Мне кажется, что она вполне квалифицированный специалист. Она меня проконсультировала, сделала все необходимое, заключение сразу выдала. В самом помещении были вполне нормальные условия, было уютно и комфортно. Мне даже предложили чай, кофе или воду, на мое усмотрение. Сама клиника расположена тоже удобно, с ее поиском у меня проблем не возникло. С персоналом я, конечно, особо не общалась, больше с врачом, но отношение к пациентам у них вполне нормальное. Претензий у меня в целом нет. Думаю, что я бы еще вернулась в эту клинику, а к конкретному специалисту уж точно.</p>
+							<div class="reviews__author">Анастасия Фёдоровна</div>
+						</li>
+						<li class="reviews__item">
+							<p>В целом, все было нормально. Я, честно говоря, к назначенному времени не успела, пришлось ждать живую очередь, попала на прием где-то через час. Но доктор мне понравилась, фамилию ее, к сожалению, не запомнила. Мне кажется, что она вполне квалифицированный специалист. Она меня проконсультировала, сделала все необходимое, заключение сразу выдала. В самом помещении были вполне нормальные условия, было уютно и комфортно. Мне даже предложили чай, кофе или воду, на мое усмотрение. Сама клиника расположена тоже удобно, с ее поиском у меня проблем не возникло. С персоналом я, конечно, особо не общалась, больше с врачом, но отношение к пациентам у них вполне нормальное. Претензий у меня в целом нет. Думаю, что я бы еще вернулась в эту клинику, а к конкретному специалисту уж точно.</p>
+							<div class="reviews__author">Анастасия Фёдоровна</div>
+						</li>
+						<li class="reviews__item">
+							<p>В целом, все было нормально. Я, честно говоря, к назначенному времени не успела, пришлось ждать живую очередь, попала на прием где-то через час. Но доктор мне понравилась, фамилию ее, к сожалению, не запомнила. Мне кажется, что она вполне квалифицированный специалист. Она меня проконсультировала, сделала все необходимое, заключение сразу выдала. В самом помещении были вполне нормальные условия, было уютно и комфортно. Мне даже предложили чай, кофе или воду, на мое усмотрение. Сама клиника расположена тоже удобно, с ее поиском у меня проблем не возникло. С персоналом я, конечно, особо не общалась, больше с врачом, но отношение к пациентам у них вполне нормальное. Претензий у меня в целом нет. Думаю, что я бы еще вернулась в эту клинику, а к конкретному специалисту уж точно.</p>
+							<div class="reviews__author">Анастасия Фёдоровна</div>
+						</li>
+						<li class="reviews__item">
+							<p>В целом, все было нормально. Я, честно говоря, к назначенному времени не успела, пришлось ждать живую очередь, попала на прием где-то через час. Но доктор мне понравилась, фамилию ее, к сожалению, не запомнила. Мне кажется, что она вполне квалифицированный специалист. Она меня проконсультировала, сделала все необходимое, заключение сразу выдала. В самом помещении были вполне нормальные условия, было уютно и комфортно. Мне даже предложили чай, кофе или воду, на мое усмотрение. Сама клиника расположена тоже удобно, с ее поиском у меня проблем не возникло. С персоналом я, конечно, особо не общалась, больше с врачом, но отношение к пациентам у них вполне нормальное. Претензий у меня в целом нет. Думаю, что я бы еще вернулась в эту клинику, а к конкретному специалисту уж точно.</p>
+							<div class="reviews__author">Анастасия Фёдоровна</div>
+						</li>
+					</ul><a class="more" href="#">Ещё 10 отзывов</a>
+				</div>
+			</section>
+			<section class="otherDoctors otherDoctors--frontpage">
+				<div class="container">
+					<div class="mdWrap mdWrap--frontDoctors">
+						<h2 class="mdTitle">Врачи</h2>
+						<ul class="mdWrap__links">
+							<li class="mdWrap__link mdWrap__link--active"><a href="#">с действующими акциями&nbsp;<span class="red" aria-hidden="true">%</span></a></li>
+							<li class="mdWrap__link"><a href="#">Гинекологи</a></li>
+							<li class="mdWrap__link"><a href="#">Дерматологи</a></li>
+							<li class="mdWrap__link"><a href="#">Кардиологи</a></li>
+							<li class="mdWrap__link"><a href="#">Косметологи</a></li>
+							<li class="mdWrap__link"><a href="#">ЛОР</a></li>
+							<li class="mdWrap__link"><a href="#">Неврологи</a></li>
+							<li class="mdWrap__link"><a href="#">Ортопеды</a></li>
+							<li class="mdWrap__link"><a href="#">Педиатры</a></li>
+							<li class="mdWrap__link"><a href="#">Стоматологи</a></li>
+							<li class="mdWrap__link"><a href="#">Терапевты</a></li>
+							<li class="mdWrap__link"><a href="#">УЗИ</a></li>
+							<li class="mdWrap__link"><a href="#">Урологи</a></li>
+							<li class="mdWrap__link"><a href="#">Хирурги</a></li>
+							<li class="mdWrap__link"><a href="#">Эндокринологи</a></li>
+							<li class="mdWrap__link"><a href="#">Ювениологи</a></li>
+						</ul>
+					</div>
+					<ul class="otherDoctors__body">
+												<section class="doctorPreview doctorPreview--child-man">
+													<div class="doctorPreview__photo"><a href="#"><img src="assets/doctorPreview.jpg" alt="" width="270" height="270"></a></div>
+													<h3 class="doctorPreview__name"><a href="#">Амина Гирамудиновна Абдулазизова</a>
+													</h3>
+													<div class="doctorPreview__desc">Терапевт, Узист. Врач высшей категории. Опыт работы — 17 лет</div>
+												</section>
+												<section class="doctorPreview">
+													<div class="doctorPreview__photo"><a href="#"><img src="assets/doctorPreview.jpg" alt="" width="270" height="270"></a></div>
+													<h3 class="doctorPreview__name"><a href="#">Амина Гирамудиновна Абдулазизова</a>
+														<div class="doctorPreview__label"><span class="visually-hidden">В данный момент у врача действует акция</span><i aria-hidden="true" title="В данный момент у врача действует акция">%</i></div>
+													</h3>
+													<div class="doctorPreview__desc">Терапевт, Узист. Врач высшей категории. Опыт работы — 17 лет</div>
+												</section>
+												<section class="doctorPreview doctorPreview--child-woman">
+													<div class="doctorPreview__photo"><a href="#"><img src="assets/doctorPreview.jpg" alt="" width="270" height="270"></a></div>
+													<h3 class="doctorPreview__name"><a href="#">Амина Гирамудиновна Абдулазизова</a>
+													</h3>
+													<div class="doctorPreview__desc">Терапевт, Узист. Врач высшей категории. Опыт работы — 17 лет</div>
+												</section>
+												<section class="doctorPreview">
+													<div class="doctorPreview__photo"><a href="#"><img src="assets/doctorPreview.jpg" alt="" width="270" height="270"></a></div>
+													<h3 class="doctorPreview__name"><a href="#">Амина Гирамудиновна Абдулазизова</a>
+														<div class="doctorPreview__label"><span class="visually-hidden">В данный момент у врача действует акция</span><i aria-hidden="true" title="В данный момент у врача действует акция">%</i></div>
+													</h3>
+													<div class="doctorPreview__desc">Терапевт, Узист. Врач высшей категории. Опыт работы — 17 лет</div>
+												</section>
+												<section class="doctorPreview doctorPreview--child-woman">
+													<div class="doctorPreview__photo"><a href="#"><img src="assets/doctorPreview.jpg" alt="" width="270" height="270"></a></div>
+													<h3 class="doctorPreview__name"><a href="#">Амина Гирамудиновна Абдулазизова</a>
+													</h3>
+													<div class="doctorPreview__desc">Терапевт, Узист. Врач высшей категории. Опыт работы — 17 лет</div>
+												</section>
+												<section class="doctorPreview">
+													<div class="doctorPreview__photo"><a href="#"><img src="assets/doctorPreview.jpg" alt="" width="270" height="270"></a></div>
+													<h3 class="doctorPreview__name"><a href="#">Амина Гирамудиновна Абдулазизова</a>
+														<div class="doctorPreview__label"><span class="visually-hidden">В данный момент у врача действует акция</span><i aria-hidden="true" title="В данный момент у врача действует акция">%</i></div>
+													</h3>
+													<div class="doctorPreview__desc">Терапевт, Узист. Врач высшей категории. Опыт работы — 17 лет</div>
+												</section>
+												<section class="doctorPreview doctorPreview--child-man">
+													<div class="doctorPreview__photo"><a href="#"><img src="assets/doctorPreview.jpg" alt="" width="270" height="270"></a></div>
+													<h3 class="doctorPreview__name"><a href="#">Амина Гирамудиновна Абдулазизова</a>
+													</h3>
+													<div class="doctorPreview__desc">Терапевт, Узист. Врач высшей категории. Опыт работы — 17 лет</div>
+												</section>
+												<section class="doctorPreview">
+													<div class="doctorPreview__photo"><a href="#"><img src="assets/doctorPreview.jpg" alt="" width="270" height="270"></a></div>
+													<h3 class="doctorPreview__name"><a href="#">Амина Гирамудиновна Абдулазизова</a>
+														<div class="doctorPreview__label"><span class="visually-hidden">В данный момент у врача действует акция</span><i aria-hidden="true" title="В данный момент у врача действует акция">%</i></div>
+													</h3>
+													<div class="doctorPreview__desc">Терапевт, Узист. Врач высшей категории. Опыт работы — 17 лет</div>
+												</section>
+					</ul><a class="more" href="#">Ещё 4 врача</a>
+				</div>
+			</section>
+			<section class="video video--frontpage">
+				<div class="container">
+					<h2 class="mdTitle mdTitle--white">Видео</h2>
+					<div class="mdIntro">Смотри новые видео. Рассазывают наши врачи.</div>
+					<div class="video__body">
+						<div class="video__item"><iframe src="https://www.youtube.com/embed/q76bMs-NwRk?controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+						<div class="video__item"><iframe src="https://www.youtube.com/embed/q76bMs-NwRk?controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+						<div class="video__item"><iframe src="https://www.youtube.com/embed/q76bMs-NwRk?controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+						<div class="video__item"><iframe src="https://www.youtube.com/embed/q76bMs-NwRk?controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+					</div><a class="more" href="#">Ещё 3 видео</a>
+				</div>
+			</section>
+			<section class="faq faq--frontpage">
+				<div class="container">
+					<h2 class="mdTitle">Консультации</h2>
+					<div class="mdIntro">Читай и задай свой вопрос на личной странице врача.</div>
+					<ul class="faq__body">
+						<li class="faq__item">
+							<h4 class="faq__question"><a href="#">Добрый день! Вот уже больше года я часто хожу по-маленькому. Ночью встаю 2-3 раза. Днем очень часто хожу и в нормальных объемах. Болей, резей нет. Воду пью очень редко и мало. Соки вообще не пью, чай иногда. Жидкость мало употребляю и не хочется. А в туалет хожу часто и много. Что это может быть? Спасибо.</a></h4>
+							<div class="faq__answer">
+								<p>Это может быть как воспаление мочевого пузыря, так и гиперактивный мочевой пузырь (неврологическая симптоматика). Надо выполнить следующие исследования: узи почек, мочевого пузыря; общий анализ мочи; посев мочи на флору и чувствительность к антибиотикам.</p>
+								<div class="faq__author"><a href="#"><img src="assets/faqDoctor.jpg" alt="" width="80" height="80"></a>
+									<div class="faq__wrap"><a class="faq__name" href="#">Башир Алиасрхабович</a>
+										<div class="faq__desc">уролог-андролог</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="faq__item">
+							<h4 class="faq__question"><a href="#">Добрый день! Вот уже больше года я часто хожу по-маленькому. Ночью встаю 2-3 раза. Днем очень часто хожу и в нормальных объемах. Болей, резей нет. Воду пью очень редко и мало. Соки вообще не пью, чай иногда. Жидкость мало употребляю и не хочется. А в туалет хожу часто и много. Что это может быть? Спасибо.</a></h4>
+							<div class="faq__answer">
+								<p>Это может быть как воспаление мочевого пузыря, так и гиперактивный мочевой пузырь (неврологическая симптоматика). Надо выполнить следующие исследования: узи почек, мочевого пузыря; общий анализ мочи; посев мочи на флору и чувствительность к антибиотикам.</p>
+								<div class="faq__author"><a href="#"><img src="assets/faqDoctor.jpg" alt="" width="80" height="80"></a>
+									<div class="faq__wrap"><a class="faq__name" href="#">Башир Алиасрхабович</a>
+										<div class="faq__desc">уролог-андролог</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="faq__item">
+							<h4 class="faq__question"><a href="#">Добрый день! Вот уже больше года я часто хожу по-маленькому. Ночью встаю 2-3 раза. Днем очень часто хожу и в нормальных объемах. Болей, резей нет. Воду пью очень редко и мало. Соки вообще не пью, чай иногда. Жидкость мало употребляю и не хочется. А в туалет хожу часто и много. Что это может быть? Спасибо.</a></h4>
+							<div class="faq__answer">
+								<p>Это может быть как воспаление мочевого пузыря, так и гиперактивный мочевой пузырь (неврологическая симптоматика). Надо выполнить следующие исследования: узи почек, мочевого пузыря; общий анализ мочи; посев мочи на флору и чувствительность к антибиотикам.</p>
+								<div class="faq__author"><a href="#"><img src="assets/faqDoctor.jpg" alt="" width="80" height="80"></a>
+									<div class="faq__wrap"><a class="faq__name" href="#">Башир Алиасрхабович</a>
+										<div class="faq__desc">уролог-андролог</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="faq__item">
+							<h4 class="faq__question"><a href="#">Добрый день! Вот уже больше года я часто хожу по-маленькому. Ночью встаю 2-3 раза. Днем очень часто хожу и в нормальных объемах. Болей, резей нет. Воду пью очень редко и мало. Соки вообще не пью, чай иногда. Жидкость мало употребляю и не хочется. А в туалет хожу часто и много. Что это может быть? Спасибо.</a></h4>
+							<div class="faq__answer">
+								<p>Это может быть как воспаление мочевого пузыря, так и гиперактивный мочевой пузырь (неврологическая симптоматика). Надо выполнить следующие исследования: узи почек, мочевого пузыря; общий анализ мочи; посев мочи на флору и чувствительность к антибиотикам.</p>
+								<div class="faq__author"><a href="#"><img src="assets/faqDoctor.jpg" alt="" width="80" height="80"></a>
+									<div class="faq__wrap"><a class="faq__name" href="#">Башир Алиасрхабович</a>
+										<div class="faq__desc">уролог-андролог</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="faq__item">
+							<h4 class="faq__question"><a href="#">Добрый день! Вот уже больше года я часто хожу по-маленькому. Ночью встаю 2-3 раза. Днем очень часто хожу и в нормальных объемах. Болей, резей нет. Воду пью очень редко и мало. Соки вообще не пью, чай иногда. Жидкость мало употребляю и не хочется. А в туалет хожу часто и много. Что это может быть? Спасибо.</a></h4>
+							<div class="faq__answer">
+								<p>Это может быть как воспаление мочевого пузыря, так и гиперактивный мочевой пузырь (неврологическая симптоматика). Надо выполнить следующие исследования: узи почек, мочевого пузыря; общий анализ мочи; посев мочи на флору и чувствительность к антибиотикам.</p>
+								<div class="faq__author"><a href="#"><img src="assets/faqDoctor.jpg" alt="" width="80" height="80"></a>
+									<div class="faq__wrap"><a class="faq__name" href="#">Башир Алиасрхабович</a>
+										<div class="faq__desc">уролог-андролог</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul><a class="more" href="#">Ещё 7 вопросов</a>
+				</div>
+			</section>
+			<section class="infoBlocks">
+				<div class="infoBlocks__list">
+					<div class="infoBlocks__item">
+						<div class="infoBlocks__wrap">
+							<h3 class="infoBlocks__title">Стационар</h3>
+							<p>Ставим капельницы, делаем внутривенные и внутримышечные уколы и многое другое. Приходите у нас уютно.</p><a class="infoBlocks__more" href="#" aria-label="Перейти на страницу">
+										<svg width="58" height="43" aria-hidden="true">
+											<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight"></use>
+										</svg></a>
+						</div>
+					</div>
+					<div class="infoBlocks__item">
+						<div class="infoBlocks__wrap">
+							<h3 class="infoBlocks__title">Новости</h3>
+							<p>Рассказываем о участиях наших врачей в международных конференциях и мероприятиях, так же другие новости сети поликлиник.</p><a class="infoBlocks__more" href="#" aria-label="Перейти на страницу">
+										<svg width="58" height="43" aria-hidden="true">
+											<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight"></use>
+										</svg></a>
+						</div>
+					</div>
+					<div class="infoBlocks__item">
+						<div class="infoBlocks__wrap">
+							<h3 class="infoBlocks__title">Статьи</h3>
+							<p>О урологии, гинекологии, неврологии, новых методах диагностики и лечении. О том как научить малыша высмаркиваться и другие статьи.</p><a class="infoBlocks__more" href="#" aria-label="Перейти на страницу">
+										<svg width="58" height="43" aria-hidden="true">
+											<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight"></use>
+										</svg></a>
+						</div>
+					</div>
+					<div class="infoBlocks__item">
+						<div class="infoBlocks__wrap">
+							<h3 class="infoBlocks__title">Акции</h3>
+							<p>Будь в курсе!</p>
+							<!-- Ждёт ответа "1", если успешно.-->
+							<form id="subscribeForm" action="#">
+								<label class="visually-hidden" for="subscribe">Введите номер телефона</label>
+								<input type="text" id="subscribe" name="subscribe" placeholder="Введите номер телефона" required>
+								<button type="submit">Подписаться</button>
+							</form><a class="infoBlocks__more" href="#" aria-label="Перейти на страницу">
+										<svg width="58" height="43" aria-hidden="true">
+											<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight"></use>
+										</svg></a>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="partners">
+				<div class="container">
+					<h2 class="mdTitle">Наши партнеры</h2>
+					<div class="partners__list">
+						<div class="partners__item"><a href="#"><img src="assets/partners/1.png" alt=""></a></div>
+						<div class="partners__item"><a href="#"><img src="assets/partners/2.png" alt=""></a></div>
+						<div class="partners__item"><a href="#"><img src="assets/partners/3.png" alt=""></a></div>
+						<div class="partners__item"><a href="#"><img src="assets/partners/4.png" alt=""></a></div>
+						<div class="partners__item"><a href="#"><img src="assets/partners/1.png" alt=""></a></div>
+						<div class="partners__item"><a href="#"><img src="assets/partners/2.png" alt=""></a></div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<footer class="footer">
+			<div class="container container--footer">
+				<section class="toBlind"><a href="#">Версия для слабовидящих</a></section>
+				<section class="footer__contacts">
+					<p><b>8(928)807-39-99</b>Колл-центр всегда на связи с 8:00 до 20:00</p>
+				</section>
+				<section class="social">
+					<h2 class="social__title">Мы в соц.сетях</h2>
+					<div class="social__body"><a href="#" aria-label="Инстаграм"><img src="{% static 'images/ig.svg' %}" width="40" height="40" alt=""></a><a href="#" aria-label="Фейбук"><img src="images/fb.svg" width="40" height="40" alt=""></a><a href="#" aria-label="Одноклассники"><img src="images/ok.svg" width="40" height="40" alt=""></a><a href="#" aria-label="Ютуб"><img src="images/yt.svg" width="40" height="40" alt=""></a></div>
+				</section>
+				<div class="copyright copyright--site"><a href="#">© 2019, Сеть поликлиник «Целитель»</a></div>
+				<div class="copyright copyright--developer"><a href="#">Задизайнено в Студии Вектор</a></div>
+			</div>
+		</footer>
+				<script src="{% static 'js/main.js' %}"></script>
+				<link rel="stylesheet" href="{% static 'css/plugins.css' %}">
+				<script src="{% static 'js/plugins.js' %}"></script>
+	</body>
+</html>
