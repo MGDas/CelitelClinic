@@ -1,9 +1,7 @@
 from django.db import models
 from clinic.models import BaseModel
 from datetime import datetime
-
-def create_name():
-    pass
+from sitecelitel.utils import get_photo
 
 class Specialization(models.Model):
 
@@ -16,6 +14,9 @@ class Specialization(models.Model):
         db_table = 'specialization'
         verbose_name = 'Специялизация'
         verbose_name_plural = 'Специализации'
+
+    def __str__(self):
+        return self.name
 
 
 class Doctor(BaseModel):
@@ -42,8 +43,8 @@ class Doctor(BaseModel):
     )
 
     full_name = models.CharField(max_length=255, verbose_name='Полное имя')                         # Name Surname Middle name
-    photo = models.ImageField(upload_to=create_name, blank=True, verbose_name='Фото')               # img, svg,
-    avatar = models.ImageField(upload_to=create_name, blank=True, verbose_name='Аватарка')          # avater docter
+    photo = models.ImageField(upload_to=get_photo, blank=True, verbose_name='Фото')               # img, svg,
+    avatar = models.ImageField(upload_to=get_photo, blank=True, verbose_name='Аватарка')          # avater docter
     experience = models.CharField(max_length=45, blank=True, verbose_name='Опыт')                   # Опыт работы — 19 лет
     academic_degree = models.CharField(max_length=100, blank=True, verbose_name='Ученая степень')   # Врач высшей категории
 
@@ -55,6 +56,9 @@ class Doctor(BaseModel):
         db_table = 'doctors'
         verbose_name = 'Доктор'
         verbose_name_plural = 'Доктора'
+
+    def __str__(self):
+        return self.full_name
 
 
 class DoctorTiming(models.Model):

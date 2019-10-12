@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}<title>Статьи</title>{% endblock %}
+
+{% block content %}
+
+
+    <main>
+      <article class="articles">
+        <div class="container">
+          <h1 class="h1">Статьи наших врачей и другие полезные материалы</h1>
+          <ul class="articles__body">
+            {% for article in articles %}
+                <li class="articles__item">
+                  <div class="articles__date">{{ article.update|date:"d F" }}</div>
+                  <h3 class="articles__title"><a href="{% url 'article_detail_url' slug=article.slug %}">{{ article.title }}</a></h3>
+                  {% if article.doctor %}
+                    <div class="articles__author">
+                      {% if article.doctor.photo %}<img src="{{ article.doctor.avatar.url }}" alt="" width="80" height="80">{% endif %}
+                      <div class="articles__wrap">
+                        <div class="articles__name">{{ article.doctor.full_name }}</div>
+                        {% if article.doctor.specialization %}
+                          <div class="articles__desc">{{ article.doctor.specialization }}</div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  {% else %}
+                    <div class="articles__desc">
+                      <p>{{ article.preview|truncatechars:250 }}</p>
+                    </div>
+                  {% endif %}
+                </li>
+            {% endfor %}
+          </ul><a class="more" href="#">Ещё 1 статья</a>
+        </div>
+      </article>
+    </main>
+
+{% endblock %}

@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
                 ('content', models.TextField(blank=True, null=True, verbose_name='Контент')),
                 ('created', models.DateField(auto_now_add=True)),
                 ('update', models.DateField(auto_now=True)),
-                ('image', models.ImageField(blank=True, upload_to=article.models.create_name, verbose_name='Изображение')),
+                ('image', models.ImageField(blank=True, upload_to=article.models.get_photo, verbose_name='Изображение')),
                 ('doctor', models.ManyToManyField(related_name='article', to='doctor.Doctor', verbose_name='Доктор')),
             ],
             options={
