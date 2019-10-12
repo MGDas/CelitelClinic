@@ -1,0 +1,110 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}<title>{{ article.title }}</title>{% endblock %}
+
+{% block content %}
+
+
+    <main>
+      <article class="material">
+        <div class="container">
+          <section class="materialInfo">
+            <div class="materialInfo__date"><span>Дата</span>{{ article.update|date:"d F Y"}}</div>
+          </section>
+          <div class="material__body">
+
+            <h1 class="h1">{{ article.title }}</h1>
+
+            {% autoescape on %}
+              <div class="material__intro">
+                <p>{{ article.preview }}</p>
+              </div>
+            {% endautoescape %}
+
+            {% if article.image %}
+              <figure class="material__img">
+                <img src="{{ article.image.url }}" alt="">
+                {% if article.caption %}<figcaption>{{ article.caption }}</figcaption>{% endif %}
+              </figure>
+            {% endif %}
+
+            {% autoescape off %}
+              <p>{{ article.content}}</p>
+            {% endautoescape %}
+
+          </div>
+          <div class="likeAndShareWrap">
+            <section class="like"><a href="#" aria-label="Поставить лайк">
+                    <svg width="22" height="22" aria-hidden="true">
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#like"></use>
+                    </svg>33</a><a href="#" aria-label="Поставить дизлайк">
+                    <svg width="22" height="22" aria-hidden="true">
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#dislike"></use>
+                    </svg>33</a></section>
+            <section class="share">
+              <h3 class="share__heading">Поделиться</h3>
+              <div class="share__list">
+                <!-- Вместо гугла надо вставить ссылку на текущую страницу.--><a class="share__item share__item--fb" href="https://www.facebook.com/sharer.php?src=sp&amp;u=https://google.com" target="_blank" aria-label="Поделиться в фейсбук">
+                      <svg width="50" height="50" aria-hidden="true">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#fb"></use>
+                      </svg><span>Поделиться</span></a><a class="share__item share__item--vk" href="https://vk.com/share.php?url=https://google.com" target="_blank" aria-label="Поделиться в вконтакте">
+                      <svg width="50" height="50" aria-hidden="true">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#vk"></use>
+                      </svg><span>Поделиться</span></a><a class="share__item share__item--ok" href="https://connect.ok.ru/offer?url=https://google.com" target="_blank" aria-label="Поделиться в одноклассниках">
+                      <svg width="50" height="50" aria-hidden="true">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ok"></use>
+                      </svg><span>Класс</span></a><a class="share__item share__item--tg" href="tg://msg_url?url=https://www.google.com/" target="_blank" aria-label="Отправить в телеграм">
+                      <svg width="50" height="50" aria-hidden="true">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#tg"></use>
+                      </svg><span>Отправить</span></a>
+              </div>
+            </section>
+          </div>
+        </div>
+      </article>
+      <section class="articles">
+        <div class="container">
+          <h2 class="mdTitle">Другие статьи</h2>
+          <div class="mdIntro">Все статьи о урологии, заболеваний органов мочевой системы и половой системы.</div>
+          <ul class="articles__body">
+            {% for other in other_articles %}
+              <li class="articles__item">
+                <div class="articles__date">{{ other.update|date:"d F Y" }}</div>
+                <h3 class="articles__title"><a href="#">{{ other.title }}</a></h3>
+                {% if other.doctor %}
+                  <div class="articles__author">
+                    {% if other.doctor.avatar %}
+                      <img src="{{ other.doctor.avatar }}" alt="" width="80" height="80">
+                    {% endif %}
+                    <div class="articles__wrap">
+                      <div class="articles__name">{{ other.doctor.full_name }}</div>
+                      {% if other.doctor.specialization %}
+                          <div class="articles__desc">{{ other.doctor.specialization }}</div>
+                      {% endif %}
+                    </div>
+                  </div>
+                {% else %}
+                  <div class="articles__desc">
+                    <p>{{ other.preview|truncatechars:250 }}</p>
+                  </div>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+            <section class="nextPage">
+              <div class="container">
+                <p>Далее</p>
+                <a href="{% url 'article_detail_url' slug=next_page.slug %}">
+                  <span>{{ next_page.title }}</span>
+                  <svg width="40" height="30" aria-hidden="true">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight"></use>
+                  </svg>
+                </a>
+              </div>
+            </section>
+    </main>
+
+{% endblock %}
