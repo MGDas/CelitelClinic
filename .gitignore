@@ -6,3 +6,4 @@ local.py
 templates_html
 db
 examples/
+management/
