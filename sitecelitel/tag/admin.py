@@ -1,3 +1,5 @@
 from django.contrib import admin
+from tag.models import ArticleTag, DoctorTag
 
-# Register your models here.
+admin.site.register(ArticleTag)
+admin.site.register(DoctorTag)
