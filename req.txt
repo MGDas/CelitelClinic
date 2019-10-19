@@ -3,6 +3,7 @@ django-summernote==0.8.11.4
 mysqlclient==1.4.4
 Pillow==6.1.0
 python-slugify==3.0.4
+pytils==0.3
 pytz==2019.2
 sqlparse==0.3.0
 text-unidecode==1.3

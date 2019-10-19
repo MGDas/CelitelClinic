@@ -22,6 +22,7 @@ INSTALLED_APPS = [
 
     # other moduls
     "django_summernote",
+    'pytils',   # for translate date in russion language
 
     # my apps
     'clinic',
@@ -33,6 +34,7 @@ INSTALLED_APPS = [
     'vacancy',
     'promotion',
     'rusdoc',
+    'tag',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +58,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'clinic.context_processors.index',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',

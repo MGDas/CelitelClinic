@@ -1,4 +1,5 @@
 {% load static %}
+{% load pytils_dt %}
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -280,33 +281,41 @@
 								</section>
 							</div>
 						</li>
-						<li class="mainMenu__item"><a class="mainMenu__link" href="#">Статьи</a>
+						<li class="mainMenu__item"><a class="mainMenu__link" href="{% url 'article_list_url' %}">Статьи</a>
 							<div class="subMenu menuArticles">
 								<section class="menuArticles__section menuArticles__section--menu">
 									<ul class="subMenu__menu">
-										<li class="orderOneForMobile"><a class="subMenu__active" href="#">Все статьи</a></li>
-										<li><a href="#">Будущим матерям</a></li>
-										<li><a href="#">Педиатры о детях</a></li>
-										<li><a href="#">Правильно питание</a></li>
-										<li><a href="#">Всё про кожу</a></li>
+										<li class="orderOneForMobile">
+											<a class="subMenu__active" href="{% url 'article_list_url' %}">Все статьи</a>
+										</li>
+										{% for tag in articles_tags %}
+											<li><a href="#">{{ tag.title }}</a></li>
+										{% endfor %}
 									</ul>
 								</section>
 								<section class="menuArticles__section menuArticles__section--articles">
 									<ul class="articles">
-										<li class="articles__item menuArticles__item">
-											<div class="articles__date">19 марта</div>
-											<h3 class="articles__title"><a href="#">Лимфаденопатия у детей и взрослых: причины, симптомы и лечение</a></h3>
-										</li>
-										<li class="articles__item menuArticles__item">
-											<div class="articles__date">19 марта</div>
-											<h3 class="articles__title"><a href="#">Лимфаденопатия у детей и взрослых: причины, симптомы и лечение</a></h3>
-											<div class="articles__author"><img src="assets/faqDoctor.jpg" alt="" width="80" height="80">
-												<div class="articles__wrap">
-													<div class="articles__name">Башир Алиасрхабович</div>
-													<div class="articles__desc">уролог-андролог</div>
-												</div>
-											</div>
-										</li>
+										{% for article in articles_header %}
+											<li class="articles__item menuArticles__item">
+												<div class="articles__date">{{ article.update|ru_strftime:"%d %B %Y" }}</div>
+												<h3 class="articles__title">
+													<a href="{% url 'article_detail_url' slug=article.slug %}">{{ article.title }}</a>
+												</h3>
+												{% if article.doctor %}
+														<div class="articles__author">
+															{% if article.doctor.avatar %}
+																	<img src="{{ article.doctor.avatar.url }}" alt="" width="80" height="80">
+															{% endif %}
+															<div class="articles__wrap">
+																<div class="articles__name">Башир Алиасрхабович</div>
+																{% if article.doctor.specialization %}
+																	<div class="articles__desc">{{ article.doctor.specialization }}</div>
+																{% endif %}
+															</div>
+														</div>
+												{% endif %}
+											</li>
+										{% endfor %}
 									</ul>
 								</section>
 							</div>
