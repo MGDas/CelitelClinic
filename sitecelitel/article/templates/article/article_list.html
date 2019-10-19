@@ -1,4 +1,5 @@
 {% extends 'index.html' %}
+{% load pytils_dt %}
 {% load static %}
 
 {% block title %}<title>Статьи</title>{% endblock %}
@@ -13,11 +14,13 @@
           <ul class="articles__body">
             {% for article in articles %}
                 <li class="articles__item">
-                  <div class="articles__date">{{ article.update|date:"d F" }}</div>
+                  <div class="articles__date">{{ article.update|ru_strftime:"%d %B %Y" }}</div>
                   <h3 class="articles__title"><a href="{% url 'article_detail_url' slug=article.slug %}">{{ article.title }}</a></h3>
                   {% if article.doctor %}
                     <div class="articles__author">
-                      {% if article.doctor.photo %}<img src="{{ article.doctor.avatar.url }}" alt="" width="80" height="80">{% endif %}
+                      {% if article.doctor.avatar %}
+                        <img src="{{ article.doctor.avatar.url }}" alt="" width="80" height="80">
+                      {% endif %}
                       <div class="articles__wrap">
                         <div class="articles__name">{{ article.doctor.full_name }}</div>
                         {% if article.doctor.specialization %}
