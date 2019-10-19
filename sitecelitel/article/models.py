@@ -1,6 +1,8 @@
 from django.db import models
 from clinic.models import BaseModel
 from sitecelitel.utils import get_photo
+from django.utils import timezone
+from datetime import datetime
 
 class Article(BaseModel):
     doctor = models.ForeignKey(
@@ -20,8 +22,15 @@ class Article(BaseModel):
     caption = models.CharField(max_length=250, blank=True, verbose_name='Подпись')
 
     image = models.ImageField(upload_to=get_photo, blank=True, verbose_name='Изображение')
-    created = models.DateField(auto_now_add=True)
-    update = models.DateField(auto_now=True)
+    created = models.DateField(default=timezone.now, verbose_name='Дата создания')
+    update = models.DateField(default=timezone.now, verbose_name='Дата обновления')
+
+    tags = models.ManyToManyField(
+        "tag.ArticleTag",
+        blank=True,
+        related_name='articles',
+        verbose_name='Статьи'
+    )
 
     class Meta:
         db_table = 'article'
