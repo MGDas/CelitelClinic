@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 		<head>
-			{% block title %}<title>Главная</title>{% endblock %}
+			<title>{% block title %}Главная{% endblock %}</title>
 
 			<meta charset="utf-8">
 			<meta http-equiv="X-UA-Compatible" content="IE=Edge">
@@ -289,7 +289,7 @@
 											<a class="subMenu__active" href="{% url 'article_list_url' %}">Все статьи</a>
 										</li>
 										{% for tag in articles_tags %}
-											<li><a href="#">{{ tag.title }}</a></li>
+											{% if tag.header %}<li><a href="{% url 'article_tags_detail_url' slug=tag.slug %}">{{ tag.title }}</a></li>{% endif %}
 										{% endfor %}
 									</ul>
 								</section>

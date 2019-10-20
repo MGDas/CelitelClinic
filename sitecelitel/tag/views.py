@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from django.views.generic import DetailView
+from tag.models import ArticleTag
 
-# Create your views here.
+
+class ArticleTagDetailView(DetailView):
+    model = ArticleTag
+    template_name = 'tag/article_tags.html'
+    context_object_name = "article_tag"
