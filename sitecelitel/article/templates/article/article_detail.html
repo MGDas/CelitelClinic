@@ -67,45 +67,51 @@
         </div>
       </article>
       <section class="articles">
-        <div class="container">
-          <h2 class="mdTitle">Другие статьи</h2>
-          <div class="mdIntro">Все статьи о урологии, заболеваний органов мочевой системы и половой системы.</div>
-          <ul class="articles__body">
-            {% for other in other_articles %}
-              <li class="articles__item">
-                <div class="articles__date">{{ other.update|date:"d F Y" }}</div>
-                <h3 class="articles__title"><a href="#">{{ other.title }}</a></h3>
-                {% if other.doctor %}
+        {% if tags %}
+            <div class="container">
+              <h2 class="mdTitle">Другие статьи</h2>
+              <div class="mdIntro">
+                {% for tag in tags %}
+                  {{ tag.title }},
+                {% endfor %}
+              </div>
+              <ul class="articles__body">
+                {% for other in other_articles %}
+                <li class="articles__item">
+                  <div class="articles__date">{{ other.update|date:"d F Y" }}</div>
+                  <h3 class="articles__title"><a href="{% url 'article_detail_url' slug=other.slug %}">{{ other.title }}</a></h3>
+                  {% if other.doctor %}
                   <div class="articles__author">
                     {% if other.doctor.avatar %}
-                      <img src="{{ other.doctor.avatar }}" alt="" width="80" height="80">
+                    <img src="{{ other.doctor.avatar.url }}" alt="" width="80" height="80">
                     {% endif %}
                     <div class="articles__wrap">
                       <div class="articles__name">{{ other.doctor.full_name }}</div>
                       {% if other.doctor.specialization %}
-                          <div class="articles__desc">{{ other.doctor.specialization }}</div>
+                      <div class="articles__desc">{{ other.doctor.specialization }}</div>
                       {% endif %}
                     </div>
                   </div>
-                {% else %}
+                  {% else %}
                   <div class="articles__desc">
                     <p>{{ other.preview|truncatechars:250 }}</p>
                   </div>
-                {% endif %}
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
+                  {% endif %}
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+        {% endif %}
       </section>
             <section class="nextPage">
               <div class="container">
-                <p>Далее</p>
-                <a href="{% url 'article_detail_url' slug=next_page.slug %}">
-                  <span>{{ next_page.title }}</span>
-                  <svg width="40" height="30" aria-hidden="true">
-                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight"></use>
-                  </svg>
-                </a>
+                    <p>Далее</p>
+                    <a href="{% url 'article_detail_url' slug=next_page.slug %}">
+                      <span>{{ next_page.title }}</span>
+                      <svg width="40" height="30" aria-hidden="true">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight"></use>
+                      </svg>
+                    </a>
               </div>
             </section>
     </main>
