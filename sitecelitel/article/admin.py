@@ -9,3 +9,4 @@ class ArticleAdmin(SummernoteModelAdmin):
     summernote_fields = ('preview', 'content',)
     prepopulated_fields = {'slug': ('title',)}
     list_display = ['title', 'doctor', 'slug', 'id']
+    filter_horizontal = ['tags']

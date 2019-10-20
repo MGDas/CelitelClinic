@@ -2,7 +2,6 @@ from django.db import models
 from clinic.models import BaseModel
 from sitecelitel.utils import get_photo
 from django.utils import timezone
-from datetime import datetime
 
 class Article(BaseModel):
     doctor = models.ForeignKey(
@@ -29,7 +28,7 @@ class Article(BaseModel):
         "tag.ArticleTag",
         blank=True,
         related_name='articles',
-        verbose_name='Статьи'
+        verbose_name='Теги'
     )
 
     class Meta:

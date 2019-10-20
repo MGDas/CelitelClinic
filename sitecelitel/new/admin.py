@@ -1,3 +1,8 @@
 from django.contrib import admin
+from new.models import New
 
-# Register your models here.
+@admin.register(New)
+class NewAdmin(admin.ModelAdmin):
+    list_display = ['title', 'header', 'public', 'created', 'updated']
+
+    filter_horizontal = ['doctors']

@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+{% load pytils_dt %}
+
+{% block title %}
+    New
+{% endblock %}
+
+{% block content %}
+    <main>
+      <article class="news">
+        <div class="container">
+          <div class="news__wrapper">
+            <h1 class="h1">Новости</h1>
+            <div class="news__tabs tabs">
+              <div class="visually-hidden">Новости за год:</div>
+              <a class="tabs__item tabs__item--active" href="#">2019</a>
+              <a class="tabs__item" href="#">2018</a>
+              <a class="tabs__item" href="#">2017</a>
+              <a class="tabs__item" href="#">2016</a>
+              <a class="tabs__item" href="#">2015</a>
+              <a class="tabs__item" href="#">2014</a>
+              <a class="tabs__item" href="#">2013</a>
+              <a class="tabs__item" href="#">2012</a>
+            </div>
+          </div>
+          <ul class="news__list">
+            {% for new in news %}
+                <li class="news__item newsItem">
+                  <div class="newsItem__date">{{ new.updated|ru_strftime:"%d %B %Y" }}</div>
+                  <h2 class="newsItem__title"><a href="{{ new.get_absolute_url }}">{{ new.title }}</a></h2>
+                </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </article>
+            <section class="nextPage">
+              <div class="container">
+                <p>Далее</p><a href="#">
+                      <span>Акции</span>
+                      <svg width="40" height="30" aria-hidden="true">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight"></use>
+                      </svg></a>
+              </div>
+            </section>
+    </main>
+{% endblock %}

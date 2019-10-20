@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'vacancy',
     'promotion',
     'rusdoc',
+    'new',
     'tag',
 ]
 
