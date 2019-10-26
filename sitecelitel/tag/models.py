@@ -1,8 +1,8 @@
 from django.db import models
-from clinic.models import BaseModel
+from clinic.models import PublicModel
 
 # Create your models here.
-class ArticleTag(BaseModel):
+class ArticleTag(PublicModel):
     title = models.CharField(max_length=255, verbose_name='Заголовок')
     slug = models.SlugField(max_length=255, unique=True, verbose_name='Уникальное имя')
     header = models.BooleanField(default=True, verbose_name='Показать в шапке')
@@ -16,7 +16,7 @@ class ArticleTag(BaseModel):
         return self.title
 
 
-class DoctorTag(BaseModel):
+class DoctorTag(PublicModel):
     title = models.CharField(max_length=255, verbose_name='Заголовок')
     slug = models.SlugField(max_length=255, unique=True, verbose_name='Уникальное имя')
     header = models.BooleanField(default=True, verbose_name='Показать в шапке')

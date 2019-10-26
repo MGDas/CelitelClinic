@@ -2,7 +2,7 @@
 {% load pytils_dt %}
 
 {% block title %}
-    New
+    New {% for date in news_dates %}{% if date|slugify in request.path %}{{ date }}{% endif %}{% endfor %}
 {% endblock %}
 
 {% block content %}
