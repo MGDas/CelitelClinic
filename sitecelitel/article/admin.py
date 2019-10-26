@@ -8,5 +8,8 @@ admin.site.register(Rating)
 class ArticleAdmin(SummernoteModelAdmin):
     summernote_fields = ('preview', 'content',)
     prepopulated_fields = {'slug': ('title',)}
-    list_display = ['title', 'doctor', 'slug', 'id']
+    list_display = ['title', 'doctor', 'slug', 'id', 'public']
+    list_editable = ['public']
+    list_filter = ['public']
+
     filter_horizontal = ['tags']

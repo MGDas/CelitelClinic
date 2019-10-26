@@ -9,6 +9,4 @@ urlpatterns = [
     path('', NewListView.as_view(), name='news_list_url'),
     path('<year>/', NewListViewYear.as_view(), name='news_list_year_url'),
     path('<year>/<month>/<day>/<pk>/', NewDetailView.as_view(), name='news_detail_url'),
-    # path('<year>/<month>/', NewListViewMonth.as_view(), name='news_list_month_url'),
-    # path('<year>/<month>/<day>/', NewListViewDay.as_view(), name='news_list_day_url'),
 ]

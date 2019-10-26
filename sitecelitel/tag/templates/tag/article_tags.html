@@ -14,7 +14,7 @@
             {% with articles=article_tag.articles.all %}
             {% for article in articles %}
                 <li class="articles__item">
-                  <div class="articles__date">{{ article.update|ru_strftime:"%d %B %Y" }}</div>
+                  <div class="articles__date">{{ article.updated|ru_strftime:"%d %B %Y" }}</div>
                   <h3 class="articles__title"><a href="{% url 'article_detail_url' slug=article.slug %}">{{ article.title }}</a></h3>
                   {% if article.doctor %}
                     <div class="articles__author">
