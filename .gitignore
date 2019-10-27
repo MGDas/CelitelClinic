@@ -5,5 +5,4 @@ __pycache__/
 local.py
 templates_html
 db
-examples/
-management/
+management

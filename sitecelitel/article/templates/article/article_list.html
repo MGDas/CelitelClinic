@@ -30,9 +30,11 @@
                     </div>
                   {% else %}
                     <div class="articles__desc">
-                      {% autoescape off %}
-                        <p>{{ article.preview|truncatechars:250 }}</p>
-                      {% endautoescape %}
+                      <p>
+                        {% autoescape off %}
+                            {{ article.preview|truncatechars:250 }}
+                        {% endautoescape %}
+                      </p>
                     </div>
                   {% endif %}
                 </li>

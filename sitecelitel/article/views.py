@@ -20,7 +20,6 @@ class ArticleDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         tags = self.object.tags.all()
-        print(tags)
 
         context['tags'] = tags
         context['other_articles'] = other_articles(tags, self.object)
