@@ -134,7 +134,7 @@ class Review(BaseModel):
 class Video(BaseModel):
     doctor = models.ManyToManyField(
         Doctor,
-        related_name='video',
+        related_name='videos',
         verbose_name='Доктор(а)'
     )
     title = models.CharField(max_length=255, verbose_name='Заголовок')
@@ -144,3 +144,6 @@ class Video(BaseModel):
         db_table = 'video'
         verbose_name = 'Видео'
         verbose_name_plural = 'Видео'
+
+    def __str__(self):
+        return self.title
