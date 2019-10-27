@@ -8,7 +8,7 @@ class Article(BaseModel):
         "doctor.Doctor",
         on_delete=models.SET_NULL,
         null=True,
-        related_name='article',
+        related_name='articles',
         blank=True,
         verbose_name='Доктор'
     )
