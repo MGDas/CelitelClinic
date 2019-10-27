@@ -52,13 +52,6 @@ class Doctor(BaseModel):
     content = models.TextField(blank=True, verbose_name='Контент')
     special_note = models.TextField(blank=True, null=True, verbose_name='Примечание')
 
-    tags = models.ManyToManyField(
-        "tag.DoctorTag",
-        related_name='doctors',
-        blank=True,
-        verbose_name='Доктор(а)'
-    )
-
     class Meta:
         db_table = 'doctors'
         verbose_name = 'Доктор'
