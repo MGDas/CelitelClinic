@@ -14,3 +14,10 @@ class DoctorDetailView(DetailView):
     model = Doctor
     template_name = 'doctor/doctor_detail.html'
     context_object_name = 'doctor'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['videos'] = self.object.videos.filter(public=True)
+        context['articles'] = self.object.articles.filter(public=True)
+        context['other_doctors'] = Doctor.pub_objects.filter(specialization=self.object.specialization).exclude(pk=self.object.pk)
+        return context
