@@ -21,7 +21,7 @@
 
 		<header class="header">
 			<div class="container header__container">
-				<a class="logo" href="#">
+				<a class="logo" href="{% url 'index_url' %}">
 					<img src="{% static 'images/logo.png' %}" alt="Logo">
 				</a>
 				<a class="orderLink" href="#" aria-label="Записаться к врачу">
@@ -166,7 +166,7 @@
 							<div class="subMenu menuDoctors">
 								<section class="menuDoctors__section menuDoctors__section--menu">
 									<ul class="subMenu__menu">
-										<li class="orderOneForMobile"><a class="subMenu__active" href="#">Все врачи</a></li>
+										<li class="orderOneForMobile"><a class="subMenu__active" href="{% url 'doctor_list_url' %}">Все врачи</a></li>
 										<li><a href="#">Детские врачи</a></li>
 										<li><a href="#">Врачи с большим опытом</a></li>
 										<li><a href="#">Молодые специалисты</a></li>
