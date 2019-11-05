@@ -47,10 +47,14 @@
 								</div>
 
                 <!-- All promotions with this doctor -->
-								<div class="doctorCard__info doctorCard__info--mark">
-											{% include './includes/procent.html' %}
-									<div class="doctorCard__infoWrap">Бесплатные консультации детей детским неврологом в месяц Рамадан</div>
-								</div>
+                {% if promotions %}
+                  {% for promotion in promotions %}
+                    <div class="doctorCard__info doctorCard__info--mark">
+                      {% include './includes/procent.html' %}
+                      <div class="doctorCard__infoWrap">{{ promotion.title }}</div>
+                    </div>
+                  {% endfor %}
+                {% endif %}
 							</div>
 
               <!-- Doctor cart -->
@@ -157,8 +161,7 @@
                     {% if other.avatar|active:request %}
                       <div class="doctorPreview__photo"><a href="{% url 'doctor_detail_url' pk=other.pk %}"><img src="{{ other.avatar.url }}" alt="" width="270" height="270"></a></div>
                     {% endif %}
-                    <h3 class="doctorPreview__name"><a href="{% url 'doctor_detail_url' pk=other.pk %}">{{ other.full_name }}</a>
-                    </h3>
+                    <h3 class="doctorPreview__name"><a href="{% url 'doctor_detail_url' pk=other.pk %}">{{ other.full_name }}</a></h3>
                     <div class="doctorPreview__desc">
                       {% if other.specialization %}{{ other.specialization }}{% endif %}
                       {% if other.academic_degree %}{{ other.academic_degree }}.{% endif %}
