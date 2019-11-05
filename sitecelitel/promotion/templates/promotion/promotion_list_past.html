@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    Акции
+{% endblock %}
+
+{% block content %}
+    <main>
+      <article class="news">
+        <div class="container">
+          <div class="news__wrapper">
+            <h1 class="h1">Акции</h1>
+            <div class="news__tabs tabs">
+              <div class="visually-hidden">Фильтр акций:</div>
+              <a class="tabs__item" href="{% url 'promotion_list_now_url' %}">Актуальные</a>
+              <a class="tabs__item tabs__item--active" href="{% url 'promotion_list_past_url' %}">Прошедшие</a>
+            </div>
+          </div>
+          <ul class="news__list">
+            {% for promotion in promotions %}
+              <li class="news__item newsItem newsItem--promo">
+                <div class="newsItem__date newsItem__date--promo">{{ promotion.note }}</div>
+                <h2 class="newsItem__title"><a href="{% url 'promotion_detail_url' pk=promotion.pk %}">{{ promotion.title }}</a></h2>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </article>
+            <section class="nextPage">
+              <div class="container">
+                <p>Далее</p>
+                <a href="{% url 'news_list_url' %}"><span>Новости</span>
+                {% include './includes/arrowRight.html' %}
+              </div>
+            </section>
+    </main>
+{% endblock %}

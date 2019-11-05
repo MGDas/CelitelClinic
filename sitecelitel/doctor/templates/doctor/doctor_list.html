@@ -130,6 +130,12 @@
                             </div>
                             <h3 class="doctorPreview__name">
                               <a href="{% url 'doctor_detail_url' pk=doctor.pk %}">{{ doctor.full_name }}</a>
+                              {% if doctor.promotions.first %}
+                                <div class="doctorPreview__label">
+                                  <span class="visually-hidden">В данный момент у врача действует акция</span>
+                                  <i aria-hidden="true" title="В данный момент у врача действует акция">%</i>
+                                </div>
+                              {% endif %}
                             </h3>
                             <div class="doctorPreview__desc">
                               {% if doctor.specialization %}{{ doctor.specialization }}{% endif %}
@@ -139,19 +145,6 @@
                           </section>
 
                         {% endfor %}
-												<section class="doctorPreview">
-													<div class="doctorPreview__photo">
-                            <a href="#"><img src="assets/doctorPreview.jpg" alt="" width="270" height="270"></a>
-                          </div>
-													<h3 class="doctorPreview__name">
-                            <a href="#">Амина Гирамудиновна Абдулазизова</a>
-														<div class="doctorPreview__label">
-                              <span class="visually-hidden">В данный момент у врача действует акция</span>
-                              <i aria-hidden="true" title="В данный момент у врача действует акция">%</i>
-                            </div>
-													</h3>
-													<div class="doctorPreview__desc">Терапевт, Узист. Врач высшей категории. Опыт работы — 17 лет</div>
-												</section>
 					</div><a class="more" href="#">Ещё 500 врачей</a>
 				</div>
 			</article>

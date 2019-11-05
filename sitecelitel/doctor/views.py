@@ -1,6 +1,7 @@
 from django.views.generic import ListView
 from django.views.generic import DetailView
 from doctor.models import Doctor
+from django.utils import timezone
 
 
 class DoctorListView(ListView):
@@ -20,4 +21,5 @@ class DoctorDetailView(DetailView):
         context['videos'] = self.object.videos.filter(public=True)
         context['articles'] = self.object.articles.filter(public=True)
         context['other_doctors'] = Doctor.pub_objects.filter(specialization=self.object.specialization).exclude(pk=self.object.pk)
+        context['promotions'] = self.object.promotions.filter(public=True).filter(data_end__gt=timezone.now())
         return context
