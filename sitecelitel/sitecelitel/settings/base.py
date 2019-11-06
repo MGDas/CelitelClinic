@@ -23,7 +23,7 @@ INSTALLED_APPS = [
     # other moduls
     "django_summernote",
     'pytils',   # for translate date in russion language
-    "django_extensions",
+    'debug_toolbar',
 
     # my apps
     'clinic',
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -115,6 +116,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+INTERNAL_IPS = ['127.0.0.1']
 
 try:
     from sitecelitel.settings.local import *
