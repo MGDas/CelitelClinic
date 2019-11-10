@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    Российские врачи
+{% endblock %}
+
+{% block content %}
+    <main>
+      <article class="news">
+        <div class="container">
+          <div class="news__wrapper">
+            <h1 class="h1">Врачи из России</h1>
+            <div class="news__tabs tabs">
+              <div class="visually-hidden">Фильтр:</div>
+              <a class="tabs__item" href="{% url 'rusdoc_list_now_url' %}">Принимают</a>
+              <a class="tabs__item tabs__item--active" href="#">Приём окончен</a>
+            </div>
+          </div>
+          <ul class="news__list">
+            {% for doc in russian_doctors %}
+              <li class="news__item newsItem">
+                {% if doc.image %}<img class="newsItem__img" src="{{ doc.image.url }}" alt="">{% endif %}
+                {% if doc.note %}<div class="newsItem__date">{{ doc.note }}</div>{% endif %}
+                <h2 class="newsItem__title newsItem__title--doctors"><a href="{% url 'rusdoc_detail_url' pk=doc.pk %}">{{ doc.title }}</a></h2>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </article>
+            <section class="nextPage">
+              <div class="container">
+                <p>Далее</p><a href="{% url 'news_list_url' %}"><span>Новости</span>
+                      <svg width="40" height="30" aria-hidden="true">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight"></use>
+                      </svg></a>
+              </div>
+            </section>
+    </main>
+{% endblock %}
