@@ -1,0 +1,153 @@
+{% extends 'index.html' %}
+
+{% load static %}
+{% load doctor_tags %}
+
+
+{% block title %}
+    Все врачи сети поликлиник «Целитель»
+{% endblock %}
+
+{% block content %}
+
+		<main>
+			<article class="doctors">
+				<div class="container">
+					<h1 class="h1">Все врачи сети поликлиник «Целитель»</h1>
+					<form class="orderFilters" action="#">
+						<div class="orderFilters__item orderFilters__item--name">
+							<div class="orderFilters__wrap">
+								<button class="orderFilters__showFields" type="button" tabindex="-1">
+											<svg width="22" height="22" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#filter"></use>
+											</svg>
+								</button>
+								<input class="orderFilters__input orderFilters__input--name" type="text" name="orderFiltersName" placeholder="ФИО" id="orderFiltersName">
+								<div class="smallHidden orderFilters__dropDown">
+									<input class="visually-hidden orderFilters__input orderFilters__input--checkbox" type="checkbox" name="orderFiltersChild" id="orderFiltersChild0">
+									<label class="orderFilters__checkbox orderFilters__checkbox--desktop" for="orderFiltersChild0">Только детские врачи</label>
+								</div>
+							</div>
+						</div>
+						<div class="orderFilters__item orderFilters__item--specialization">
+							<div class="orderFilters__wrap">
+								<button class="orderFilters__checker" type="button" tabindex="-1">
+											<svg width="16" height="10" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#down"></use>
+											</svg>
+								</button>
+								<input class="orderFilters__input orderFilters__input--popup" type="text" name="orderFiltersSpecialization" placeholder="Специализация" id="orderFiltersSpecialization">
+								<button class="orderFilters__close" type="button" tabindex="-1">
+											<svg width="15" height="15" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
+											</svg>
+								</button>
+								<div class="orderFilters__dropDown">
+									<label><i>А</i>
+										<input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="Аллерголог"><span>Аллерголог</span>
+									</label>
+									<label><i>Г</i>
+										<input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="Гинеколог"><span>Гинеколог</span>
+									</label>
+									<label><i>Д</i>
+										<input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="Дерматолог"><span>Дерматолог</span>
+									</label>
+									<label><i>И</i>
+										<input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="Инфекционист"><span>Инфекционист</span>
+									</label>
+									<label><i>К</i>
+										<input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="Кардиолог"><span>Кардиолог</span>
+									</label>
+									<label><i></i>
+										<input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="Косметолог"><span>Косметолог</span>
+									</label>
+									<label><i>Л</i>
+										<input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="Инфекционист"><span>ЛОР</span>
+									</label>
+									<label><i>Н</i>
+										<input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="Кардиолог"><span>Невролог</span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="orderFilters__item orderFilters__item--address">
+							<div class="orderFilters__wrap">
+								<button class="orderFilters__checker" type="button" tabindex="-1">
+											<svg width="16" height="10" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#down"></use>
+											</svg>
+								</button>
+								<input class="orderFilters__input orderFilters__input--popup" type="text" name="orderFiltersAddress" placeholder="Поликлиника" id="orderFiltersAddress">
+								<button class="orderFilters__close" type="button" tabindex="-1">
+											<svg width="15" height="15" aria-hidden="true">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
+											</svg>
+								</button>
+								<div class="orderFilters__dropDown orderFilters__dropDown--addresses"><b>Махачкала</b>
+									<label><i>ООО «Целитель»</i>
+										<input class="visually-hidden" type="radio" name="orderFiltersAddress" value="ул. Ш. Алиева, 4а, Махачкала"><span>ул. Ш. Алиева, 4а, Махачкала</span>
+									</label>
+									<label><i>ООО Детская поликлиника «Целитель»</i>
+										<input class="visually-hidden" type="radio" name="orderFiltersAddress" value="ул.Петра 1, 49е, Махачкала"><span>ул.Петра 1, 49е, Махачкала</span>
+									</label>
+									<label><i>ООО «Целитель»</i>
+										<input class="visually-hidden" type="radio" name="orderFiltersAddress" value="ул. Коркмасова, 14, Махачкала"><span>ул. Коркмасова, 14, Махачкала</span>
+									</label>
+									<label><i>ООО «Целитель» (стационар)</i>
+										<input class="visually-hidden" type="radio" name="orderFiltersAddress" value="ул. Петра 1, 47в, Махачкала"><span>ул. Петра 1, 47в, Махачкала</span>
+									</label><b>Каспийск</b>
+									<label><i>ООО «Целитель» Каспийск</i>
+										<input class="visually-hidden" type="radio" name="orderFiltersAddress" value="ул. Леваневского, 72г, Махачкала"><span>ул. Леваневского, 72г, Каспийск</span>
+									</label>
+									<label><i>ООО «Целитель»</i>
+										<input class="visually-hidden" type="radio" name="orderFiltersAddress" value="ул. Магомедтагирова, 172в, Махачкала"><span>ул. Магомедтагирова, 172в, Каспийск</span>
+									</label><b>Москва</b>
+									<label><i>ООО «Целитель» Мавзолей</i>
+										<input class="visually-hidden" type="radio" name="orderFiltersAddress" value="ул. Пирогова, 16а, Махачкала"><span>ул. Пирогова, 16а, Москва</span>
+									</label>
+									<label><i>ООО «Целитель» Мавзолей</i>
+										<input class="visually-hidden" type="radio" name="orderFiltersAddress" value="ул. Пирогова, 16а, Махачкала"><span>ул. Пирогова, 16а, Москва</span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="mediumHidden orderFilters__item">
+							<div class="orderFilters__wrap">
+								<input class="visually-hidden orderFilters__input orderFilters__input--checkbox" type="checkbox" name="orderFiltersChild" id="orderFiltersChild1">
+								<label class="orderFilters__checkbox" for="orderFiltersChild1">Только детские врачи</label>
+							</div>
+						</div>
+					</form>
+					<div class="doctors__list">
+                        {% for doctor in doctors %}
+												  <section class="doctorPreview">
+                            <div class="doctorPreview__photo">
+                              {% if doctor.avatar|active:request %}
+                                  <a href="{% url 'doctor_detail_url' pk=doctor.pk %}"><img src="{{ doctor.avatar.url }}" alt="" width="270" height="270"></a>
+                              {% else %}
+                                  <a href="{% url 'doctor_detail_url' pk=doctor.pk %}"><img src="{% static 'images/doctor_without_photo.png' %}" alt="" width="270" height="270"></a>
+                              {% endif %}
+                            </div>
+                            <h3 class="doctorPreview__name">
+                              <a href="{% url 'doctor_detail_url' pk=doctor.pk %}">{{ doctor.full_name }}</a>
+                              {% if doctor.promotions.first %}
+                                <div class="doctorPreview__label">
+                                  <span class="visually-hidden">В данный момент у врача действует акция</span>
+                                  <i aria-hidden="true" title="В данный момент у врача действует акция">%</i>
+                                </div>
+                              {% endif %}
+                            </h3>
+                            <div class="doctorPreview__desc">
+                              {% if doctor.specialization %}{{ doctor.specialization }}{% endif %}
+                              {% if doctor.academic_degree %}{{ doctor.academic_degree }}.{% endif %}
+                              {% if doctor.experience %}{{ doctor.experience }}.{% endif %}
+                            </div>
+                          </section>
+
+                        {% endfor %}
+					</div><a class="more" href="#">Ещё 500 врачей</a>
+				</div>
+			</article>
+		</main>
+
+{% endblock %}

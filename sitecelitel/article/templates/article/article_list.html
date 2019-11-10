@@ -14,7 +14,7 @@
           <ul class="articles__body">
             {% for article in articles %}
                 <li class="articles__item">
-                  <div class="articles__date">{{ article.update|ru_strftime:"%d %B %Y" }}</div>
+                  <div class="articles__date">{{ article.updated|ru_strftime:"%d %B %Y" }}</div>
                   <h3 class="articles__title"><a href="{% url 'article_detail_url' slug=article.slug %}">{{ article.title }}</a></h3>
                   {% if article.doctor %}
                     <div class="articles__author">
@@ -30,7 +30,11 @@
                     </div>
                   {% else %}
                     <div class="articles__desc">
-                      <p>{{ article.preview|truncatechars:250 }}</p>
+                      <p>
+                        {% autoescape off %}
+                            {{ article.preview|truncatechars:250 }}
+                        {% endautoescape %}
+                      </p>
                     </div>
                   {% endif %}
                 </li>

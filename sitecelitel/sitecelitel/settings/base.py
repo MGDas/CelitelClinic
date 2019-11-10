@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     # other moduls
     "django_summernote",
     'pytils',   # for translate date in russion language
+    'debug_toolbar',
 
     # my apps
     'clinic',
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -108,17 +110,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'staticfiles')
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_files')]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+INTERNAL_IPS = ['127.0.0.1']
 
 try:
     from sitecelitel.settings.local import *

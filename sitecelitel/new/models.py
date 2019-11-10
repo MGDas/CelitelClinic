@@ -1,7 +1,6 @@
 from django.db import models
 from django.shortcuts import reverse
-from clinic.models import BaseModel
-from django.utils import timezone
+from clinic.models import BaseModel, PublicManager
 from sitecelitel.utils import get_photo
 
 class New(BaseModel):
@@ -11,9 +10,6 @@ class New(BaseModel):
     content = models.TextField(verbose_name='Контент')
     image = models.ImageField(upload_to=get_photo, blank=True, verbose_name='Изображение')
     caption = models.CharField(max_length=255, blank=True, verbose_name='Подпись')
-
-    created = models.DateField(default=timezone.now, verbose_name='Дата создания')
-    updated = models.DateField(default=timezone.now, verbose_name='Дата обновления')
 
     header = models.BooleanField(default=True, verbose_name='Показать в шапке')
 

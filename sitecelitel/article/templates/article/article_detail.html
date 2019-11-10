@@ -1,6 +1,7 @@
 {% extends 'index.html' %}
 {% load pytils_dt %}
 {% load static %}
+{% load article_tags %}
 
 {% block title %}
   {{ article.title }}
@@ -13,7 +14,7 @@
       <article class="material">
         <div class="container">
           <section class="materialInfo">
-            <div class="materialInfo__date"><span>Дата</span>{{ article.update|ru_strftime:"%d %B %Y"}}</div>
+            <div class="materialInfo__date"><span>Дата</span>{{ article.updated|ru_strftime:"%d %B %Y"}}</div>
           </section>
           <div class="material__body">
 
@@ -25,7 +26,7 @@
               </div>
             {% endautoescape %}
 
-            {% if article.image %}
+            {% if article.image.url|active:request %}
               <figure class="material__img">
                 <img src="{{ article.image.url }}" alt="">
                 {% if article.caption %}<figcaption>{{ article.caption }}</figcaption>{% endif %}
@@ -72,7 +73,7 @@
               <h2 class="mdTitle">Другие статьи</h2>
               <div class="mdIntro">
                 {% for tag in tags %}
-                  {{ tag.title }},
+                  <a href="{% url 'article_tags_detail_url' slug=tag.slug %}">{{ tag.title }}</a>,
                 {% endfor %}
               </div>
               <ul class="articles__body">

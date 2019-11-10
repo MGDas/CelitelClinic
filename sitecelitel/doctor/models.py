@@ -52,13 +52,6 @@ class Doctor(BaseModel):
     content = models.TextField(blank=True, verbose_name='Контент')
     special_note = models.TextField(blank=True, null=True, verbose_name='Примечание')
 
-    tags = models.ManyToManyField(
-        "tag.DoctorTag",
-        related_name='doctors',
-        blank=True,
-        verbose_name='Доктор(а)'
-    )
-
     class Meta:
         db_table = 'doctors'
         verbose_name = 'Доктор'
@@ -141,7 +134,7 @@ class Review(BaseModel):
 class Video(BaseModel):
     doctor = models.ManyToManyField(
         Doctor,
-        related_name='video',
+        related_name='videos',
         verbose_name='Доктор(а)'
     )
     title = models.CharField(max_length=255, verbose_name='Заголовок')
@@ -151,3 +144,6 @@ class Video(BaseModel):
         db_table = 'video'
         verbose_name = 'Видео'
         verbose_name_plural = 'Видео'
+
+    def __str__(self):
+        return self.title

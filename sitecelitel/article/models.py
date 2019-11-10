@@ -1,5 +1,5 @@
 from django.db import models
-from clinic.models import BaseModel
+from clinic.models import BaseModel, PublicManager
 from sitecelitel.utils import get_photo
 from django.utils import timezone
 
@@ -8,7 +8,7 @@ class Article(BaseModel):
         "doctor.Doctor",
         on_delete=models.SET_NULL,
         null=True,
-        related_name='article',
+        related_name='articles',
         blank=True,
         verbose_name='Доктор'
     )
@@ -21,8 +21,6 @@ class Article(BaseModel):
     caption = models.CharField(max_length=250, blank=True, verbose_name='Подпись')
 
     image = models.ImageField(upload_to=get_photo, blank=True, verbose_name='Изображение')
-    created = models.DateField(default=timezone.now, verbose_name='Дата создания')
-    update = models.DateField(default=timezone.now, verbose_name='Дата обновления')
 
     tags = models.ManyToManyField(
         "tag.ArticleTag",

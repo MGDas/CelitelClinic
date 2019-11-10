@@ -2,14 +2,15 @@ import random
 from django.views.generic import ListView
 from django.views.generic import TemplateView
 from django.views.generic import DetailView
-from django.views.generic.list import MultipleObjectMixin
 from article.models import Article
+from article.utils import other_articles
 
 
 class ArticleListView(ListView):
     model = Article
     template_name = 'article/article_list.html'
     context_object_name = "articles"
+    queryset = Article.pub_objects.all()
 
 class ArticleDetailView(DetailView):
     model = Article
@@ -18,11 +19,15 @@ class ArticleDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        tags = self.object.tags.values_list('title', flat=True)
+        tags = self.object.tags.all()
+
         context['tags'] = tags
-        context['other_articles'] = Article.objects.filter(tags__title__in=tags).exclude(id=self.object.id).distinct()[:4]
+        context['other_articles'] = other_articles(tags, self.object)
+
+        articles = list(Article.pub_objects.all())
+
         try:
-            context['next_page'] = Article.objects.get(id=self.object.id + 1)
+            context['next_page'] = articles[articles.index(self.object) + 1]
         except:
-            context['next_page'] = Article.objects.first()
+            context['next_page'] = articles[0]
         return context

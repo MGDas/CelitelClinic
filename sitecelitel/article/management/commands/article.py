@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from article.models import Article
 from slugify import slugify
 from django.conf import settings
+import random
 import os
 
 DIR_NAME = os.path.dirname(os.path.dirname(__file__))
@@ -22,7 +23,7 @@ class Command(BaseCommand):
             article = Article.objects.create(
                 title=title,
                 caption='Мисак Владимирович',
-                slug=slugify(title),
+                slug=slugify(title) + str(random.randint(1, 1000)),
                 preview=write_file('preview.txt'),
                 content=write_file('content.txt'),
                 image=os.path.join(settings.MEDIA_URL, '/articles/doctor.jpg'),
