@@ -7,3 +7,6 @@ templates_html
 db
 examples/
 management/
+
+.gitignore
+production.py

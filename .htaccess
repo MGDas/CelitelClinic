@@ -1,0 +1,4 @@
+PassengerEnabled On
+
+#PassengerPython /usr/bin/python3
+PassengerPython /home/s/studio3f/.local/bin/python3

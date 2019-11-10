@@ -1,4 +1,4 @@
-DEBUG = False           # DEBUG MODE
+DEBUG = True           # DEBUG MODE
 
 ALLOWED_HOSTS = ['*']    # your site domen_name
 
@@ -6,10 +6,9 @@ ALLOWED_HOSTS = ['*']    # your site domen_name
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',   # Backend for connection with Data Base
-        'NAME': '',                          # Data Base name
-        'USER': '',                          # Name user
-        'PASSWORD': '',                      # User's password
-        'HOST': '',                          # Host for connection to Data Base
-        'PORT': '',                          # Port maybe not use
+        'NAME': 'studio3f_test2',                          # Data Base name
+        'USER': 'studio3f_test2',                          # Name user
+        'PASSWORD': 'studio3f_test2',                      # User's password
+        'HOST': 'localhost',                          # Host for connection to Data Base
     }
 }
