@@ -1,5 +1,7 @@
 {% extends 'index.html' %}
 
+{% load get_image_url %}
+
 {% block title %}
     Российские врачи
 {% endblock %}
@@ -9,55 +11,34 @@
         <article class="material">
           <div class="container">
             <div class="material__body">
-              <h1 class="h1">Высококвалифицированный врач из Краснодара хирург-эндокринолог, онколог в Махачкале</h1>
+              <h1 class="h1">{{ doc.title }}</h1>
               <div class="material__intro">
-                <p><i>17-18 апреля</i> в медицинском центре "Целитель" в Махачкале принимает высококвалифицированный врач из Краснодара с большим опытом практической работы, специализирующийся на эндокринной хирургии Мисакьян Мисак Владимирович. Приём пациентов будет проходить  в Махачкале по адресу:&nbsp;<a href="#">ул. Ш. Алиева, 4а.</a></p>
+                {% autoescape off %}{{ doc.preview }}{% endautoescape %}
               </div>
-              <figure class="material__img"><img src="assets/doctorFromMoscow.jpg" alt="">
-                <figcaption>Мисак Владимирович</figcaption>
-              </figure>
-              <h2>О Мисак Владимировиче</h2>
-              <p>Мисакьян Мисак Владимирович, врач-онколог, хирург-эндокринолог, специалист первой квалификационной категории со стажем практической врачебной деятельности более 20 лет. Длительное время работал ведущим эндокринным хирургом в Краснодарской краевой клинической больнице, далее в клинике "Екатерининская" гор. Краснодара. Является членом Ассоциации эндокринных хирургов России.</p>
-              <p>Специализируясь на эндокринной хирургии, опытный врач-онколог Мисакьян М. В. провёл более 4000 хирургических операций, из которых около 1000 – оперативное лечение различных видов рака щитовидной железы, в том числе 400 радикальных операций по хирургическому лечению онкопатологии щитовидной железы.</p>
-              <h3>Какие болезни лечит?</h3>
-              <p>Область профессиональных интересов врача составляют такие заболевания, как:</p>
-              <ul>
-                <li>родовые травмы и их последствия;</li>
-                <li>детские церебральные параличи;</li>
-                <li>гидроцефалия;</li>
-                <li>общие расстройства ( заикание, гиперкинетические состояния, энурез, различные неврозы);</li>
-                <li>черепно-мозговые травмы ребёнка и их последствия;</li>
-                <li>наследственные патологии, а также болезни аминокислотного и углеводного обмена;</li>
-                <li>эпилепсия;</li>
-                <li>различные нарушения поведения.</li>
-              </ul>
+              {% if doc.image %}
+                {% if doc.image.url|active:request %}
+                  <figure class="material__img">
+                    <img src="{{ doc.image.url }}" alt="">
+                    <figcaption>{{ doc.capcha }}</figcaption>
+                  </figure>
+                {% endif %}
+              {% endif %}
+
+              {% autoescape off %}{{ doc.content }}{% endautoescape %}
             </div>
-            <section class="share">
-              <h3 class="share__heading">Поделиться</h3>
-              <div class="share__list">
-                <!-- Вместо гугла надо вставить ссылку на текущую страницу.--><a class="share__item share__item--fb" href="https://www.facebook.com/sharer.php?src=sp&amp;u=https://google.com" target="_blank" aria-label="Поделиться в фейсбук">
-                      <svg width="50" height="50" aria-hidden="true">
-                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#fb"></use>
-                      </svg><span>Поделиться</span></a><a class="share__item share__item--vk" href="https://vk.com/share.php?url=https://google.com" target="_blank" aria-label="Поделиться в вконтакте">
-                      <svg width="50" height="50" aria-hidden="true">
-                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#vk"></use>
-                      </svg><span>Поделиться</span></a><a class="share__item share__item--ok" href="https://connect.ok.ru/offer?url=https://google.com" target="_blank" aria-label="Поделиться в одноклассниках">
-                      <svg width="50" height="50" aria-hidden="true">
-                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ok"></use>
-                      </svg><span>Класс</span></a><a class="share__item share__item--tg" href="tg://msg_url?url=https://www.google.com/" target="_blank" aria-label="Отправить в телеграм">
-                      <svg width="50" height="50" aria-hidden="true">
-                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#tg"></use>
-                      </svg><span>Отправить</span></a>
-              </div>
-            </section>
+
+            {% include 'includes/social_links/social_links.html' %}
           </div>
         </article>
               <section class="nextPage">
                 <div class="container">
-                  <p>Далее</p><a href="#"><span>Ведущие специалисты из Махачкалы на приеме в Дербенте</span>
-                        <svg width="40" height="30" aria-hidden="true">
-                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight"></use>
-                        </svg></a>
+                  <p>Далее</p>
+                  <a href="{% url 'rusdoc_detail_url' pk=next_page.pk %}">
+                    <span>{{ next_page.title }}</span>
+                    <svg width="40" height="30" aria-hidden="true">
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight"></use>
+                    </svg>
+                  </a>
                 </div>
               </section>
       </main>
