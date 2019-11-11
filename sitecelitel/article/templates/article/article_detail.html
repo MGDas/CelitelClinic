@@ -1,7 +1,8 @@
 {% extends 'index.html' %}
+
 {% load pytils_dt %}
 {% load static %}
-{% load article_tags %}
+{% load get_image_url %}
 
 {% block title %}
   {{ article.title }}
@@ -26,11 +27,13 @@
               </div>
             {% endautoescape %}
 
-            {% if article.image.url|active:request %}
-              <figure class="material__img">
-                <img src="{{ article.image.url }}" alt="">
-                {% if article.caption %}<figcaption>{{ article.caption }}</figcaption>{% endif %}
-              </figure>
+            {% if article.image %}
+              {% if article.image.url|active:request %}
+                <figure class="material__img">
+                  <img src="{{ article.image.url }}" alt="">
+                  {% if article.caption %}<figcaption>{{ article.caption }}</figcaption>{% endif %}
+                </figure>
+              {% endif %}
             {% endif %}
 
             {% autoescape off %}
@@ -40,30 +43,15 @@
           </div>
           <div class="likeAndShareWrap">
             <section class="like"><a href="#" aria-label="Поставить лайк">
-                    <svg width="22" height="22" aria-hidden="true">
-                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#like"></use>
-                    </svg>33</a><a href="#" aria-label="Поставить дизлайк">
-                    <svg width="22" height="22" aria-hidden="true">
-                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#dislike"></use>
-                    </svg>33</a></section>
-            <section class="share">
-              <h3 class="share__heading">Поделиться</h3>
-              <div class="share__list">
-                <!-- Вместо гугла надо вставить ссылку на текущую страницу.--><a class="share__item share__item--fb" href="https://www.facebook.com/sharer.php?src=sp&amp;u=https://google.com" target="_blank" aria-label="Поделиться в фейсбук">
-                      <svg width="50" height="50" aria-hidden="true">
-                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#fb"></use>
-                      </svg><span>Поделиться</span></a><a class="share__item share__item--vk" href="https://vk.com/share.php?url=https://google.com" target="_blank" aria-label="Поделиться в вконтакте">
-                      <svg width="50" height="50" aria-hidden="true">
-                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#vk"></use>
-                      </svg><span>Поделиться</span></a><a class="share__item share__item--ok" href="https://connect.ok.ru/offer?url=https://google.com" target="_blank" aria-label="Поделиться в одноклассниках">
-                      <svg width="50" height="50" aria-hidden="true">
-                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ok"></use>
-                      </svg><span>Класс</span></a><a class="share__item share__item--tg" href="tg://msg_url?url=https://www.google.com/" target="_blank" aria-label="Отправить в телеграм">
-                      <svg width="50" height="50" aria-hidden="true">
-                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#tg"></use>
-                      </svg><span>Отправить</span></a>
-              </div>
+              <svg width="22" height="22" aria-hidden="true">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#like"></use>
+              </svg>33</a><a href="#" aria-label="Поставить дизлайк">
+              <svg width="22" height="22" aria-hidden="true">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#dislike"></use>
+              </svg>33</a>
             </section>
+            
+            {% include 'includes/social_links/social_links.html' %}
           </div>
         </div>
       </article>

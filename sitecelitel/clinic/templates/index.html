@@ -265,16 +265,18 @@
 									<ul class="subMenu__menu">
 										<li><a class="subMenu__active" href="{% url 'promotion_list_now_url' %}">Акции</a></li>
 										<li><a href="{% url 'news_list_url' %}">Новости</a></li>
-										<li><a href="#">Врачи из России</a></li>
+										<li><a href="{% url 'rusdoc_list_now_url' %}">Врачи из России</a></li>
 									</ul>
 								</section>
 								<section class="menuEvents__section menuEvents__section--news">
-									{% for new in news_header %}
+									{% for promotion in promotion_header %}
 											<section>
-												{% if new.image %}
-													<img src="{{ new.image.url }}" alt="" width="1024" height="540">
+												{% if promotion.image %}
+													<img src="{{ promotion.image.url }}" alt="" width="1024" height="540">
+												{% else %}
+													<img src="{% static 'images/promotion.jpg' %}" alt="" width="1024" height="540">
 												{% endif %}
-												<h3><a href="{{ new.get_absolute_url }}">{{ new.title }}</a></h3>
+												<h3><a href="{{ promotion.get_absolute_url }}">{{ promotion.title }}</a></h3>
 											</section>
 									{% endfor %}
 								</section>
@@ -1283,7 +1285,11 @@
 				</section>
 				<section class="social">
 					<h2 class="social__title">Мы в соц.сетях</h2>
-					<div class="social__body"><a href="#" aria-label="Инстаграм"><img src="{% static 'images/ig.svg' %}" width="40" height="40" alt=""></a><a href="#" aria-label="Фейбук"><img src="images/fb.svg" width="40" height="40" alt=""></a><a href="#" aria-label="Одноклассники"><img src="images/ok.svg" width="40" height="40" alt=""></a><a href="#" aria-label="Ютуб"><img src="images/yt.svg" width="40" height="40" alt=""></a></div>
+					<div class="social__body">
+						<a href="#" aria-label="Инстаграм"><img src="{% static 'images/ig.svg' %}" width="40" height="40" alt=""></a>
+						<a href="#" aria-label="Фейбук"><img src="{% static 'images/fb.svg' %}" width="40" height="40" alt=""></a>
+						<a href="#" aria-label="Одноклассники"><img src="{% static 'images/ok.svg' %}" width="40" height="40" alt=""></a>
+						<a href="#" aria-label="Ютуб"><img src="{% static 'images/yt.svg' %}" width="40" height="40" alt=""></a></div>
 				</section>
 				<div class="copyright copyright--site"><a href="#">© 2019, Сеть поликлиник «Целитель»</a></div>
 				<div class="copyright copyright--developer"><a href="#">Задизайнено в Студии Вектор</a></div>
