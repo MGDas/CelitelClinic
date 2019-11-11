@@ -14,9 +14,30 @@
     <main>
       <article class="material">
         <div class="container">
-          <section class="materialInfo">
-            <div class="materialInfo__date"><span>Дата</span>{{ article.updated|ru_strftime:"%d %B %Y"}}</div>
-          </section>
+          {% if article.doctor %}
+            <section class="materialInfo materialInfo--withAuthor">
+              {% with doctor=article.doctor %}
+                <div class="materialInfo__author">
+                  {% if doctor.photo %}
+                    {% if doctor.photo.url|active:request %}
+                      <div class="materialInfo__photo">
+                        <img src="{{ doctor.photo.url }}" alt="" width="80" height="80">
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                  <div class="materialInfo__wrap">
+                    <h3>{{ doctor.full_name }}</h3>
+                    {% if doctor.specialization %}<p>{{ doctor.specialization }}</p>{% endif %}
+                  </div>
+                </div>
+                <div class="materialInfo__date"><span>Дата</span>{{ article.updated|ru_strftime:"%d %B %Y"}}</div>
+              {% endwith %}
+            </section>
+          {% else %}
+            <section class="materialInfo">
+              <div class="materialInfo__date"><span>Дата</span>{{ article.updated|ru_strftime:"%d %B %Y"}}</div>
+            </section>
+          {% endif %}
           <div class="material__body">
 
             <h1 class="h1">{{ article.title }}</h1>
@@ -50,7 +71,7 @@
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#dislike"></use>
               </svg>33</a>
             </section>
-            
+
             {% include 'includes/social_links/social_links.html' %}
           </div>
         </div>
