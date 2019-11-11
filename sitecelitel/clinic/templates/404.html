@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>{% block title %}404{% endblock %}</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    {% include 'includes/meta.html' %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <!-- FAVICON FOR EVERYBODY, FREE, AND LET NO ONE BE LEFT BEHIND!-->
+    <link href="/favicon.ico" rel="shortcut icon" type="{% static 'images/vnd.microsoft.icon' %}">
+    <link rel="author" href="/humans.txt">
+  </head>
+	<body class="err404">
+		{% include 'includes/svg/svg404.html' %}
+		<header>
+			<div class="container"><a href="{% url 'index_url' %}"><img src="{% static 'images/logo.png' %}" alt=""></a></div>
+		</header>
+		<main>
+			<div class="container"><img src="{% static 'images/404.svg' %}" alt="" width="288" height="128">
+				<h1>Нет такой страницы</h1>
+				<p>Но вы можете записаться к врачу</p>
+			</div>
+		</main>
+		<div class="container"><a class="err404__btn" href="#">Записаться к врачу</a></div>
+				<script src="{% static 'js/main.js' %}"></script>
+	</body>
+</html>
