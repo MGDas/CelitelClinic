@@ -40,7 +40,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -48,6 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'sitecelitel.urls'
@@ -56,7 +56,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'clinic/templates')
+            os.path.join(BASE_DIR, 'clinic/templates'),
+            os.path.join(BASE_DIR, 'clinic/templatetags')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -110,16 +111,30 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_files')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_files')]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 INTERNAL_IPS = ['127.0.0.1']
 
+
+DEBUG_TOOLBAR_CONFIG = {
+    'RESULTS_CACHE_SIZE': 100,
+    'SQL_WARNING_THRESHOLD': 2000
+}
+
 try:
     from sitecelitel.settings.local import *
 except ImportError:
     from sitecelitel.settings.production import *
+
+SUMMERNOTE_CONFIG = {
+    'iframe': True,
+    'summernote': {
+        'width': '85%',
+        'height': '680',
+    },
+}

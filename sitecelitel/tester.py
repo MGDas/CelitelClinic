@@ -1,4 +1,7 @@
-a = ['a', 'b', 'c']
+a = 'sdafsdfasdfasdfasdfasdfasdfasfdasdfAAAAAAAAAAAAAAA'
+print(len(a))
 
-i = a.index('c')
-print(i)
+if len(a) > 15:
+    a = a[:16]
+
+print(a)

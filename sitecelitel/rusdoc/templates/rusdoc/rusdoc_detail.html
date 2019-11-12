@@ -1,0 +1,45 @@
+{% extends 'index.html' %}
+
+{% load get_image_url %}
+
+{% block title %}
+    Российские врачи
+{% endblock %}
+
+{% block content %}
+    <main>
+        <article class="material">
+          <div class="container">
+            <div class="material__body">
+              <h1 class="h1">{{ doc.title }}</h1>
+              <div class="material__intro">
+                {% autoescape off %}{{ doc.preview }}{% endautoescape %}
+              </div>
+              {% if doc.image %}
+                {% if doc.image.url|active:request %}
+                  <figure class="material__img">
+                    <img src="{{ doc.image.url }}" alt="">
+                    <figcaption>{{ doc.capcha }}</figcaption>
+                  </figure>
+                {% endif %}
+              {% endif %}
+
+              {% autoescape off %}{{ doc.content }}{% endautoescape %}
+            </div>
+
+            {% include 'includes/social_links/social_links.html' %}
+          </div>
+        </article>
+              <section class="nextPage">
+                <div class="container">
+                  <p>Далее</p>
+                  <a href="{% url 'rusdoc_detail_url' pk=next_page.pk %}">
+                    <span>{{ next_page.title }}</span>
+                    <svg width="40" height="30" aria-hidden="true">
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight"></use>
+                    </svg>
+                  </a>
+                </div>
+              </section>
+      </main>
+{% endblock %}

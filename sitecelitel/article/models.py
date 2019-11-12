@@ -21,6 +21,7 @@ class Article(BaseModel):
     caption = models.CharField(max_length=250, blank=True, verbose_name='Подпись')
 
     image = models.ImageField(upload_to=get_photo, blank=True, verbose_name='Изображение')
+    header = models.BooleanField(default=True, verbose_name='Показать в шапке')
 
     tags = models.ManyToManyField(
         "tag.ArticleTag",

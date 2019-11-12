@@ -13,6 +13,9 @@ def get_title(instance):
     except AttributeError:
         title = instance.name
 
+    if len(title) > 15:
+        title = title[:15]
+
     return slugify(title)
 
 

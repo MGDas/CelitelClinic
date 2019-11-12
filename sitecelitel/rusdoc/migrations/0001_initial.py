@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('public', models.BooleanField(default=True, verbose_name='Публикация')),
                 ('title', models.CharField(max_length=255, verbose_name='Заголовок')),
                 ('preview', models.TextField(blank=True, verbose_name='Превью')),
-                ('image', models.ImageField(blank=True, upload_to=rusdoc.models.create_name, verbose_name='Изображение')),
+                ('image', models.ImageField(blank=True, upload_to=rusdoc.models.get_photo, verbose_name='Изображение')),
                 ('reception', models.BooleanField(default=True, verbose_name='Приём')),
             ],
             options={
