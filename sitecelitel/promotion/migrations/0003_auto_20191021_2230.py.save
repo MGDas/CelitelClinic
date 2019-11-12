@@ -5,12 +5,21 @@ import django.utils.timezone
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('promotion', '0002_auto_20190929_1621'),
     ]
 
     operations = [
+        migrations.AddField(
+            model_name='promotion',
+            name='created',
+            field=models.DateField(default=django.utils.timezone.now, verbose_name='Дата создания'),
+        ),
+        migrations.AddField(
+            model_name='promotion',
+            name='header',
+            field=models.BooleanField(default=True, verbose_name='Показать в шапке'),
+        ),
         migrations.AddField(
             model_name='promotion',
             name='updated',
