@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                 ('operating_mode', models.CharField(max_length=255, verbose_name='График работы')),
                 ('site', models.URLField(blank=True, max_length=45, verbose_name='Сайт')),
                 ('instagram', models.URLField(blank=True, max_length=45, verbose_name='Инстаграм')),
-                ('image', models.ImageField(blank=True, upload_to=organization.models.create_name, verbose_name='Изображение')),
+                ('image', models.ImageField(blank=True, upload_to=organization.models.get_photo, verbose_name='Изображение')),
                 ('panorama', models.TextField(blank=True, verbose_name='Панорама')),
                 ('map', models.TextField(blank=True, verbose_name='Карта')),
             ],
