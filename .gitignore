@@ -5,12 +5,3 @@ __pycache__/
 local.py
 templates_html
 db
-<<<<<<< HEAD
-examples/
-management/
-
-.gitignore
-production.py
-=======
-management
->>>>>>> 1fa70f1fd131c9224bf33fa824f5056892dd9bed
