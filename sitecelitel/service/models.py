@@ -3,12 +3,15 @@ from django.db import models
 
 class ServiceGroup(models.Model):
     code = models.CharField(max_length=15)
-    name = models.CharField(max_length=255, verbose_name='Название')
+    name = models.CharField(max_length=255, blank=True, verbose_name='Название')
 
     class Meta:
         db_table = 'service_groups'
         verbose_name = 'Группа услуг'
         verbose_name_plural = 'Группы услуг'
+
+    def __str__(self):
+        return self.name
 
 
 class Service(models.Model):
@@ -22,11 +25,19 @@ class Service(models.Model):
 
     name = models.CharField(max_length=255, verbose_name='Название')
     time = models.SmallIntegerField(blank=True, null=True)
+    doctors = models.ManyToManyField(
+        'doctor.Doctor',
+        related_name='services',
+        verbose_name='Доктор(а)'
+    )
 
     class Meta:
         db_table = 'services'
         verbose_name = 'Услуга'
         verbose_name_plural = 'Услуги'
+
+    def __str__(self):
+        return self.name
 
 
 class PriceType(models.Model):

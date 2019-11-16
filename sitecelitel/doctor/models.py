@@ -42,7 +42,7 @@ class Doctor(BaseModel):
         verbose_name='Депортамент'
     )
 
-    full_name = models.CharField(max_length=255, verbose_name='Полное имя')                         # Name Surname Middle name
+    full_name = models.CharField(max_length=255, blank=True, verbose_name='Полное имя')                         # Name Surname Middle name
     photo = models.ImageField(upload_to=get_photo, blank=True, verbose_name='Фото')               # img, svg,
     avatar = models.ImageField(upload_to=get_photo, blank=True, verbose_name='Аватарка')          # avater docter
     experience = models.CharField(max_length=45, blank=True, verbose_name='Опыт')                   # Опыт работы — 19 лет
@@ -58,7 +58,7 @@ class Doctor(BaseModel):
         verbose_name_plural = 'Доктора'
 
     def __str__(self):
-        return self.full_name
+        return self.code
 
 
 class DoctorTiming(models.Model):
