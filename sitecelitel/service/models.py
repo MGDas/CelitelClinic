@@ -1,7 +1,8 @@
 from django.db import models
+from clinic.models import BaseModel
 
 
-class ServiceGroup(models.Model):
+class ServiceGroup(BaseModel):
     code = models.CharField(max_length=15)
     name = models.CharField(max_length=255, blank=True, verbose_name='Название')
 
