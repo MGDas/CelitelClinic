@@ -194,24 +194,17 @@
 								<div class="menuServices__wrap">
 									<div class="menuServices__section menuServices__section--services menuServices__section--adult menuServices__section--active" data-tab="menuAdult">
 										<ul>
-											<li><a class="subMenu__active" href="#"><span>А</span>Аллергология</a></li>
-											<li><a href="#"><span>Г</span>Гинекология</a></li>
-											<li><a href="#"><span>Д</span>Дерматология</a></li>
-											<li><a href="#"><span>И</span>Инфекционные заболевания</a></li>
-											<li><a href="#"><span>К</span>Кардиология</a></li>
-											<li><a href="#"><span></span>Косметология</a></li>
-											<li><a href="#"><span>Л</span>Лаборатория</a></li>
-											<li><a href="#"><span>Н</span>Неврология</a></li>
-											<li><a href="#"><span></span>Невропатология</a></li>
-											<li><a href="#"><span>О</span>Ортопедия</a></li>
-											<li><a href="#"><span></span>Оториноларингология (ЛОР)</a></li>
-											<li><a href="#"><span></span>Офтольмалогия</a></li>
-											<li><a href="#"><span>П</span>Педиатрия</a></li>
-											<li><a href="#"><span></span>Процедурный кабинет</a></li>
-											<li><a href="#"><span>Р</span>Рентгенология</a></li>
-											<li><a href="#"><span>С</span>Стационар</a></li>
-											<li><a href="#"><span></span>Стоматология</a></li>
-											<li><a href="#"><span>Т</span>Терапия</a></li>
+											<!-- class="subMenu__active" -->
+											{% for letter, service_group in service_groups.items %}
+												<li>
+													<span>{{ letter }}</span>
+														{% for sg in service_group %}
+														<a href="#">
+														    {{ sg.1 }}
+														</a>
+														{% endfor %}
+												</li>
+											{% endfor %}
 										</ul>
 									</div>
 									<div class="menuServices__section menuServices__section--services menuServices__section--child" data-tab="menuChildren">
