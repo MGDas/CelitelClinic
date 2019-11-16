@@ -14,7 +14,10 @@ class VideoAdmin(SummernoteModelAdmin):
     list_display = ['title', 'created', 'updated', 'public']
     list_editable = ['public']
 
-admin.site.register(Specialization)
+@admin.register(Specialization)
+class SpecializationAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+
 admin.site.register(DoctorTiming)
 admin.site.register(Consultation)
 admin.site.register(Review)

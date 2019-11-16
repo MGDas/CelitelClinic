@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     "django_summernote",
     'pytils',   # for translate date in russion language
     'debug_toolbar',
+    'django_extensions',
 
     # my apps
     'clinic',
