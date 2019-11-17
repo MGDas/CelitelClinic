@@ -50,6 +50,9 @@ class PriceType(models.Model):
         verbose_name = 'Тип цены'
         verbose_name_plural = 'Типы цен'
 
+    def __str__(self):
+        return self.name
+
 
 class Price(models.Model):
     service = models.ForeignKey(
@@ -66,9 +69,12 @@ class Price(models.Model):
         verbose_name='Тип цены'
     )
 
-    price = models.DecimalField(max_digits=33, decimal_places=15, verbose_name='Цена')
+    price = models.DecimalField(max_digits=33, decimal_places=2, verbose_name='Цена')
 
     class Meta:
         db_table = 'prices'
         verbose_name = 'Цена'
         verbose_name_plural = 'Цены'
+
+    def __str__(self):
+        return self.service.name
