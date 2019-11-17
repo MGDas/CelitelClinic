@@ -7,6 +7,10 @@ from service.models import (
 class ServiceAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
+@admin.register(Price)
+class PriceAdmin(admin.ModelAdmin):
+    list_display = ['service', 'price_type', 'price']
+    search_fields = ['service']
+
 admin.site.register(ServiceGroup)
 admin.site.register(PriceType)
-admin.site.register(Price)
