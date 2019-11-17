@@ -9,6 +9,7 @@ class DoctorListView(ListView):
     template_name = 'doctor/doctor_list.html'
     context_object_name = "doctors"
     queryset = Doctor.pub_objects.all()
+    paginate_by = 5
 
 
 class DoctorDetailView(DetailView):

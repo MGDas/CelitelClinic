@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
 from doctor.models import (
-    Doctor, Specialization, DoctorTiming, Consultation, Review, Video
+    Doctor, Specialization, DoctorTiming, Consultation, Review, Video, Timing
     )
 
 @admin.register(Doctor)
@@ -17,6 +17,10 @@ class VideoAdmin(SummernoteModelAdmin):
 @admin.register(Specialization)
 class SpecializationAdmin(admin.ModelAdmin):
     search_fields = ['name']
+
+@admin.register(Timing)
+class TimingAdmin(admin.ModelAdmin):
+    list_display = ['date', 'hour']
 
 admin.site.register(DoctorTiming)
 admin.site.register(Consultation)
