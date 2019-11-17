@@ -35,6 +35,12 @@ class Doctor(BaseModel):
         verbose_name='Специализация'
     )
 
+    organization = models.ManyToManyField(
+        "organization.Organization",
+        related_name='doctors',
+        verbose_name='Организация'
+    )
+
     department = models.ManyToManyField(
         'organization.Department',
         blank=True,
@@ -68,20 +74,45 @@ class DoctorTiming(models.Model):
     doctor = models.ForeignKey(
         Doctor,
         on_delete=models.CASCADE,                               # Приудаление доктора, удалится и его рассписание.
-        related_name='timing',
+        related_name='dates',
         verbose_name='Доктор'
     )
 
-    time_start = models.TimeField(verbose_name='Начало')        # import datetime
-    time_end = models.TimeField(verbose_name='Конец')           # import datetime
-    date = models.DateField(verbose_name='Дата')                # Дата записи
-
-    active = models.BooleanField(default=True)                  # Доступно время или нет
+    organization = models.ForeignKey(
+        "organization.Organization",
+        on_delete=models.DO_NOTHING,
+        blank=True,
+        null=True,
+        related_name='doc_timing',
+        verbose_name='Организация'
+    )
+    date = models.DateField(verbose_name='Дата')
 
     class Meta:
-        db_table = 'doctor_timing'
+        db_table = 'doctor_dates'
         verbose_name = 'Приём'
         verbose_name_plural = 'Приёмы'
+
+    def __str__(self):
+        return f"{self.doctor.full_name} прием {self.date} на {self.organization.name}"
+
+
+class Timing(models.Model):
+    date = models.ForeignKey(
+        DoctorTiming,
+        on_delete=models.CASCADE,
+        related_name='timing',
+        verbose_name='Дата приема'
+    )
+    hour = models.CharField(max_length=5, default=0, verbose_name='Время приема')
+
+    class Meta:
+        db_table = 'doctor_times'
+        verbose_name = 'Время приема'
+        verbose_name_plural = 'Часы приема'
+
+    def __str__(self):
+        return str(self.date.date)
 
 
 class Consultation(models.Model):
