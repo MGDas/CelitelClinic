@@ -12,7 +12,9 @@ class Faq(BaseModel):
         verbose_name_plural = 'Faqs'
 
     def __str__(self):
-        return f"Faq #{self.id}"
+        if len(self.question) > 60:
+            return f"({self.id}) {self.question[:60]}..."
+        return f"({self.id}) {self.question}"
 
     def save(self, *args, **kwargs):
         self.public = True if self.answer else False

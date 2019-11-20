@@ -10,4 +10,5 @@ urlpatterns = [
     path('news/', include('new.urls')),
     path('promotions/', include('promotion.urls')),
     path('russian_doctors/', include('rusdoc.urls')),
+    path('faq/', include('faq.urls'))
 ]
