@@ -2,7 +2,7 @@ import random
 from django.views.generic import ListView
 from django.views.generic import TemplateView
 from django.views.generic import DetailView
-from article.models import Article
+from article.models import Article, About
 from article.utils import other_articles
 
 
@@ -30,4 +30,13 @@ class ArticleDetailView(DetailView):
             context['next_page'] = articles[articles.index(self.object) + 1]
         except:
             context['next_page'] = articles[0]
+        return context
+
+
+class AboutTemplateView(TemplateView):
+    template_name = 'article/about.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['about'] = About.pub_objects.only('title', 'content').first()
         return context
