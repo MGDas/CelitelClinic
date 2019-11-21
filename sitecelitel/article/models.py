@@ -46,3 +46,16 @@ class Rating(models.Model):
 
     class Meta:
         db_table = 'rating'
+
+
+class About(BaseModel):
+    title = models.CharField(max_length=255, verbose_name='Заголовок')
+    content = models.TextField(verbose_name='Контент')
+
+    class Meta:
+        db_table = 'about'
+        verbose_name = 'О нас'
+        verbose_name_plural = 'О нас'
+
+    def __str__(self):
+        return self.title

@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    О Нас
+{% endblock %}
+
+{% block content %}
+<main>
+  <article class="material">
+    <div class="container">
+      <section class="materialInfo"><div class="materialInfo__date"></div></section>
+      <div class="material__body">
+          <h1 class="h1">{{ about.title }}</h1>
+
+          {% autoescape off %}
+          {{ about.content }}
+          {% endautoescape %}
+      </div>
+    </div>
+  </article>
+
+        <section class="nextPage">
+          <div class="container">
+            <p>Далее</p><a href="{% url 'vacancy_list_url' %}">Вакансии<span></span>
+                  <svg width="40" height="30" aria-hidden="true">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight"></use>
+                  </svg></a>
+          </div>
+        </section>
+</main>
+{% endblock %}
