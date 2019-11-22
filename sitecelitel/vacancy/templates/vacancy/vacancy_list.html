@@ -1,0 +1,52 @@
+{% extends 'index.html' %}
+
+{% block title %}Вакансии{% endblock %}
+
+{% block content %}
+<main>
+    <article class="vacancies">
+      <div class="container">
+        <div class="vacancies__wrap">
+          <h1 class="h1">Вакансии</h1>
+          <div class="vacancies__cities">
+            {% for city in cities %}
+              <a class="vacancies__city" href="{% url 'vacancy_in_city_url' city=city %}">{{ city }}</a>
+            {% endfor %}
+          </div>
+        </div>
+        {% for group in groups %}
+        <h2>{{ group.title }}</h2>
+          {% for vacancy in group.vacancies.all %}
+            <ul class="vacancies__list">
+              <li class="vacancies__item">
+                <h4 class="vacancies__title"><a href="#">{{ vacancy.position }}</a></h4>
+                <div class="vacancies__info">
+                  <div class="vacancies__infoBlock">
+                    {% autoescape off %}{{ vacancy.content }}{% endautoescape %}
+                  </div>
+
+                  <div class="vacancies__infoBlock vacancies__infoBlock--contacts">
+                    <div class="vacancies__contact"><span>Звонить</span>
+                      <p>{{ vacancy.phone }}</p>
+                    </div>
+                    <div class="vacancies__contact"><span>Писать</span>
+                      <p><a href="#">{{ vacancy.email }}</a></p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </article>
+          <section class="nextPage">
+            <div class="container">
+              <p>Далее</p><a href="{% url 'faq_list_url' %}"><span>Часто задаваемые вопросы</span>
+                    <svg width="40" height="30" aria-hidden="true">
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight"></use>
+                    </svg></a>
+            </div>
+          </section>
+  </main>
+{% endblock %}

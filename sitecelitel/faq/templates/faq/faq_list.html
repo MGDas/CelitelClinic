@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    Вопросы и ответы
+{% endblock %}
+
+{% block content %}
+<main>
+    <article class="faqPage">
+      <div class="container">
+        <h1 class="h1">Часто задаваемые вопросы</h1>
+        <section class="faqTable">
+          {% for faq in faqs %}
+            <div class="faqTable__item">
+              <h2 class="faqTable__question">{{ faq.question }}</h2>
+              <div class="faqTable__answer">
+                {% autoescape off %}{{ faq.answer }}{% endautoescape %}
+              </div>
+            </div>
+          {% endfor %}
+        </section>
+      </div>
+    </article>
+          <section class="nextPage">
+            <div class="container">
+              <p>Далее</p><a href="{% url 'about_url' %}"><span>О нас</span>
+                    <svg width="40" height="30" aria-hidden="true">
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight"></use>
+                    </svg></a>
+            </div>
+          </section>
+  </main>
+{% endblock %}
