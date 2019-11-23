@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    text
+{% endblock %}
+
+
+{% block content %}
+<main>
+  <article class="service">
+    <div class="container">
+      <h1 class="h1">{{ service_group.name }}</h1>
+      <section class="servicesList">
+        <div class="servicesList__body">
+          <table class="servicesList__item">
+            <tbody>
+              {% for service in services %}
+                {% if service.price.all|length > 0 %}
+                  <tr>
+                    <td>{{ service.name }}</td>
+                    <td>
+                      {% if service.price.all|length > 1 %}
+                        от {{ service.price.first.price }}₽
+                      {% else %}
+                        {{ service.price.first.price }}₽
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endif %}
+              {% endfor %}
+            </tbody>
+          </table>
+
+
+        </div>
+      </section>
+
+    </div>
+  </article>
+</main>
+{% endblock %}

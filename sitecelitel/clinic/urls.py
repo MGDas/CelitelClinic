@@ -11,5 +11,6 @@ urlpatterns = [
     path('promotions/', include('promotion.urls')),
     path('russian_doctors/', include('rusdoc.urls')),
     path('faq/', include('faq.urls')),
-    path('vacancy/', include('vacancy.urls'))
+    path('vacancy/', include('vacancy.urls')),
+    path('service/', include('service.urls')),
 ]
