@@ -1,8 +1,9 @@
 from django.db import models
+from clinic.models import BaseModel
 from sitecelitel.utils import get_photo
 
 
-class Organization(models.Model):
+class Organization(BaseModel):
     code = models.CharField(max_length=36)
     name = models.CharField(max_length=255, verbose_name='Название')
     namefull = models.CharField(max_length=255, blank=True, verbose_name='Полное название')
@@ -11,9 +12,11 @@ class Organization(models.Model):
     phone_callcenter = models.CharField(max_length=45, blank=True, verbose_name='Телефон колл-цента')
     city = models.CharField(max_length=100, blank=True, verbose_name='Город')
     address = models.CharField(max_length=255, blank=True, verbose_name='Адрес')
-    operating_mode = models.CharField(max_length=255, blank=True, verbose_name='График работы')
+    operating_mode = models.TextField(blank=True, verbose_name='График работы')
     site = models.URLField(max_length=45, blank=True, verbose_name='Сайт')
-    instagram = models.URLField(max_length=45, blank=True, verbose_name='Инстаграм')
+
+    instagram = models.URLField(max_length=45, blank=True, verbose_name='Инстаграм URL')
+    instagram_tag = models.CharField(max_length=50, blank=True, verbose_name='Инстаграм тег')
     image = models.ImageField(upload_to=get_photo, blank=True, verbose_name='Изображение')
 
     # Редакторы
