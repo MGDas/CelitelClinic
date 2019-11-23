@@ -35,98 +35,27 @@
 						<li class="mainMenu__item mainMenu__item--active"><a class="mainMenu__link" href="#">Поликлиники</a>
 							<div class="subMenu menuClinics">
 								<ul class="mainMenu__tabs mainMenu__tabs--clinics">
-									<li class="mainMenu__activeTab"><a href="#" data-tab="menuMhk">Махачкала</a></li>
-									<li><a href="#" data-tab="menuKasp">Каспийск</a></li>
-									<li><a href="#" data-tab="menuDerb">Дербент</a></li>
-									<li><a href="#" data-tab="menuKhas">Хасавюрт</a></li>
+									{% for city in organ_cities %}
+										{% if forloop.first %}
+											<li class="mainMenu__activeTab"><a href="#" data-tab="menuMhk">{{ city }}</a></li>
+										{% else %}
+											<li><a href="#" data-tab="menuKasp">{{ city }}</a></li>
+										{% endif %}
+									{% endfor %}
 								</ul>
 								<div class="menuClinics__wrap">
 									<div class="menuClinics__section menuClinics__section--active" data-tab="menuMhk">
 										<ul>
-											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель»</span>
-													<p>
+											{% for organization in organizations.values %}
+												{% for organ in organization %}
+														<li class="menuClinics__clinic"><a href="{% url 'organ_detail_url' pk=organ.0 %}"><span>{{ organ.1 }}</span>
+															<p>
 																<svg width="12" height="12" aria-hidden="true">
 																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
-																</svg>ул. Ш. Алиева, 4А
-													</p><i>Без выходных</i></a></li>
-											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель»</span>
-													<p>
-																<svg width="12" height="12" aria-hidden="true">
-																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
-																</svg>ул. Магомедтагирова, 172В
-													</p></a></li>
-											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель» Пирогова</span>
-													<p>
-																<svg width="12" height="12" aria-hidden="true">
-																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
-																</svg>ул. Пирогова, 16А
-													</p></a></li>
-											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель» Шамиля</span>
-													<p>
-																<svg width="12" height="12" aria-hidden="true">
-																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
-																</svg>пр-т Имама Шамиля, 4
-													</p></a></li>
-											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель» Гоголя</span>
-													<p>
-																<svg width="12" height="12" aria-hidden="true">
-																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
-																</svg>ул. Гоголя, 24
-													</p><i>Без выходных, 24/7</i></a></li>
-											<li class="menuClinics__clinic menuClinics__clinic--child"><a href="#"><span>ООО Детская поликлиника «Целитель»</span>
-													<p>
-																<svg width="12" height="12" aria-hidden="true">
-																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
-																</svg>ул. Петра 1, 49Е
-													</p></a></li>
-											<li class="menuClinics__clinic menuClinics__clinic--child"><a href="#"><span>ООО Детская поликлиника «Целитель»</span>
-													<p>
-																<svg width="12" height="12" aria-hidden="true">
-																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
-																</svg>ул. Юсупа Акаева, 2А
-													</p></a></li>
-											<li class="menuClinics__clinic menuClinics__clinic--child"><a href="#"><span>ООО Детская поликлиника «Целитель»</span>
-													<p>
-																<svg width="12" height="12" aria-hidden="true">
-																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
-																</svg>ул. Ш. Алиева, 1А
-													</p></a></li>
-											<li class="menuClinics__clinic menuClinics__clinic--child"><a href="#"><span>ООО Детская поликлиника «Целитель»</span>
-													<p>
-																<svg width="12" height="12" aria-hidden="true">
-																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
-																</svg>ул. Акушинского, 34Д
-													</p><i>Без выходных</i></a></li>
-											<li class="menuClinics__clinic menuClinics__clinic--child"><a href="#"><span>ООО Детская поликлиника «Целитель»</span>
-													<p>
-																<svg width="12" height="12" aria-hidden="true">
-																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
-																</svg>ул. Чехова, 50
-													</p></a></li>
-											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель»</span>
-													<p>
-																<svg width="12" height="12" aria-hidden="true">
-																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
-																</svg>ул. Ш. Алиева, 4А
-													</p><i>Без выходных</i></a></li>
-											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель»</span>
-													<p>
-																<svg width="12" height="12" aria-hidden="true">
-																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
-																</svg>ул. Магомедтагирова, 172В
-													</p></a></li>
-											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель» Пирогова</span>
-													<p>
-																<svg width="12" height="12" aria-hidden="true">
-																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
-																</svg>ул. Пирогова, 16А
-													</p></a></li>
-											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель» Шамиля</span>
-													<p>
-																<svg width="12" height="12" aria-hidden="true">
-																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
-																</svg>пр-т Имама Шамиля, 4
-													</p></a></li>
+																</svg>{{ organ.2 }}
+															</p><i>{{ organ.3 }}</i></a></li>
+												{% endfor %}
+											{% endfor %}
 										</ul>
 									</div>
 									<div class="menuClinics__section" data-tab="menuKasp">

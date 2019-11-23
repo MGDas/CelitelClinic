@@ -9,9 +9,10 @@ def get_title(instance):
     try:
         title = instance.title
     except AttributeError:
-        title = instance.full_name
-    except AttributeError:
-        title = instance.name
+        try:
+            title = instance.full_name
+        except AttributeError:
+            title = instance.name
 
     if len(title) > 15:
         title = title[:15]

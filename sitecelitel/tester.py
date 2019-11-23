@@ -1,7 +1,8 @@
-a = 'sdafsdfasdfasdfasdfasdfasdfasfdasdfAAAAAAAAAAAAAAA'
-print(len(a))
 
-if len(a) > 15:
-    a = a[:16]
-
-print(a)
+try:
+    print(1 / 0)
+except:
+    try:
+        print(2 / 0)
+    except:
+        print(2 / 2)
