@@ -15,12 +15,13 @@ class ServiceGroup(BaseModel):
         return self.name
 
 
-class Service(models.Model):
+class Service(BaseModel):
     code = models.CharField(max_length=15)
 
-    service_group = models.ForeignKey(ServiceGroup,
+    service_group = models.ForeignKey(
+        ServiceGroup,
         on_delete=models.CASCADE,
-        related_name='service',
+        related_name='services',
         verbose_name='Группа'
     )
 
