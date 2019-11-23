@@ -80,7 +80,7 @@ class DoctorTiming(models.Model):
 
     organization = models.ForeignKey(
         "organization.Organization",
-        on_delete=models.DO_NOTHING,
+        on_delete=models.SET_NULL,
         blank=True,
         null=True,
         related_name='doc_timing',

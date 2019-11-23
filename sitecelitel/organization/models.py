@@ -9,6 +9,7 @@ class Organization(models.Model):
 
     phone_registry = models.CharField(max_length=45, blank=True, verbose_name='Телефон регистрации')
     phone_callcenter = models.CharField(max_length=45, blank=True, verbose_name='Телефон колл-цента')
+    city = models.CharField(max_length=100, blank=True, verbose_name='Город')
     address = models.CharField(max_length=255, blank=True, verbose_name='Адрес')
     operating_mode = models.CharField(max_length=255, blank=True, verbose_name='График работы')
     site = models.URLField(max_length=45, blank=True, verbose_name='Сайт')
@@ -26,7 +27,7 @@ class Organization(models.Model):
         verbose_name_plural = 'Организации'
 
     def __str__(self):
-        return self.namefull
+        return self.name
 
     def save(self, *args, **kwargs):
         if not self.namefull:
