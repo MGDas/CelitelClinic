@@ -5,7 +5,8 @@ from service.models import (
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
-    search_fields = ['name']
+    search_fields = ['name', 'service_group__name']
+    list_display = ['name', 'service_group']
 
 @admin.register(Price)
 class PriceAdmin(admin.ModelAdmin):

@@ -199,7 +199,7 @@
 												<li>
 													<span>{{ letter }}</span>
 														{% for sg in service_group %}
-														<a href="#">
+														<a href="{% url 'service_detail_url' pk=sg.0 %}">
 														    {{ sg.1 }}
 														</a>
 														{% endfor %}
