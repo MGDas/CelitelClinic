@@ -3248,6 +3248,7 @@ div.subMenu {
 .placeLooksLike__item iframe {
   display: block;
   border: none;
+  margin: 0 auto;
 }
 .placeLooksLike__item--active {
   visibility: visible;
