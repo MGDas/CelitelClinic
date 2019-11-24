@@ -5,6 +5,7 @@ from service.models import ServiceGroup
 from organization.models import Organization
 from clinic.utils import get_service_group_to_alphabet
 
+
 def index(request):
     articles_header = Article.pub_objects.all().order_by('-updated')[:2]
     articles_tags = ArticleTag.objects.all().order_by('-id')[:6]
@@ -16,9 +17,6 @@ def index(request):
         if city:
             organizations[city] = Organization.objects.filter(city=city).values_list('id', 'namefull', 'address', 'operating_mode')
 
-    print()
-    print(organizations)
-    print()
 
     service_groups = get_service_group_to_alphabet()
 
