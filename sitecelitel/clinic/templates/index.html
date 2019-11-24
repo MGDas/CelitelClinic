@@ -1,5 +1,6 @@
 {% load static %}
 {% load pytils_dt %}
+{% load cache %}
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -124,6 +125,7 @@
 									<div class="menuServices__section menuServices__section--services menuServices__section--adult menuServices__section--active" data-tab="menuAdult">
 										<ul>
 											<!-- class="subMenu__active" -->
+											{% cache 600 alphabet %}
 											{% for letter, service_group in service_groups.items %}
 												<li>
 													<span>{{ letter }}</span>
@@ -134,6 +136,7 @@
 														{% endfor %}
 												</li>
 											{% endfor %}
+											{% endcache %}
 										</ul>
 									</div>
 									<div class="menuServices__section menuServices__section--services menuServices__section--child" data-tab="menuChildren">
