@@ -7,6 +7,8 @@ from doctor.models import (
 @admin.register(Doctor)
 class DoctorAdmin(SummernoteModelAdmin):
     summernote_fields = ['content', 'special_note']
+    list_display = ['full_name', 'code']
+    search_fields = ['full_name']
 
 @admin.register(Video)
 class VideoAdmin(SummernoteModelAdmin):
@@ -16,7 +18,7 @@ class VideoAdmin(SummernoteModelAdmin):
 
 @admin.register(Specialization)
 class SpecializationAdmin(admin.ModelAdmin):
-    search_fields = ['name']
+    search_fields = ['name', 'code']
 
 @admin.register(Timing)
 class TimingAdmin(admin.ModelAdmin):

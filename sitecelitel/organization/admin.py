@@ -22,5 +22,9 @@ class OrganizationAdmin(SummernoteModelAdmin):
         'public'
     ]
 
-admin.site.register(Department)
+@admin.register(Department)
+class DepartmentAdmin(admin.ModelAdmin):
+    list_display = ['name', 'code', 'codeparent',
+        'organization', 'public', 'created', 'updated']
+
 admin.site.register(Agreement)

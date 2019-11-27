@@ -163,7 +163,11 @@
                     {% endif %}
                     <h3 class="doctorPreview__name"><a href="{% url 'doctor_detail_url' pk=other.pk %}">{{ other.full_name }}</a></h3>
                     <div class="doctorPreview__desc">
-                      {% if other.specialization %}{{ other.specialization }}{% endif %}
+                      {% if other.specialization %}
+                        {% for spec in other.specialization.all %}
+                          {{ spec.name }}{% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                      {% endif %}
                       {% if other.academic_degree %}{{ other.academic_degree }}.{% endif %}
                       {% if other.experience %}{{ other.experience }}.{% endif %}
                     </div>
