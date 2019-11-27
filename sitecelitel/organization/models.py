@@ -38,7 +38,7 @@ class Organization(BaseModel):
         super().save(*args, **kwargs)
 
 
-class Department(models.Model):
+class Department(BaseModel):
     codeparent = models.CharField(max_length=9, blank=True)
     code = models.CharField(max_length=9, blank=True)
 
@@ -56,13 +56,18 @@ class Department(models.Model):
         verbose_name = 'Депортамент'
         verbose_name_plural = 'Депортаменты'
 
+    def __str__(self):
+        return self.name
 
-class Agreement(models.Model):
+
+class Agreement(BaseModel):
     code = models.CharField(max_length=36)
 
     price_type = models.ForeignKey(
         'service.PriceType',
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
         related_name='agreement',
         verbose_name='Тип цены'
     )

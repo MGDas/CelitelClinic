@@ -21,6 +21,6 @@ class DoctorDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['videos'] = self.object.videos.filter(public=True)
         context['articles'] = self.object.articles.filter(public=True)
-        context['other_doctors'] = Doctor.pub_objects.filter(specialization=self.object.specialization).exclude(pk=self.object.pk)
+        context['other_doctors'] = Doctor.pub_objects.filter(specialization__in=self.object.specialization.all()).exclude(pk=self.object.pk)
         context['promotions'] = self.object.promotions.filter(public=True).filter(data_end__gt=timezone.now())
         return context
