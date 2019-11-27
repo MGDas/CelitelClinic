@@ -1,7 +1,5 @@
 import asyncio
 import requests
-import json
-import os
 from doctor.models import Specialization
 
 def connect(url):

@@ -3,6 +3,7 @@ from clinic.models import BaseModel
 from datetime import datetime
 from sitecelitel.utils import get_photo
 
+
 class Specialization(models.Model):
 
     """Специализация доктора."""
@@ -23,22 +24,24 @@ class Doctor(BaseModel):
 
     """Доктор"""
 
+    non = 'н'
+    wom = 'ж'
+    man = 'м'
+
+    GENDER = [
+        (man, 'Мужчина'),
+        (wom, 'Женщина'),
+        (non, 'Нет пола')
+    ]
+
     code = models.CharField(max_length=11)                                      # For 1c. Doctor's code
     main_code = models.CharField(max_length=11, blank=True)
 
-    specialization = models.ForeignKey(
+    specialization = models.ManyToManyField(
         Specialization,
-        on_delete=models.DO_NOTHING,
-        null=True,
         blank=True,
         related_name='doctor',
         verbose_name='Специализация'
-    )
-
-    organization = models.ManyToManyField(
-        "organization.Organization",
-        related_name='doctors',
-        verbose_name='Организация'
     )
 
     department = models.ManyToManyField(
@@ -49,6 +52,9 @@ class Doctor(BaseModel):
     )
 
     full_name = models.CharField(max_length=255, blank=True, verbose_name='Полное имя')                         # Name Surname Middle name
+    gender = models.CharField(max_length=1, choices=GENDER, default=non, blank=True, verbose_name='Пол' )
+    childish = models.BooleanField(default=False, verbose_name='Детский доктор')
+    adult = models.BooleanField(default=False, verbose_name='Взрослый доктор')
     photo = models.ImageField(upload_to=get_photo, blank=True, verbose_name='Фото')               # img, svg,
     avatar = models.ImageField(upload_to=get_photo, blank=True, verbose_name='Аватарка')          # avater docter
     experience = models.CharField(max_length=45, blank=True, verbose_name='Опыт')                   # Опыт работы — 19 лет
@@ -64,7 +70,7 @@ class Doctor(BaseModel):
         verbose_name_plural = 'Доктора'
 
     def __str__(self):
-        return self.code
+        return self.full_name
 
 
 class DoctorTiming(models.Model):
