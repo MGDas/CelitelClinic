@@ -38,57 +38,28 @@
 								<ul class="mainMenu__tabs mainMenu__tabs--clinics">
 									{% for city in organ_cities %}
 										{% if forloop.first %}
-											<li class="mainMenu__activeTab"><a href="#" data-tab="menuMhk">{{ city }}</a></li>
+											<li class="mainMenu__activeTab"><a href="#" data-tab="{{ city }}">{{ city }}</a></li>
 										{% else %}
-											<li><a href="#" data-tab="menuKasp">{{ city }}</a></li>
+											<li><a href="#" data-tab="{{ city }}">{{ city }}</a></li>
 										{% endif %}
 									{% endfor %}
 								</ul>
 								<div class="menuClinics__wrap">
-									<div class="menuClinics__section menuClinics__section--active" data-tab="menuMhk">
-										<ul>
-											{% for organization in organizations.values %}
-												{% for organ in organization %}
-														<li class="menuClinics__clinic"><a href="{% url 'organ_detail_url' pk=organ.0 %}"><span>{{ organ.1 }}</span>
-															<p>
-																<svg width="12" height="12" aria-hidden="true">
-																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
-																</svg>{{ organ.2 }}
-															</p><i>{{ organ.3 }}</i></a></li>
-												{% endfor %}
-											{% endfor %}
-										</ul>
-									</div>
-									<div class="menuClinics__section" data-tab="menuKasp">
-										<ul>
-											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель» Каспийск</span>
-													<p>
-																<svg width="12" height="12" aria-hidden="true">
-																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
-																</svg>ул. Ш. Алиева, 4А
-													</p><i>Без выходных</i></a></li>
-										</ul>
-									</div>
-									<div class="menuClinics__section" data-tab="menuDerb">
-										<ul>
-											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель» Дербент</span>
-													<p>
-																<svg width="12" height="12" aria-hidden="true">
-																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
-																</svg>ул. Ш. Алиева, 4А
-													</p><i>Без выходных</i></a></li>
-										</ul>
-									</div>
-									<div class="menuClinics__section" data-tab="menuKhas">
-										<ul>
-											<li class="menuClinics__clinic"><a href="#"><span>ООО «Целитель» Хасавюрт</span>
-													<p>
-																<svg width="12" height="12" aria-hidden="true">
-																	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
-																</svg>ул. Ш. Алиева, 4А
-													</p><i>Без выходных</i></a></li>
-										</ul>
-									</div>
+									{% for city, organizations in organizations.items %}
+										<div class="menuClinics__section menuClinics__section--active" data-tab="{{ city }}">
+											<ul>
+													{% for organ in organizations %}
+															<li class="menuClinics__clinic"><a href="{% url 'organ_detail_url' pk=organ.0 %}"><span>{{ organ.1 }}</span>
+																<p>
+																	<svg width="12" height="12" aria-hidden="true">
+																		<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+																	</svg>{{ organ.2 }}
+																</p><i>{% autoescape off %}{{ organ.3 }}{% endautoescape %}</i></a></li>
+													{% endfor %}
+											</ul>
+										</div>
+									{% endfor %}
+
 								</div>
 							</div>
 						</li>
