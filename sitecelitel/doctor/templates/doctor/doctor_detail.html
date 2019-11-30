@@ -10,307 +10,71 @@
 
 {% block content %}
 
-		<main>
-			<article class="doctorPage">
-				<section class="doctorPage__main">
+<main>
+    <article class="doctorPage">
+        <section class="doctorPage__main">
             <div class="doctorPage__photo">
-              {% if doctor.photo|active:request %}
+                {% if doctor.photo|active:request %}
                 <img src="{{ doctor.photo.url }}" alt="">
-              {% endif %}
+                {% endif %}
 
-              <!-- Share links -->
-              {% include './includes/share_list.html' %}
+                <!-- Share links -->
+                {% include './includes/share_list.html' %}
 
             </div>
 
 
-					<div class="container doctorPage__container">
-						<div class="doctorPage__wrap">
-							<div class="doctorCard doctorCard--noPhoto doctorPage__info">
-								<h1 class="doctorCard__name doctorCard__name--heading">{{ doctor.full_name }}</h1>
-								<div class="doctorCard__desc">
-                  {% if doctor.specialization %}{{ doctor.specialization }}{% endif %}
-                  {% if doctor.academic_degree %}{{ doctor.academic_degree }}.{% endif %}
-                  {% if doctor.experience %}{{ doctor.experience }}.{% endif %}
-                </div>
+            <div class="container doctorPage__container">
+                <div class="doctorPage__wrap">
+                    <div class="doctorCard doctorCard--noPhoto doctorPage__info">
+                        <h1 class="doctorCard__name doctorCard__name--heading">{{ doctor.full_name }}</h1>
+                        <div class="doctorCard__desc">
+                            {% if doctor.specialization %}{{ doctor.specialization }}{% endif %}
+                            {% if doctor.academic_degree %}{{ doctor.academic_degree }}.{% endif %}
+                            {% if doctor.experience %}{{ doctor.experience }}.{% endif %}
+                        </div>
 
-                <!-- price -->
-								<div class="doctorCard__info">
-										{% include './includes/rubles.html' %}
-									<div class="doctorCard__infoWrap">Приём от 700 руб.<em>(для записи оплата обязательно)</em></div>
-								</div>
+                        <!-- price -->
+                        <div class="doctorCard__info">
+                            {% include './includes/rubles.html' %}
+                            <div class="doctorCard__infoWrap">Приём от 700 руб.<em>(для записи оплата обязательно)</em></div>
+                        </div>
 
-                <!-- for addres in addresses -->
-								<div class="doctorCard__info">
-											{% include './includes/mark.html' %}
-									  <div class="doctorCard__infoWrap">Поликлиника на&nbsp;<a href="#">ул. Гоголя, 24, Махачкала</a></div>
-								</div>
+                        <!-- for addres in addresses -->
+                        <div class="doctorCard__info">
+                            {% include './includes/mark.html' %}
+                            <div class="doctorCard__infoWrap">Поликлиника на&nbsp;<a href="#">ул. Гоголя, 24, Махачкала</a></div>
+                        </div>
 
-                <!-- All promotions with this doctor -->
-                {% if promotions %}
-                  {% for promotion in promotions %}
-                    <div class="doctorCard__info doctorCard__info--mark">
-                      {% include './includes/procent.html' %}
-                      <div class="doctorCard__infoWrap">{{ promotion.title }}</div>
-                    </div>
-                  {% endfor %}
-                {% endif %}
-							</div>
-
-              <!-- Doctor cart -->
-							{% include './includes/doctor_cart.html' %}
-
-              {% if doctor.content %}
-                <div class="doctorPage__text">
-                  {% autoescape off %}
-                    {{ doctor.content }}
-                  {% endautoescape %}
-                </div>
-              {% endif %}
-						</div>
-					</div>
-
-				</section>
-
-				<section class="statistics">
-					<div class="container">
-						<div class="statistics__item"><b>{{ videos|length }}</b>видео</div>
-						<div class="statistics__item"><b>0</b>консультаций</div>
-						<div class="statistics__item"><b>0</b>отзывов</div>
-						<div class="statistics__item"><b>0</b>статей</div>
-					</div>
-				</section>
-
-        <!-- Doctors video: with videos=doctor.videos.all()-->
-				<section class="video">
-					<div class="container">
-            <h2 class="mdTitle mdTitle--white">Видео врача</h2>
-              {% if videos %}
-              <div class="mdIntro">Смотрите полезное видео. Рассказывает врач уролог-андролог.</div>
-                <div class="video__body">
-                  {% for video in videos %}
-                      <div class="video__item">
-                        {% autoescape off %}
-                          {{ video.video }}
-                        {% endautoescape %}
-                      </div>
-                  {% endfor %}
-                </div>
-              {% else %}
-                <div class="mdIntro">Пока у врача нет видео.</div>
-              {% endif %}
-          </div>
-            <a class="more" href="#">Ещё 3 видео</a>
-				</section>
-
-				<section class="faq">
-					<div class="container">
-						<h2 class="mdTitle">Консультации</h2>
-						<div class="mdIntro">Пока у врача нет консультаций, но вы можете задать свой вопрос.</div><a class="addBtn faq__btn" href="#">Спросить</a>
-					</div>
-				</section>
-				<section class="reviews">
-					<div class="container">
-						<h2 class="mdTitle">Отзывы пациентов</h2>
-						<div class="mdIntro">Пока у врача нет отзывов, но вы можете оставить свой отзыв.</div><a class="addBtn reviews__btn" href="#">Оставить отзыв</a>
-					</div>
-				</section>
-
-
-				<section class="articles">
-					<div class="container">
-            {% if articles %}
-              <h2 class="mdTitle">Пишет врач {% if doctor.specialization %}{{ doctor.specialization }}{% endif %}</h2>
-
-              <div class="mdIntro">Статьи про урологию, чем сталкиваются пациенты и как быть.</div>
-              <ul class="articles__body">
-
-                {% for article in articles %}
-                  <li class="articles__item">
-                    <div class="articles__date">{{ article.updated|ru_strftime:"%d %B %Y" }}</div>
-                    <h3 class="articles__title"><a href="{% url 'article_detail_url' slug=article.slug %}">{{ article.title }}</a></h3>
-
-                    <div class="articles__author">
-                      {% if doctor.avatar|active:request %}
-                        <img src="{{ doctor.avatar.url }}" alt="" width="80" height="80">
-                      {% endif %}
-                      <div class="articles__wrap">
-                        <div class="articles__name">{{ doctor.full_name }}</div>
-                        <div class="articles__desc">{% if doctor.specialization %}{{ doctor.specialization }}{% endif %}</div>
-                      </div>
-                    </div>
-                  </li>
-                {% endfor %}
-
-              </ul><a class="more" href="#">Ещё 1 статья</a>
-
-            {% else %}
-              <div class="mdIntro">Пока у врача нет авторских статей.</div>
-            {% endif %}
-					</div>
-				</section>
-
-        {% if doctor.specialization and other_doctors %}
-  				<section class="otherDoctors">
-  					<div class="container">
-  						<h2 class="mdTitle">Мои коллеги</h2>
-  						<div class="mdIntro">Все врачи по специальности {{ doctor.specialization }}.</div>
-  						<ul class="otherDoctors__body">
-                {% for other in other_doctors %}
-                  <section class="doctorPreview">
-                    {% if other.avatar|active:request %}
-                      <div class="doctorPreview__photo"><a href="{% url 'doctor_detail_url' pk=other.pk %}"><img src="{{ other.avatar.url }}" alt="" width="270" height="270"></a></div>
-                    {% endif %}
-                    <h3 class="doctorPreview__name"><a href="{% url 'doctor_detail_url' pk=other.pk %}">{{ other.full_name }}</a></h3>
-                    <div class="doctorPreview__desc">
-                      {% if other.specialization %}
-                        {% for spec in other.specialization.all %}
-                          {{ spec.name }}{% if not forloop.last %},{% endif %}
+                        <!-- All promotions with this doctor -->
+                        {% if promotions %}
+                        {% for promotion in promotions %}
+                        <div class="doctorCard__info doctorCard__info--mark">
+                            {% include './includes/procent.html' %}
+                            <div class="doctorCard__infoWrap">{{ promotion.title }}</div>
+                        </div>
                         {% endfor %}
-                      {% endif %}
-                      {% if other.academic_degree %}{{ other.academic_degree }}.{% endif %}
-                      {% if other.experience %}{{ other.experience }}.{% endif %}
+                        {% endif %}
                     </div>
-                  </section>
-                {% endfor %}
-  						</ul>
-  					</div>
-  				</section>
-        {% endif %}
+
+                    <!-- Doctor cart -->
+                    {% include './includes/doctor_cart.html' %}
+
+                    {% if doctor.content %}
+                    <div class="doctorPage__text">
+                        {% autoescape off %}
+                        {{ doctor.content }}
+                        {% endautoescape %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </section>
 
 
-				<section class="orderModal orderModal--addReview">
-					<header class="orderModal__header">
-						<h3 class="orderModal__title">Отзыв о враче</h3>
-						<button class="orderModal__close" type="button" aria-label="Закрыть">
-									<svg width="15" height="15" aria-hidden="true">
-										<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
-									</svg>
-						</button>
-					</header>
-					<div class="orderModal__body">
-						<div class="orderModal__wrapper">
-							<div class="orderModal__photo"><img src="assets/orderModalPhoto.jpg" alt="" width="80" height="80"></div>
-							<div class="orderModal__wrap">
-								<div class="orderModal__name">Башир Алиасхабович Абдулаев</div>
-								<div class="orderModal__desc">Уролог-андролог. Врач высшей категории. Опыт работы — 19 лет</div>
-							</div>
-						</div>
-						<form class="orderModal__body" action="#">
-							<!-- Чтобы знать кому пришёл отзыв.-->
-							<input type="hidden" value="Башир Алиасхабович Абдулаев">
-							<div class="orderModal__input">
-								<label class="orderModal__label" for="reviewText">Что вы думаете о враче?</label>
-								<textarea name="reviewText" id="reviewText" placeholder="Лучший врач на све..." required></textarea>
-							</div>
-							<div class="orderModal__input">
-								<label class="orderModal__label" for="reviewName">Имя и фамилия</label>
-								<input type="text" name="reviewName" id="reviewName" placeholder="Магомед Магомедов" required>
-							</div>
-							<div class="orderModal__input">
-								<label class="orderModal__label" for="reviewLink">Ваш соц.сеть (желательно)</label>
-								<input type="text" name="reviewLink" id="reviewLink" placeholder="instagram.com/celitel05">
-							</div>
-							<div class="orderModal__info">Ссылка на соц сеть нужна, чтобы у посетителей сайта была возможность увидеть автора.</div>
-							<button class="orderModal__btn orderModal__btn--prefer" type="submit" id="reviewSend">Оставить отзыв</button>
-							<p class="orderModal__note">Я согласен с условиями обработки&nbsp;<a href="#" target="_blank">персональных данных</a></p>
-						</form>
-					</div>
-				</section>
-				<section class="orderModal orderModal--addFaq">
-					<header class="orderModal__header">
-						<h3 class="orderModal__title">Бесплатная консультация</h3>
-						<button class="orderModal__close" type="button" aria-label="Закрыть">
-									<svg width="15" height="15" aria-hidden="true">
-										<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
-									</svg>
-						</button>
-					</header>
-					<div class="orderModal__body">
-						<div class="orderModal__wrapper">
-							<div class="orderModal__photo"><img src="assets/orderModalPhoto.jpg" alt="" width="80" height="80"></div>
-							<div class="orderModal__wrap">
-								<div class="orderModal__name">Башир Алиасхабович Абдулаев</div>
-								<div class="orderModal__desc">Уролог-андролог. Врач высшей категории. Опыт работы — 19 лет</div>
-							</div>
-						</div>
-						<form class="orderModal__body" action="#">
-							<!-- Чтобы знать кому пришёл отзыв.-->
-							<input type="hidden" value="Башир Алиасхабович Абдулаев">
-							<div class="orderModal__input">
-								<label class="orderModal__label" for="faqText">Опишите симптомы, боли и т.п.</label>
-								<textarea name="faqText" id="faqText" placeholder="Меня беспокоит..." required></textarea>
-							</div>
-							<div class="orderModal__input">
-								<label class="orderModal__label" for="faqLink">Почта (желательно)</label>
-								<input type="text" name="faqLink" id="faqLink" placeholder="mail@example.com">
-							</div>
-							<div class="orderModal__info">Почта нужна, чтоб мы могли вас оповестить. Если у вас нет почты, ожидайте ответ на странице врача в ближайщие дни.</div>
-							<button class="orderModal__btn orderModal__btn--prefer" type="submit" id="faqSend">Спросить</button>
-							<p class="orderModal__note">Я согласен с условиями обработки&nbsp;<a href="#" target="_blank">персональных данных</a></p>
-						</form>
-					</div>
-				</section>
-				<section class="orderModal orderModal--step1">
-					<header class="orderModal__header">
-						<h3 class="orderModal__title">Запись к врачу и оплата</h3>
-						<button class="orderModal__close" type="button" aria-label="Закрыть">
-									<svg width="15" height="15" aria-hidden="true">
-										<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
-									</svg>
-						</button>
-					</header>
-					<div class="orderModal__body">
-						<div class="orderModal__wrapper">
-							<div class="orderModal__photo"><img src="" alt="" width="80" height="80"></div>
-							<div class="orderModal__wrap">
-								<div class="orderModal__name"></div>
-								<div class="orderModal__desc"></div>
-							</div>
-						</div>
-						<div class="orderModal__body">
-							<div class="orderModal__input orderModal__input--withBorder">
-								<label class="orderModal__label" for="orderModalAddress">Поликлиника</label>
-								<input type="text" readOnly disabled tabindex="-1" name="orderModalAddress" id="orderModalAddress">
-							</div>
-							<div class="orderModal__input orderModal__input--withBorder">
-								<label class="orderModal__label" for="orderModalTime">Дата и время приёма</label>
-								<input type="text" readOnly disabled tabindex="-1" name="orderModalTime" id="orderModalTime">
-							</div>
-							<div class="orderModal__input">
-								<label class="orderModal__label" for="orderModalName">Имя пациента</label>
-								<input type="text" name="orderModalName" id="orderModalName" placeholder="Магомедов Магомед" required>
-							</div>
-							<div class="orderModal__input">
-								<label class="orderModal__label" for="orderModalPhone">Телефон</label>
-								<input type="text" name="orderModalPhone" id="orderModalPhone" placeholder="+7 000 111-22-33" required>
-							</div>
-							<button class="orderModal__btn orderModal__btn--prefer" type="submit" id="orderModalPay">Записаться и оплатить</button>
-							<button class="orderModal__btn" type="button" id="orderModalNoPay">Оплачу в поликлинике</button>
-							<p class="orderModal__note">Я согласен с условиями обработки&nbsp;<a href="#" target="_blank">персональных данных</a></p>
-						</div>
-					</div>
-				</section>
-				<section class="orderModal orderModal--success">
-					<header class="orderModal__header">
-						<h3 class="orderModal__title">Запись к врачу и оплата</h3>
-						<button class="orderModal__close" type="button" aria-label="Закрыть">
-									<svg width="15" height="15" aria-hidden="true">
-										<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
-									</svg>
-						</button>
-					</header>
-					<div class="orderModal__body">
-						<div class="orderModal__wrapper">
-									<svg width="100" height="76" aria-hidden="true">
-										<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#correct-signal"></use>
-									</svg>
-							<h2 class="orderModal__successHeading">Спасибо за запись!</h2>
-							<p class="orderModal__successText">Скоро мы свяжемся по телефону для уточнения записи</p>
-						</div>
-					</div>
-				</section>
-			</article>
-		</main>
+
+    </article>
+</main>
 
 {% endblock %}
