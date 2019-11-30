@@ -20,19 +20,24 @@ async def save_in_db(code, name, organ_code, price_type):
     except PriceType.DoesNotExist:
         price_id = None
 
-    organ, status = Agreement.objects.update_or_create(
+    agree, status = Agreement.objects.update_or_create(
         code=code,
         defaults={
             'code': code,
-            'name': name,
-            'organization': organ_id,
-            'price_type': price_id
+            'name': name
         }
     )
+
+    if organ_id:
+        agree.organization_id = organ_id
+    if price_id:
+        agree.price_id = price_id
+    agree.save()
+
     if status:
-        print(f"{organ}...................СОЗДАНО!")
+        print(f"{agree}...................СОЗДАНО!")
     else:
-        print(f"{organ}...................ОБНОВЛЕНО!")
+        print(f"{agree}...................ОБНОВЛЕНО!")
 
 async def main():
 
