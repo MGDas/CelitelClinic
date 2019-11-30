@@ -44,7 +44,9 @@ class Department(BaseModel):
 
     organization = models.ForeignKey(
         Organization,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
         related_name='department',
         verbose_name='Организация',
     )
@@ -74,7 +76,9 @@ class Agreement(BaseModel):
 
     organization = models.ForeignKey(
         Organization,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
         related_name='agreement',
         verbose_name='Организация'
     )
@@ -85,3 +89,6 @@ class Agreement(BaseModel):
         db_table = 'agreements'
         verbose_name = 'Соглашение'
         verbose_name_plural = 'Соглашения'
+
+    def __str__(self):
+        return self.name
