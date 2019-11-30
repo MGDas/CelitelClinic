@@ -29,7 +29,12 @@
                     <div class="doctorCard doctorCard--noPhoto doctorPage__info">
                         <h1 class="doctorCard__name doctorCard__name--heading">{{ doctor.full_name }}</h1>
                         <div class="doctorCard__desc">
-                            {% if doctor.specialization %}{{ doctor.specialization }}{% endif %}
+                            {% if doctor.specialization %}
+                            {% for spec in doctor.specialization.all %}
+                                {{ spec }}
+                            {% endfor %}
+                            {% endif %}
+
                             {% if doctor.academic_degree %}{{ doctor.academic_degree }}.{% endif %}
                             {% if doctor.experience %}{{ doctor.experience }}.{% endif %}
                         </div>
