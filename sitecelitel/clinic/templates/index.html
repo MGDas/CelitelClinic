@@ -361,12 +361,14 @@
         													</svg>
         											<p>{{ organ.2 }}</p>
         										</div>
+											{% if organ.3 %}
         										<div class="clinicsMD__contact clinicsMD__contact--reverse">
         													<svg width="16" height="16" aria-hidden="true">
         														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
         													</svg>
         											<p>{% autoescape off %}{{ organ.3 }}{% endautoescape %}</p>
         										</div>
+											{% endif %}
         									</div>
         								</a>
         							{% endfor %}
