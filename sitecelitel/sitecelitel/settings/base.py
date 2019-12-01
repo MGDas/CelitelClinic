@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'pytils',   # for translate date in russion language
     'debug_toolbar',
     'django_extensions',
+    'rest_framework',
 
     # my apps
     'clinic',
@@ -138,4 +139,10 @@ SUMMERNOTE_CONFIG = {
         'width': '85%',
         'height': '680',
     },
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 40
 }
