@@ -21,7 +21,7 @@ class RussianDoctor(BaseModel):
         db_table = 'russian_doctors'
         verbose_name = 'Российский врач'
         verbose_name_plural = 'Российские врачи'
-        ordering = ["-created"]
+        ordering = ["-data_start"]
 
     def __str__(self):
         return self.title
