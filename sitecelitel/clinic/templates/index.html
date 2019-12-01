@@ -341,18 +341,18 @@
 						<div class="container">
 							<div class="mdWrap mdWrap--frontClinics">
 								<h2 class="mdTitle">Поликлиники</h2>
-								<ul class="mdWrap__links">
-									<li class="mdWrap__link mdWrap__link--active"><a href="#" data-city="Махачкала">Махачкала</a></li>
+								<ul class="mdWrap__links" style="height: 40px">
+<!-- 									<li class="mdWrap__link mdWrap__link--active"><a href="#" data-city="Махачкала">Махачкала</a></li>
 									<li class="mdWrap__link"><a href="#" data-city="Каспийск">Каспийск</a></li>
 									<li class="mdWrap__link"><a href="#" data-city="Дербент">Дербент</a></li>
 									<li class="mdWrap__link"><a href="#" data-city="Хасавюрт">Хасавюрт</a></li>
-								</ul>
+ -->								</ul>
 							</div>
 							<div class="clinicsMD__body clinicsMD__body--active" data-city="Махачкала">
 								{% for city, organizations in organizations.items %}
                                     {% for organ in organizations %}
                                         <a class="clinicsMD__item" href="{% url 'organ_detail_url' pk=organ.0 %}">
-        									<div class="clinicsMD__img"><img src="assets/clinicMD.png" alt=""></div>
+        									<div class="clinicsMD__img"><img src="media/{{ organ.4 }}" alt=""></div>
         									<h3 class="clinicsMD__title">{{ organ.1 }}</h3>
         									<div class="clinicsMD__contacts">
         										<div class="clinicsMD__contact">
