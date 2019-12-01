@@ -68,6 +68,7 @@ class Doctor(BaseModel):
         db_table = 'doctors'
         verbose_name = 'Доктор'
         verbose_name_plural = 'Доктора'
+        ordering = ['-id']
 
     def __str__(self):
         return self.full_name
@@ -111,6 +112,7 @@ class Timing(models.Model):
         verbose_name='Дата приема'
     )
     hour = models.CharField(max_length=5, default=0, verbose_name='Время приема')
+    free = models.BooleanField(default=0, verbose_name='Статус')
 
     class Meta:
         db_table = 'doctor_times'

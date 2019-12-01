@@ -14,18 +14,21 @@ async def save_in_db(code, codeparent, name, organ_code):
     except Organization.DoesNotExist:
         organ_id = None
 
-    organ, status = Department.objects.update_or_create(
+    depart, status = Department.objects.update_or_create(
         code=code,
         defaults={
             'codeparent': codeparent if codeparent else '-----',
-            'name': name if name else '-----',
-            'organization': organ_id
+            'name': name if name else '-----'
         }
     )
+    if organ_id:
+        depart.organization_id = organ_id
+        depart.save()
+
     if status:
-        print(f"{organ}...................СОЗДАНО!")
+        print(f"{depart}...................СОЗДАНО!")
     else:
-        print(f"{organ}...................ОБНОВЛЕНО!")
+        print(f"{depart}...................ОБНОВЛЕНО!")
 
 async def main():
 

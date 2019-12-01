@@ -1,4 +1,4 @@
-from doctor.models import Organization, Agreement, Department
+from organization.models import Organization, Agreement, Department
 from django.core.management.base import BaseCommand
 
 class Command(BaseCommand):
