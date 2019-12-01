@@ -26,6 +26,7 @@ class Promotion(BaseModel):
         db_table = 'promotions'
         verbose_name = 'Акция'
         verbose_name_plural = 'Акции'
+        ordering = ["-created"]
 
     def __str__(self):
         return self.title
