@@ -17,8 +17,8 @@ def index(request):
         if city:
             organizations[city] = Organization.objects.filter(city=city).values_list('id', 'namefull', 'address', 'operating_mode')
 
-
-    service_groups = get_service_group_to_alphabet()
+    service_groups = ServiceGroup.pub_objects.all()
+    # service_groups = get_service_group_to_alphabet()
 
     return {
         "promotion_header": promotion_header,

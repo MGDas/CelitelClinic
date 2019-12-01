@@ -15,7 +15,7 @@
         <section class="doctorPage__main">
             <div class="doctorPage__photo">
                 {% if doctor.photo|active:request %}
-                <img src="{{ doctor.photo.url }}" alt="">
+                    <img src="{{ doctor.photo.url }}" alt="">
                 {% endif %}
 
                 <!-- Share links -->
@@ -37,12 +37,6 @@
 
                             {% if doctor.academic_degree %}{{ doctor.academic_degree }}.{% endif %}
                             {% if doctor.experience %}{{ doctor.experience }}.{% endif %}
-                        </div>
-
-                        <!-- price -->
-                        <div class="doctorCard__info">
-                            {% include './includes/rubles.html' %}
-                            <div class="doctorCard__infoWrap">Приём от 700 руб.<em>(для записи оплата обязательно)</em></div>
                         </div>
 
                         <!-- for addres in addresses -->
