@@ -45,6 +45,7 @@
 								</ul>
 								<div class="menuClinics__wrap">
 									{% for city, organizations in organizations.items %}
+									    {% if forloop.first %}
 										<div class="menuClinics__section menuClinics__section--active" data-tab="{{ city }}">
 											<ul>
 													{% for organ in organizations %}
@@ -57,6 +58,20 @@
 													{% endfor %}
 											</ul>
 										</div>
+										{% else %}
+										<div class="menuClinics__section" data-tab="{{ city }}">
+											<ul>
+													{% for organ in organizations %}
+															<li class="menuClinics__clinic"><a href="{% url 'organ_detail_url' pk=organ.0 %}"><span>{{ organ.1 }}</span>
+																<p>
+																	<svg width="12" height="12" aria-hidden="true">
+																		<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+																	</svg>{{ organ.2 }}
+																</p><i>{% autoescape off %}{{ organ.3 }}{% endautoescape %}</i></a></li>
+													{% endfor %}
+											</ul>
+										</div>
+									    {% endif %}
 									{% endfor %}
 
 								</div>
@@ -97,8 +112,7 @@
 											<!-- class="subMenu__active" -->
 											{% for service_group in service_groups %}
 												<li>
-													<span></span>
-													<a href="{% url 'service_detail_url' pk=sg.0 %}">
+													<a href="#">
 													    {{ service_group.name }}
 													</a>
 												</li>
