@@ -101,7 +101,7 @@ class DoctorTiming(models.Model):
         verbose_name_plural = 'Приёмы'
 
     def __str__(self):
-        return f"{self.doctor.full_name} прием {self.date} на {self.organization.name}"
+        return f"{self.date}"
 
 
 class Timing(models.Model):

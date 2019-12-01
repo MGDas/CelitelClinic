@@ -4,5 +4,10 @@ from doctor.serializers import DoctorListSerializer
 
 
 class DoctorViewSet(ModelViewSet):
-    queryset = Doctor.pub_objects.all()
     serializer_class = DoctorListSerializer
+
+    def get_queryset(self):
+        print()
+        print(self.request)
+        print()
+        return Doctor.pub_objects.all()
