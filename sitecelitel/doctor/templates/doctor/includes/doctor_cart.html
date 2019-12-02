@@ -2,6 +2,7 @@
 
 <script>
   
+
   document.addEventListener("DOMContentLoaded", () => {
     var doctorID = document.querySelector('#doctorFetchID').value
     fetch("/doctors/api/v0/all/" + doctorID)
@@ -69,7 +70,8 @@
 
             return {
               "date": tempDate,
-              "hours": item.timing
+              "hours": item.timing,
+              "rawDate": item.date
             }
           }
         })
@@ -144,7 +146,7 @@
               timeInput.setAttribute("disabled", "disabled")
             }
 
-            timeInput.setAttribute("value", window.times[i].date + ", " + window.times[i].hours[j].hour)
+            timeInput.setAttribute("value", window.times[i].rawDate + "T" + window.times[i].hours[j].hour + ":00")
 
             var timeLabel = document.createElement('label')
             if(window.times[i].hours[j].free){
@@ -170,6 +172,7 @@
 
 
 
+
 </script>
 
 
@@ -185,4 +188,88 @@
 
     <div class="makeAnAppointment__times"></div>
   </div>
+  
+                  <section class="orderModal orderModal--step1">
+                    <header class="orderModal__header">
+                        <h3 class="orderModal__title">Запись к врачу и оплата</h3>
+                        <button class="orderModal__close" type="button" aria-label="Закрыть">
+                                    <svg width="15" height="15" aria-hidden="true">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
+                                    </svg>
+                        </button>
+                    </header>
+                    <div class="orderModal__body">
+                        <div class="orderModal__wrapper">
+                                <div class="orderModal__photo">
+                                {% if doctor.avatar %}
+                                    <img src="{{ doctor.avatar.url }}" alt="" width="80" height="80">
+                                {% else %}
+                                    <img src="" alt="" width="80" height="80">
+                                {% endif %}
+                            </div>
+                            <div class="orderModal__wrap">
+                                <div class="orderModal__name">{{ doctor.full_name }}</div>
+                                <div class="orderModal__desc">
+                                    {% if doctor.specialization %}
+                                    {% for spec in doctor.specialization.all %}
+                                        {{ spec }}
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="orderModal__body">
+                            <div class="orderModal__input orderModal__input--withBorder">
+                                <label class="orderModal__label" for="orderModalAddress">Поликлиника</label>
+                                <input type="text" readOnly disabled tabindex="-1" name="orderModalAddress" id="orderModalAddress">
+                            </div>
+                            <div class="orderModal__input orderModal__input--withBorder">
+                                <label class="orderModal__label" for="orderModalTime">Дата и время приёма</label>
+                                <input type="text" readOnly disabled tabindex="-1" name="orderModalTime" id="orderModalTime">
+                            </div>
+                            <div class="orderModal__input">
+                                <label class="orderModal__label" for="orderModalName">ФИО</label>
+                                <input type="text" name="orderModalName" id="orderModalName" placeholder="Магомедов Магомед Магомедович" required>
+                            </div>
+                            <div class="orderModal__input">
+                                <label class="orderModal__label" for="orderModalPhone">Телефон</label>
+                                <input type="text" name="orderModalPhone" id="orderModalPhone" placeholder="+7 000 111-22-33" required>
+                            </div>
+                            <div class="orderModal__input">
+                                <label class="orderModal__label" for="orderModalBirthday">Дата рождения</label>
+                                <input type="date" name="orderModalBirthday" id="orderModalBirthday" required>
+                            </div>
+                            <div class="orderModal__input">
+                                <span class="orderModal__label">Пол</span>
+                                <input type="radio" name="orderModalGender" id="orderModalGenderM" value="М" required style="width: auto; margin: 1px 5px 0 0">
+                                <label for="orderModalGenderM">М</label>
+                                <input type="radio" name="orderModalGender" id="orderModalGenderF" value="Ж" required style="width: auto; margin: 1px 5px 0 10px">
+                                <label for="orderModalGenderF">Ж</label>
+                            </div>
+<!--                             <button class="orderModal__btn orderModal__btn--prefer" type="submit" id="orderModalPay">Записаться и оплатить</button>
+ -->                            <button class="orderModal__btn" type="button" id="orderModalNoPay">Записаться</button>
+                            <p class="orderModal__note">Я согласен с условиями обработки&nbsp;<a href="#" target="_blank">персональных данных</a></p>
+                        </div>
+                    </div>
+                </section>
+                <section class="orderModal orderModal--success">
+                    <header class="orderModal__header">
+                        <h3 class="orderModal__title">Запись к врачу и оплата</h3>
+                        <button class="orderModal__close" type="button" aria-label="Закрыть">
+                                    <svg width="15" height="15" aria-hidden="true">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
+                                    </svg>
+                        </button>
+                    </header>
+                    <div class="orderModal__body">
+                        <div class="orderModal__wrapper">
+                                    <svg width="100" height="76" aria-hidden="true">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#correct-signal"></use>
+                                    </svg>
+                            <h2 class="orderModal__successHeading">Спасибо за запись!</h2>
+                            <p class="orderModal__successText">Скоро мы свяжемся по телефону для уточнения записи</p>
+                        </div>
+                    </div>
+                </section>
+  
 </form>
