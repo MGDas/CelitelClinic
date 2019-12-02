@@ -140,6 +140,9 @@
             timeInput.setAttribute("type", "radio")
             timeInput.setAttribute("id", "appointmentTime" + randomNumber)
             timeInput.setAttribute("name", "appointmentTime")
+            if(!window.times[i].hours[j].free){
+              timeInput.setAttribute("disabled", "disabled")
+            }
 
             timeInput.setAttribute("value", window.times[i].date + ", " + window.times[i].hours[j].hour)
 
