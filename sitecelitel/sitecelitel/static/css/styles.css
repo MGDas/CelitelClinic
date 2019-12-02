@@ -667,6 +667,9 @@ section.articles {
 .doctorCard--noPhoto {
   display: block;
 }
+.doctorPage__photo{
+    text-align: center;
+}
 .doctorPage--2 .doctorPage__photo {
   margin: 0 -15px;
 }
@@ -890,6 +893,7 @@ section.articles {
 @media (min-width: 1024px) {
   .doctorPage {
     padding-bottom: 140px;
+    min-height: 500px;
   }
   .doctorPage__photo {
     margin: 0 0 30px;
@@ -3248,6 +3252,7 @@ div.subMenu {
 .placeLooksLike__item iframe {
   display: block;
   border: none;
+  margin: 0 auto;
 }
 .placeLooksLike__item--active {
   visibility: visible;

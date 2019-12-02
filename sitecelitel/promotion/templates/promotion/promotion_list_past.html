@@ -19,7 +19,9 @@
           <ul class="news__list">
             {% for promotion in promotions %}
               <li class="news__item newsItem newsItem--promo">
-                <div class="newsItem__date newsItem__date--promo">{{ promotion.note }}</div>
+                {% if promotion.note %}
+                    <div class="newsItem__date newsItem__date--promo">{{ promotion.note }}</div>
+                {% endif %}
                 <h2 class="newsItem__title"><a href="{% url 'promotion_detail_url' pk=promotion.pk %}">{{ promotion.title }}</a></h2>
               </li>
             {% endfor %}

@@ -14,7 +14,7 @@
     <article class="doctorPage">
         <section class="doctorPage__main">
             <div class="doctorPage__photo">
-                {% if doctor.photo|active:request %}
+                {% if doctor.photo %}
                     <img src="{{ doctor.photo.url }}" alt="">
                 {% endif %}
 

@@ -34,6 +34,7 @@ class Article(BaseModel):
         db_table = 'article'
         verbose_name_plural = 'Статьи'
         verbose_name = 'Статья'
+        ordering = ["-created"]
 
     def __str__(self):
         return self.title

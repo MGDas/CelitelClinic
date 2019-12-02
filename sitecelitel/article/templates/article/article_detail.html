@@ -19,7 +19,7 @@
               {% with doctor=article.doctor %}
                 <div class="materialInfo__author">
                   {% if doctor.photo %}
-                    {% if doctor.photo.url|active:request %}
+                    {% if doctor.photo %}
                       <div class="materialInfo__photo">
                         <img src="{{ doctor.photo.url }}" alt="" width="80" height="80">
                       </div>
@@ -49,7 +49,7 @@
             {% endautoescape %}
 
             {% if article.image %}
-              {% if article.image.url|active:request %}
+              {% if article.image %}
                 <figure class="material__img">
                   <img src="{{ article.image.url }}" alt="">
                   {% if article.caption %}<figcaption>{{ article.caption }}</figcaption>{% endif %}
