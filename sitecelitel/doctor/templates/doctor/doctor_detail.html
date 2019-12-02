@@ -30,13 +30,13 @@
                         <h1 class="doctorCard__name doctorCard__name--heading">{{ doctor.full_name }}</h1>
                         <div class="doctorCard__desc">
                             {% if doctor.specialization %}
-                            {% for spec in doctor.specialization.all %}
-                                {{ spec }}
+                            <span class="doctorCard__desc--specialization">{% for spec in doctor.specialization.all %}
+                                {{ spec }}</span>
                             {% endfor %}
                             {% endif %}
 
-                            {% if doctor.academic_degree %}{{ doctor.academic_degree }}.{% endif %}
-                            {% if doctor.experience %}<span classs="doctorCard__desc--experience">{{ doctor.experience }}</span>.{% endif %}
+                            <span class="doctorCard__desc--academic_degree">{% if doctor.academic_degree %}{{ doctor.academic_degree }}.</span>{% endif %}
+                            {% if doctor.experience %}<span classs="doctorCard__desc--experience">Опыт работы — {{ doctor.experience }}.</span>{% endif %}
                         </div>
 
                         <!-- for addres in addresses -->
