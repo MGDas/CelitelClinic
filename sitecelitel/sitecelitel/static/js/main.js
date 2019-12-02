@@ -90,95 +90,95 @@ if(subscribeForm){
 	})
 }
 
-var makeAnAppointmentInputs = document.querySelectorAll('.makeAnAppointment__input ')
-
-if(makeAnAppointmentInputs){
-	makeAnAppointmentInputs.forEach((input) => {
-		input.addEventListener('change', (evt) => {
-			document.querySelector('.makeAnAppointment__wrapper--active').classList.remove('makeAnAppointment__wrapper--active')
-			document.querySelector(`.makeAnAppointment__wrapper[data-address="${evt.currentTarget.dataset.address}"]`).classList.add('makeAnAppointment__wrapper--active')
-		})
-	});
-}
-
-var makeAnAppointmentDateInputs = document.querySelectorAll('.makeAnAppointment__dateInput')
-
-if(makeAnAppointmentDateInputs){
-	makeAnAppointmentDateInputs.forEach((input) => {
-		input.addEventListener('change', (evt) => {
-			evt.currentTarget.parentNode.parentNode.querySelector('.makeAnAppointment__day--active').classList.remove('makeAnAppointment__day--active')
-			evt.currentTarget.parentNode.parentNode.querySelector(`.makeAnAppointment__day[data-appointmentday='${evt.currentTarget.dataset.appointmentdate}']`).classList.add('makeAnAppointment__day--active')
-		})
-	});
-}
-
-var makeAnAppointmentHoursInputs = document.querySelectorAll('.makeAnAppointment__hoursInput')
-
-if(makeAnAppointmentHoursInputs.length){
-	var orderModal1 = document.querySelector('.orderModal--step1');
-	var orderModalSuccess = document.querySelector('.orderModal--success');
-
-	makeAnAppointmentHoursInputs.forEach((input) => {
-		input.addEventListener('click', (evt) => {
-			var temp = evt.currentTarget.parentNode.parentNode.querySelector('.makeAnAppointment__time--selected');
-			if(temp){
-				temp.classList.remove('makeAnAppointment__time--selected')
-			}
-			evt.currentTarget.nextElementSibling.classList.add('makeAnAppointment__time--selected')
-
-			orderModal1.querySelector('#orderModalAddress').value = document.querySelector('.makeAnAppointment__input:checked').getAttribute('value')
-			orderModal1.querySelector('#orderModalTime').value = document.querySelector('.makeAnAppointment__hoursInput:checked').getAttribute('value')
-
-			var tempForm = event.currentTarget.closest(".makeAnAppointment");
-			orderModal1.querySelector('.orderModal__name').innerHTML = tempForm.getAttribute('data-name')
-			orderModal1.querySelector('.orderModal__desc').innerHTML = tempForm.getAttribute('data-desk')
-			orderModal1.querySelector('.orderModal__photo img').src = tempForm.getAttribute('data-photo')
-
-			orderModal1.classList.add('orderModal--view')
-		})
-	});
-
-	var orderModalClose = document.querySelectorAll('.orderModal__close')
-
-	if(orderModalClose){
-		orderModalClose.forEach((btn) => {
-			btn.addEventListener('click', () => {
-				document.querySelector('.orderModal--view').classList.remove('orderModal--view')
-			})
-		});
-	}
-
-	var orderModalPay = document.querySelector('#orderModalPay')
-	var orderModalNoPay = document.querySelector('#orderModalNoPay')
-
-	function checkModalPaymentFields(action, form){
-		if(!orderModalName.value || !orderModalPhone.value){
-			if(!orderModalName.value){
-				orderModalName.classList.add('error')
-			} else {
-				orderModalName.classList.remove('error')
-			}
-			if(!orderModalPhone.value){
-				orderModalPhone.classList.add('error')
-			} else {
-				orderModalPhone.classList.remove('error')
-			}
-		} else {
-			orderModal1.classList.remove('orderModal--view')
-			sendData(action, form)
-		}
-	}
-
-	orderModalNoPay.addEventListener('click', () => {
-		var form = document.querySelector('.makeAnAppointment');
-		checkModalPaymentFields(form.getAttribute('data-action'), form)
-	})
-
-	orderModalPay.addEventListener('click', () => {
-		var form = document.querySelector('.makeAnAppointment');
-		checkModalPaymentFields(form.getAttribute('action'), form)
-	})
-}
+document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+    var makeAnAppointmentInputs = document.querySelectorAll('.makeAnAppointment__input ')
+    
+    if(makeAnAppointmentInputs){
+    	makeAnAppointmentInputs.forEach((input) => {
+    		input.addEventListener('change', (evt) => {
+    			document.querySelector('.makeAnAppointment__wrapper--active').classList.remove('makeAnAppointment__wrapper--active')
+    			document.querySelector(`.makeAnAppointment__wrapper[data-address="${evt.currentTarget.dataset.address}"]`).classList.add('makeAnAppointment__wrapper--active')
+    		})
+    	});
+    }
+    
+    var makeAnAppointmentDateInputs = document.querySelectorAll('.makeAnAppointment__dateInput')
+    
+    if(makeAnAppointmentDateInputs){
+    	makeAnAppointmentDateInputs.forEach((input) => {
+    		input.addEventListener('change', (evt) => {
+    			evt.currentTarget.parentNode.parentNode.querySelector('.makeAnAppointment__day--active').classList.remove('makeAnAppointment__day--active')
+    			evt.currentTarget.parentNode.parentNode.querySelector(`.makeAnAppointment__day[data-appointmentday='${evt.currentTarget.dataset.appointmentdate}']`).classList.add('makeAnAppointment__day--active')
+    		})
+    	});
+    }
+    
+    var makeAnAppointmentHoursInputs = document.querySelectorAll('.makeAnAppointment__hoursInput')
+    
+    if(makeAnAppointmentHoursInputs.length){
+    	var orderModal1 = document.querySelector('.orderModal--step1');
+    	var orderModalSuccess = document.querySelector('.orderModal--success');
+    
+    	makeAnAppointmentHoursInputs.forEach((input) => {
+    		input.addEventListener('click', (evt) => {
+    			var temp = evt.currentTarget.parentNode.parentNode.querySelector('.makeAnAppointment__time--selected');
+    			if(temp){
+    				temp.classList.remove('makeAnAppointment__time--selected')
+    			}
+    			evt.currentTarget.nextElementSibling.classList.add('makeAnAppointment__time--selected')
+    
+    			orderModal1.querySelector('#orderModalAddress').value = document.querySelector('.makeAnAppointment__input:checked').getAttribute('value')
+    			orderModal1.querySelector('#orderModalTime').value = document.querySelector('.makeAnAppointment__hoursInput:checked').getAttribute('value')
+    
+    			var tempForm = event.currentTarget.closest(".makeAnAppointment");
+    			orderModal1.classList.add('orderModal--view')
+    		})
+    	});
+    
+    	var orderModalClose = document.querySelectorAll('.orderModal__close')
+    
+    	if(orderModalClose){
+    		orderModalClose.forEach((btn) => {
+    			btn.addEventListener('click', () => {
+    				document.querySelector('.orderModal--view').classList.remove('orderModal--view')
+    			})
+    		});
+    	}
+    
+    	var orderModalPay = document.querySelector('#orderModalPay')
+    	var orderModalNoPay = document.querySelector('#orderModalNoPay')
+    
+    	function checkModalPaymentFields(action, form){
+    		if(!orderModalName.value || !orderModalPhone.value){
+    			if(!orderModalName.value){
+    				orderModalName.classList.add('error')
+    			} else {
+    				orderModalName.classList.remove('error')
+    			}
+    			if(!orderModalPhone.value){
+    				orderModalPhone.classList.add('error')
+    			} else {
+    				orderModalPhone.classList.remove('error')
+    			}
+    		} else {
+    			orderModal1.classList.remove('orderModal--view')
+    			sendData(action, form)
+    		}
+    	}
+    
+    	orderModalNoPay.addEventListener('click', () => {
+    		var form = document.querySelector('.makeAnAppointment');
+    		checkModalPaymentFields(form.getAttribute('data-action'), form)
+    	})
+    
+    	orderModalPay.addEventListener('click', () => {
+    		var form = document.querySelector('.makeAnAppointment');
+    		checkModalPaymentFields(form.getAttribute('action'), form)
+    	})
+    }
+    }, 1000)
+})
 
 var addFaqForm = document.querySelector('.orderModal--addFaq form')
 var orderModalSuccess = document.querySelector('.orderModal--success');
