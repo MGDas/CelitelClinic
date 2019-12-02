@@ -11,12 +11,15 @@ def connect(url):
 
 async def get_doctors(doctors):
 
-    # Создать докторов если такого нет
     # В дальнейшем этот код нужно заменить на проверку докторов с док-кодом
     doc_list = []
     if doctors:
         for doc in doctors:
-            doctor, status = Doctor.objects.update_or_create(code=doc['doccode'])
+            try:
+                doctor = Doctor.objects.get(code=doc['doccode'])
+            except Doctor.DoesNotExist:
+                continue
+                
             doc_list.append(doctor)
             print(f'..................Доктор....{doctor.code}')
 
