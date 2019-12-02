@@ -2,6 +2,7 @@
 
 <script>
   
+
   document.addEventListener("DOMContentLoaded", () => {
     var doctorID = document.querySelector('#doctorFetchID').value
     fetch("/doctors/api/v0/all/" + doctorID)
@@ -69,7 +70,8 @@
 
             return {
               "date": tempDate,
-              "hours": item.timing
+              "hours": item.timing,
+              "rawDate": item.date
             }
           }
         })
@@ -144,7 +146,7 @@
               timeInput.setAttribute("disabled", "disabled")
             }
 
-            timeInput.setAttribute("value", window.times[i].date + ", " + window.times[i].hours[j].hour)
+            timeInput.setAttribute("value", window.times[i].rawDate + "T" + window.times[i].hours[j].hour + ":00")
 
             var timeLabel = document.createElement('label')
             if(window.times[i].hours[j].free){
@@ -167,6 +169,7 @@
         console.log("Ошибка: ", err)
       })
   })
+
 
 
 
