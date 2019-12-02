@@ -13,7 +13,7 @@ class TimingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Timing
-        fields = ['hour', 'free']
+        fields = ['start', 'end', 'free']
 
 
 class DoctorTimingSerializer(serializers.ModelSerializer):
