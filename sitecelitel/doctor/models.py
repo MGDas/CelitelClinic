@@ -111,7 +111,8 @@ class Timing(models.Model):
         related_name='timing',
         verbose_name='Дата приема'
     )
-    hour = models.CharField(max_length=5, default=0, verbose_name='Время приема')
+    start = models.CharField(max_length=5, blank=True, verbose_name='Начало')
+    end = models.CharField(max_length=5, blank=True, verbose_name='Конец')
     free = models.BooleanField(default=0, verbose_name='Статус')
 
     class Meta:

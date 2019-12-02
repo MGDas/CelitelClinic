@@ -22,7 +22,7 @@ class SpecializationAdmin(admin.ModelAdmin):
 
 @admin.register(Timing)
 class TimingAdmin(admin.ModelAdmin):
-    list_display = ['date', 'hour']
+    list_display = ['date', 'start', 'end']
 
 admin.site.register(DoctorTiming)
 admin.site.register(Consultation)
