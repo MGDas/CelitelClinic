@@ -36,7 +36,7 @@
                             {% endif %}
 
                             {% if doctor.academic_degree %}{{ doctor.academic_degree }}.{% endif %}
-                            {% if doctor.experience %}{{ doctor.experience }}.{% endif %}
+                            {% if doctor.experience %}<span classs="doctorCard__desc--experience">{{ doctor.experience }}</span>.{% endif %}
                         </div>
 
                         <!-- for addres in addresses -->
