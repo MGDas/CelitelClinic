@@ -19,9 +19,9 @@
                 <section class="doctorPreview">
                     <div class="doctorPreview__photo">
                         {% if doctor.avatar %}
-                        <a href="{% url 'doctor_detail_url' pk=doctor.pk %}"><img src="{{ doctor.avatar.url }}" alt="" width="270" height="270"></a>
+                            <a href="{% url 'doctor_detail_url' pk=doctor.pk %}"><img src="{{ doctor.avatar.url }}" alt="" width="270" height="270"></a>
                         {% else %}
-                        <a href="{% url 'doctor_detail_url' pk=doctor.pk %}"><img src="{% static 'images/doctor_without_photo.png' %}" alt="" width="270" height="270"></a>
+                            <a href="{% url 'doctor_detail_url' pk=doctor.pk %}"><img src="{% static 'images/doctor_without_photo.png' %}" alt="" width="270" height="270"></a>
                         {% endif %}
                     </div>
                     <h3 class="doctorPreview__name">
