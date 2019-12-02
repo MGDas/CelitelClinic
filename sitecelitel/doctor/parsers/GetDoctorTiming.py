@@ -33,6 +33,11 @@ async def save_db(doc_code, depart_code, days):
     except:
         doctor = False
 
+    try:
+        depart_code = Department.objects.get(code=depart_code).organization
+    except:
+        depart_code = False
+
     if days and doctor and depart_code:
         print(f"Create for {doc_code}")
         for day in days:
@@ -41,19 +46,22 @@ async def save_db(doc_code, depart_code, days):
 
             date, status = DoctorTiming.objects.update_or_create(
                 doctor=doctor,
-                organization=Department.objects.get(code=depart_code).organization,
+                organization=depart_code, # fix
                 date=day['dt']
             )
             print(f"----------{day['dt']}")
 
-            if day['shedule']:
-                for time in day['shedule']:
-                    time_reception = Timing.objects.update_or_create(
-                        date=date,
-                        hour=time['time_start'],
-                        free=time['free']
-                    )
-                    print(f"----------------------------{time['time_start']}")
+            if not day['shedule']:
+                continue
+
+            for time in day['shedule']:
+                time_reception = Timing.objects.update_or_create(
+                    date=date,
+                    start=time['time_start'],
+                    end=time['time_end'],
+                    free=time['free']
+                )
+                print(f"----------------------------{time['time_start']}")
 
 
 async def main():
