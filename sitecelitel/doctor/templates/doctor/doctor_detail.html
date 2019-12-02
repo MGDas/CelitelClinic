@@ -30,8 +30,8 @@
                         <h1 class="doctorCard__name doctorCard__name--heading">{{ doctor.full_name }}</h1>
                         <div class="doctorCard__desc">
                             {% if doctor.specialization %}
-                            <span class="doctorCard__desc--specialization">{% for spec in doctor.specialization.all %}
-                                {{ spec }}</span>
+                            {% for spec in doctor.specialization.all %}
+                                <span class="doctorCard__desc--specialization">{{ spec }}.</span>
                             {% endfor %}
                             {% endif %}
 
