@@ -132,10 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
     			orderModal1.querySelector('#orderModalTime').value = document.querySelector('.makeAnAppointment__hoursInput:checked').getAttribute('value')
     
     			var tempForm = event.currentTarget.closest(".makeAnAppointment");
-    			orderModal1.querySelector('.orderModal__name').innerHTML = tempForm.getAttribute('data-name')
-    			orderModal1.querySelector('.orderModal__desc').innerHTML = tempForm.getAttribute('data-desk')
-    			orderModal1.querySelector('.orderModal__photo img').src = tempForm.getAttribute('data-photo')
-    
     			orderModal1.classList.add('orderModal--view')
     		})
     	});
