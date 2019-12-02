@@ -39,7 +39,27 @@
                   {% endif %}
                 </li>
             {% endfor %}
-          </ul><a class="more" href="#">Ещё 1 статья</a>
+
+        </ul>
+
+
+            {% if is_paginated %}
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">back</a>
+                {% endif %}
+
+                {% for n in page_obj.paginator.page_range %}
+                    {% if n == page_obj.number %}
+                        <a href="?page={{ n }}">{{ n }}</a>
+                    {% elif n > page_obj.number|add:'-5' and n < page_obj.number|add:'5' %}
+                        <a href="?page={{ n }}">{{ n }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            {% endif %}
         </div>
       </article>
     </main>

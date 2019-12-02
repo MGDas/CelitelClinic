@@ -7,10 +7,10 @@ from article.utils import other_articles
 
 
 class ArticleListView(ListView):
-    model = Article
     template_name = 'article/article_list.html'
     context_object_name = "articles"
     queryset = Article.pub_objects.all()
+    paginate_by = 10
 
 class ArticleDetailView(DetailView):
     model = Article
