@@ -154,6 +154,7 @@ function sendDataAppointment(fileName, form) {
 	var FD = new FormData(form);
 	XHR.addEventListener("load", function(event) {
 		console.log(this.responseText)
+		orderModalSuccess.classList.add('orderModal--view')
 		if(JSON.parse(this.responseText).response == "1"){
 			orderModalSuccess.classList.add('orderModal--view')
 		}
@@ -166,8 +167,8 @@ function sendDataAppointment(fileName, form) {
 }
 
     	function checkModalPaymentFields(action, form){
-    		if(!orderModalName.value || !orderModalPhone.value){
-    			if(!orderModalName.value){
+    		if(orderModalName.value.split(" ").length < 3 || !orderModalPhone.value || !orderModalBirthday.value){
+    			if(orderModalName.value.split(" ").length < 3){
     				orderModalName.classList.add('error')
     			} else {
     				orderModalName.classList.remove('error')
@@ -176,6 +177,11 @@ function sendDataAppointment(fileName, form) {
     				orderModalPhone.classList.add('error')
     			} else {
     				orderModalPhone.classList.remove('error')
+    			}
+    			if(!orderModalBirthday.value){
+    				orderModalBirthday.classList.add('error')
+    			} else {
+    				orderModalBirthday.classList.remove('error')
     			}
     		} else {
     			orderModal1.classList.remove('orderModal--view')

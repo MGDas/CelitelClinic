@@ -228,12 +228,23 @@
                                 <input type="text" readOnly disabled tabindex="-1" name="orderModalTime" id="orderModalTime">
                             </div>
                             <div class="orderModal__input">
-                                <label class="orderModal__label" for="orderModalName">Имя пациента</label>
-                                <input type="text" name="orderModalName" id="orderModalName" placeholder="Магомедов Магомед" required>
+                                <label class="orderModal__label" for="orderModalName">ФИО</label>
+                                <input type="text" name="orderModalName" id="orderModalName" placeholder="Магомедов Магомед Магомедович" required>
                             </div>
                             <div class="orderModal__input">
                                 <label class="orderModal__label" for="orderModalPhone">Телефон</label>
                                 <input type="text" name="orderModalPhone" id="orderModalPhone" placeholder="+7 000 111-22-33" required>
+                            </div>
+                            <div class="orderModal__input">
+                                <label class="orderModal__label" for="orderModalBirthday">Дата рождения</label>
+                                <input type="date" name="orderModalBirthday" id="orderModalBirthday" required>
+                            </div>
+                            <div class="orderModal__input">
+                                <span class="orderModal__label">Пол</span>
+                                <input type="radio" name="orderModalGender" id="orderModalGenderM" value="М" required style="width: auto; margin: 1px 5px 0 0">
+                                <label for="orderModalGenderM">М</label>
+                                <input type="radio" name="orderModalGender" id="orderModalGenderF" value="Ж" required style="width: auto; margin: 1px 5px 0 10px">
+                                <label for="orderModalGenderF">Ж</label>
                             </div>
 <!--                             <button class="orderModal__btn orderModal__btn--prefer" type="submit" id="orderModalPay">Записаться и оплатить</button>
  -->                            <button class="orderModal__btn" type="button" id="orderModalNoPay">Записаться</button>
