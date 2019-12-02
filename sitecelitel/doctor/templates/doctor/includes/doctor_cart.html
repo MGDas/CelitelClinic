@@ -1,456 +1,185 @@
+<input type="hidden" id="doctorFetchID" name="doctorFetchID" value={{ doctor.id }} />
+
+<script>
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    var doctorID = document.querySelector('#doctorFetchID').value
+    fetch("/doctors/api/v0/all/" + doctorID)
+      .then((response) => response.json())
+      .then((data) => {
+        window.rawData = data.dates
+        // console.log("data: ", rawData)
+      })
+      .then(() => {
+        if(!window.rawData.length){
+          throw new Error()
+        }
+        // Создаём список клиник.
+        var organizations = window.rawData.map((item) => {
+          return item.organization.address
+        })
+        // Берём первую клинику, как временное решение.
+        window.organizations = Array.from(new Set(organizations))[0]
+      })
+      .then(() => {
+        // Создаём массив с датами и часами для первой клиники.
+        var times = window.rawData.map((item) => {
+          if(item.organization.address == window.organizations){
+            var tempDate = item.date.split("-").reverse()
+            tempDate.pop()
+            switch(tempDate[1]){
+              case "01":
+                tempDate[1] = "Янв"
+                break
+              case "02":
+                tempDate[1] = "Фев"
+                break
+              case "03":
+                tempDate[1] = "Мар"
+                break
+              case "04":
+                tempDate[1] = "Апр"
+                break
+              case "05":
+                tempDate[1] = "Мая"
+                break
+              case "06":
+                tempDate[1] = "Июн"
+                break
+              case "07":
+                tempDate[1] = "Июл"
+                break
+              case "08":
+                tempDate[1] = "Авг"
+                break
+              case "09":
+                tempDate[1] = "Сен"
+                break
+              case "10":
+                tempDate[1] = "Окт"
+                break
+              case "11":
+                tempDate[1] = "Ноя"
+                break
+              case "12":
+                tempDate[1] = "Дек"
+                break
+            }
+            tempDate = tempDate.join(" ")
+
+            return {
+              "date": tempDate,
+              "hours": item.timing
+            }
+          }
+        })
+        window.times = times
+      })
+      .then(() => {
+        // Выводим на страницу адрес.
+        var addressesWrapper = document.querySelector('.makeAnAppointment__addresses')
+        var addressInput = document.createElement('input')
+        addressInput.className = "makeAnAppointment__input visually-hidden"
+        addressInput.setAttribute("data-address", window.organizations)
+        addressInput.setAttribute("value", window.organizations)
+        addressInput.setAttribute("type", "radio")
+        addressInput.setAttribute("id", "address0")
+        addressInput.setAttribute("name", "appointmentAddresses")
+        addressInput.setAttribute("checked", "checked")
+
+        var addressLabel = document.createElement('label')
+        addressLabel.className = "makeAnAppointment__address"
+        addressLabel.setAttribute("for", "address0")
+        addressLabel.innerHTML = window.organizations
+
+        addressesWrapper.append(addressInput)
+        addressesWrapper.append(addressLabel)
+
+      })
+      .then(() => {
+        // Выводим даты.
+        var datesWrapper = document.querySelector('.makeAnAppointment__dates')
+        var timesWrapper = document.querySelector('.makeAnAppointment__times')
+       
+        for(var i=0; i<window.times.length; i++){
+          var dateInput = document.createElement('input')
+          dateInput.className = "visually-hidden makeAnAppointment__dateInput"
+          dateInput.setAttribute("data-appointmentdate", window.times[i].date)
+          dateInput.setAttribute("value", window.times[i].date)
+          dateInput.setAttribute("type", "radio")
+          dateInput.setAttribute("id", "appointmentDates" + i)
+          dateInput.setAttribute("name", "appointmentDates0")
+          if(i==0){
+            dateInput.setAttribute("checked", "appointmentAddresses")
+          }
+
+          var dateLabel = document.createElement('label')
+          dateLabel.className = "makeAnAppointment__date"
+          dateLabel.setAttribute("for", "appointmentDates" + i)
+          dateLabel.innerHTML = window.times[i].date
+
+          datesWrapper.append(dateInput)
+          datesWrapper.append(dateLabel)
+
+          // Создаём обёртку для часов.
+          var dayWrapper = document.createElement('div')
+          if(i == 0){
+            dayWrapper.className = "makeAnAppointment__day makeAnAppointment__day--active"
+          } else {
+            dayWrapper.className = "makeAnAppointment__day"
+          }
+          dayWrapper.setAttribute("data-appointmentday", window.times[i].date)
+
+          // Выводим часы.
+          for(var j=0; j<window.times[i].hours.length; j++){
+
+            var randomNumber = Math.random() * Math.random()
+            var timeInput = document.createElement('input')
+
+            timeInput.className = "visually-hidden makeAnAppointment__hoursInput"
+            timeInput.setAttribute("type", "radio")
+            timeInput.setAttribute("id", "appointmentTime" + randomNumber)
+            timeInput.setAttribute("name", "appointmentTime")
+
+            timeInput.setAttribute("value", window.times[i].date + ", " + window.times[i].hours[j].hour)
+
+            var timeLabel = document.createElement('label')
+            if(window.times[i].hours[j].free){
+              timeLabel.className = "makeAnAppointment__time"
+            } else {
+              timeLabel.className = "makeAnAppointment__time makeAnAppointment__time--unavailable"
+            }
+            timeLabel.setAttribute("for", "appointmentTime" + randomNumber)
+            timeLabel.setAttribute("aria-label", window.times[i].date + ", " + window.times[i].hours[j].hour)
+            timeLabel.innerHTML = window.times[i].hours[j].hour
+
+            dayWrapper.append(timeInput)
+            dayWrapper.append(timeLabel)
+          }
+          
+          timesWrapper.append(dayWrapper)
+        }
+      })
+      .catch((err) => {
+        console.log("Ошибка: ", err)
+      })
+  })
+
+
+
+</script>
+
+
 <!-- Форма отправляется по адресу в data-action и ожидает ответа "1", если всё нормально. В action указывается адрес, куда надо перекидывать для оплаты. В data-name прописывается имя врача. В data-desk - описание. В data-photo - адрес его фотографии.-->
 <form class="doctorPage__order makeAnAppointment" action="#" data-action="#" data-name="Зарема Алиевна Алиева" data-desk="детский врач-невролог. Опыт работы — 5 лет" data-photo="assets/doctorCardPhoto.png">
-  <div class="makeAnAppointment__addresses">
-    <!-- Атрибут id у инпута формируется по шаблону "address" + уникальное число (возможно, id адреса).-->
-    <input class="makeAnAppointment__input visually-hidden" data-address="Гоголя, 24" type="radio" value="Гоголя, 24" id="address0" name="appointmentAddresses" checked>
-    <label class="makeAnAppointment__address" for="address0">Гоголя, 24</label>
-    <input class="makeAnAppointment__input visually-hidden" data-address="Магомедтагирова, 172В" type="radio" value="Магомедтагирова, 172В" id="address1" name="appointmentAddresses">
-    <label class="makeAnAppointment__address" for="address1">Магомедтагирова, 172В</label>
-    <input class="makeAnAppointment__input visually-hidden" data-address="Орджоникидзе, 666" type="radio" value="Орджоникидзе, 666" id="address2" name="appointmentAddresses">
-    <label class="makeAnAppointment__address" for="address2">Орджоникидзе, 666</label>
-  </div>
+  <input type="hidden" id="doctorCode" name="doctorCode" value={{ doctor.code }} />
+  <input type="hidden" id="doctorID" name="doctorID" value={{ doctor.id }} />
+
+  <div class="makeAnAppointment__addresses"></div>
+
   <div class="makeAnAppointment__wrapper makeAnAppointment__wrapper--active" data-address="Гоголя, 24">
-    <div class="makeAnAppointment__dates">
-      <!-- Атрибут name в пределах одного дня одинаковый.-->
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates00" data-appointmentdate="15 Апреля" name="appointmentDates0" checked>
-      <label class="makeAnAppointment__date" for="appointmentDates00">Сегодня</label>
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates10" data-appointmentdate="16 Апреля" name="appointmentDates0">
-      <label class="makeAnAppointment__date" for="appointmentDates10">Завтра</label>
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates20" data-appointmentdate="17 Апреля" name="appointmentDates0">
-      <label class="makeAnAppointment__date" for="appointmentDates20">17 Апр<span>ср</span></label>
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates30" data-appointmentdate="18 Апреля" name="appointmentDates0">
-      <label class="makeAnAppointment__date" for="appointmentDates30">18 Апр<span>чт</span></label>
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates40" data-appointmentdate="19 Апреля" name="appointmentDates0">
-      <label class="makeAnAppointment__date" for="appointmentDates40">19 Апр<span>пт</span></label>
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates50" data-appointmentdate="20 Апреля" name="appointmentDates0">
-      <label class="makeAnAppointment__date" for="appointmentDates50">20 Апр<span>сб</span></label>
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates60" data-appointmentdate="21 Апреля" name="appointmentDates0">
-      <label class="makeAnAppointment__date" for="appointmentDates60">21 Апр<span>вс</span></label>
-    </div>
-    <div class="makeAnAppointment__times">
-      <!-- Если дата время недоступно, у input-а добавляется атрибут 'disabled', у label-а — класс 'makeAnAppointment__time--unavailable'.-->
-      <div class="makeAnAppointment__day makeAnAppointment__day--active" data-appointmentday="15 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime00" value="15 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime00" aria-label="15 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime01" value="15 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime01" aria-label="15 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime02" value="15 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime02" aria-label="15 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime03" value="15 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime03" aria-label="15 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime04" value="15 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime04" aria-label="15 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime05" value="15 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime05" aria-label="15 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime06" value="15 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime06" aria-label="15 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime07" value="15 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime07" aria-label="15 Апреля, 12:30">12:30</label>
-      </div>
-      <div class="makeAnAppointment__day" data-appointmentday="16 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime10" value="16 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime10" aria-label="16 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime11" value="16 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime11" aria-label="16 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime12" value="16 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime12" aria-label="16 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime13" value="16 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime13" aria-label="16 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime14" value="16 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime14" aria-label="16 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime15" value="16 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime15" aria-label="16 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime16" value="16 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime16" aria-label="16 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime17" value="16 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime17" aria-label="16 Апреля, 12:30">12:30</label>
-      </div>
-      <div class="makeAnAppointment__day" data-appointmentday="17 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime20" value="17 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime20" aria-label="17 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime21" value="17 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime21" aria-label="17 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime22" value="17 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime22" aria-label="17 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime23" value="17 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime23" aria-label="17 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime24" value="17 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime24" aria-label="17 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime25" value="17 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime25" aria-label="17 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime26" value="17 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime26" aria-label="17 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime27" value="17 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime27" aria-label="17 Апреля, 12:30">12:30</label>
-      </div>
-      <div class="makeAnAppointment__day" data-appointmentday="18 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime30" value="18 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime30" aria-label="18 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime31" value="18 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime31" aria-label="18 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime32" value="18 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime32" aria-label="18 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime33" value="18 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime33" aria-label="18 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime34" value="18 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime34" aria-label="18 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime35" value="18 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime35" aria-label="18 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime36" value="18 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime36" aria-label="18 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime37" value="18 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime37" aria-label="18 Апреля, 12:30">12:30</label>
-      </div>
-      <div class="makeAnAppointment__day" data-appointmentday="19 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime40" value="19 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime40" aria-label="19 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime41" value="19 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime41" aria-label="19 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime42" value="19 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime42" aria-label="19 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime43" value="19 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime43" aria-label="19 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime44" value="19 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime44" aria-label="19 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime45" value="19 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime45" aria-label="19 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime46" value="19 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime46" aria-label="19 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime47" value="19 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime47" aria-label="19 Апреля, 12:30">12:30</label>
-      </div>
-      <div class="makeAnAppointment__day" data-appointmentday="20 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime50" value="20 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime50" aria-label="20 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime51" value="20 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime51" aria-label="20 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime52" value="20 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime52" aria-label="20 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime53" value="20 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime53" aria-label="20 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime54" value="20 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime54" aria-label="20 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime55" value="20 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime55" aria-label="20 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime56" value="20 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime56" aria-label="20 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime57" value="20 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime57" aria-label="20 Апреля, 12:30">12:30</label>
-      </div>
-      <div class="makeAnAppointment__day" data-appointmentday="21 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime60" value="21 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime60" aria-label="21 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime61" value="21 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime61" aria-label="21 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime62" value="21 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime62" aria-label="21 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime63" value="21 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime63" aria-label="21 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime64" value="21 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime64" aria-label="21 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime65" value="21 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime65" aria-label="21 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime66" value="21 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime66" aria-label="21 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime67" value="21 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime67" aria-label="21 Апреля, 12:30">12:30</label>
-      </div>
-    </div>
-  </div>
-  <div class="makeAnAppointment__wrapper" data-address="Магомедтагирова, 172В">
-    <div class="makeAnAppointment__dates">
-      <!-- Атрибут name в пределах одного дня одинаковый.-->
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates01" data-appointmentdate="15 Апреля" name="appointmentDates1" checked>
-      <label class="makeAnAppointment__date" for="appointmentDates01">Сегодня</label>
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates11" data-appointmentdate="16 Апреля" name="appointmentDates1">
-      <label class="makeAnAppointment__date" for="appointmentDates11">Завтра</label>
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates21" data-appointmentdate="17 Апреля" name="appointmentDates1">
-      <label class="makeAnAppointment__date" for="appointmentDates21">17 Апр<span>ср</span></label>
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates31" data-appointmentdate="18 Апреля" name="appointmentDates1">
-      <label class="makeAnAppointment__date" for="appointmentDates31">18 Апр<span>чт</span></label>
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates41" data-appointmentdate="19 Апреля" name="appointmentDates1">
-      <label class="makeAnAppointment__date" for="appointmentDates41">19 Апр<span>пт</span></label>
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates51" data-appointmentdate="20 Апреля" name="appointmentDates1">
-      <label class="makeAnAppointment__date" for="appointmentDates51">20 Апр<span>сб</span></label>
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates61" data-appointmentdate="21 Апреля" name="appointmentDates1">
-      <label class="makeAnAppointment__date" for="appointmentDates61">21 Апр<span>вс</span></label>
-    </div>
-    <div class="makeAnAppointment__times">
-      <!-- Если дата время недоступно, у input-а добавляется атрибут 'disabled', у label-а — класс 'makeAnAppointment__time--unavailable'.-->
-      <div class="makeAnAppointment__day makeAnAppointment__day--active" data-appointmentday="15 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime00" value="15 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime00" aria-label="15 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime01" value="15 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime01" aria-label="15 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime02" value="15 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime02" aria-label="15 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime03" value="15 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime03" aria-label="15 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime04" value="15 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime04" aria-label="15 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime05" value="15 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime05" aria-label="15 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime06" value="15 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime06" aria-label="15 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime07" value="15 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime07" aria-label="15 Апреля, 12:30">12:30</label>
-      </div>
-      <div class="makeAnAppointment__day" data-appointmentday="16 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime10" value="16 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime10" aria-label="16 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime11" value="16 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime11" aria-label="16 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime12" value="16 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime12" aria-label="16 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime13" value="16 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime13" aria-label="16 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime14" value="16 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime14" aria-label="16 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime15" value="16 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime15" aria-label="16 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime16" value="16 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime16" aria-label="16 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime17" value="16 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime17" aria-label="16 Апреля, 12:30">12:30</label>
-      </div>
-      <div class="makeAnAppointment__day" data-appointmentday="17 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime20" value="17 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime20" aria-label="17 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime21" value="17 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime21" aria-label="17 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime22" value="17 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime22" aria-label="17 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime23" value="17 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime23" aria-label="17 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime24" value="17 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime24" aria-label="17 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime25" value="17 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime25" aria-label="17 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime26" value="17 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime26" aria-label="17 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime27" value="17 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime27" aria-label="17 Апреля, 12:30">12:30</label>
-      </div>
-      <div class="makeAnAppointment__day" data-appointmentday="18 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime30" value="18 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime30" aria-label="18 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime31" value="18 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime31" aria-label="18 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime32" value="18 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime32" aria-label="18 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime33" value="18 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime33" aria-label="18 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime34" value="18 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime34" aria-label="18 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime35" value="18 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime35" aria-label="18 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime36" value="18 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime36" aria-label="18 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime37" value="18 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime37" aria-label="18 Апреля, 12:30">12:30</label>
-      </div>
-      <div class="makeAnAppointment__day" data-appointmentday="19 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime40" value="19 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime40" aria-label="19 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime41" value="19 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime41" aria-label="19 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime42" value="19 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime42" aria-label="19 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime43" value="19 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime43" aria-label="19 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime44" value="19 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime44" aria-label="19 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime45" value="19 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime45" aria-label="19 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime46" value="19 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime46" aria-label="19 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime47" value="19 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime47" aria-label="19 Апреля, 12:30">12:30</label>
-      </div>
-      <div class="makeAnAppointment__day" data-appointmentday="20 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime50" value="20 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime50" aria-label="20 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime51" value="20 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime51" aria-label="20 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime52" value="20 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime52" aria-label="20 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime53" value="20 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime53" aria-label="20 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime54" value="20 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime54" aria-label="20 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime55" value="20 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime55" aria-label="20 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime56" value="20 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime56" aria-label="20 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime57" value="20 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime57" aria-label="20 Апреля, 12:30">12:30</label>
-      </div>
-      <div class="makeAnAppointment__day" data-appointmentday="21 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime60" value="21 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime60" aria-label="21 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime61" value="21 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime61" aria-label="21 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime62" value="21 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime62" aria-label="21 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime63" value="21 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime63" aria-label="21 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime64" value="21 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime64" aria-label="21 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime65" value="21 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime65" aria-label="21 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime66" value="21 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime66" aria-label="21 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime67" value="21 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime67" aria-label="21 Апреля, 12:30">12:30</label>
-      </div>
-    </div>
-  </div>
-  <div class="makeAnAppointment__wrapper" data-address="Орджоникидзе, 666">
-    <div class="makeAnAppointment__dates">
-      <!-- Атрибут name в пределах одного дня одинаковый.-->
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates02" data-appointmentdate="15 Апреля" name="appointmentDates2" checked>
-      <label class="makeAnAppointment__date" for="appointmentDates02">Сегодня</label>
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates12" data-appointmentdate="16 Апреля" name="appointmentDates2">
-      <label class="makeAnAppointment__date" for="appointmentDates12">Завтра</label>
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates22" data-appointmentdate="17 Апреля" name="appointmentDates2">
-      <label class="makeAnAppointment__date" for="appointmentDates22">17 Апр<span>ср</span></label>
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates32" data-appointmentdate="18 Апреля" name="appointmentDates2">
-      <label class="makeAnAppointment__date" for="appointmentDates32">18 Апр<span>чт</span></label>
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates42" data-appointmentdate="19 Апреля" name="appointmentDates2">
-      <label class="makeAnAppointment__date" for="appointmentDates42">19 Апр<span>пт</span></label>
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates52" data-appointmentdate="20 Апреля" name="appointmentDates2">
-      <label class="makeAnAppointment__date" for="appointmentDates52">20 Апр<span>сб</span></label>
-      <input class="visually-hidden makeAnAppointment__dateInput" type="radio" id="appointmentDates62" data-appointmentdate="21 Апреля" name="appointmentDates2">
-      <label class="makeAnAppointment__date" for="appointmentDates62">21 Апр<span>вс</span></label>
-    </div>
-    <div class="makeAnAppointment__times">
-      <!-- Если дата время недоступно, у input-а добавляется атрибут 'disabled', у label-а — класс 'makeAnAppointment__time--unavailable'.-->
-      <div class="makeAnAppointment__day makeAnAppointment__day--active" data-appointmentday="15 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime00" value="15 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime00" aria-label="15 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime01" value="15 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime01" aria-label="15 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime02" value="15 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime02" aria-label="15 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime03" value="15 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime03" aria-label="15 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime04" value="15 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime04" aria-label="15 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime05" value="15 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime05" aria-label="15 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime06" value="15 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime06" aria-label="15 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime07" value="15 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime07" aria-label="15 Апреля, 12:30">12:30</label>
-      </div>
-      <div class="makeAnAppointment__day" data-appointmentday="16 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime10" value="16 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime10" aria-label="16 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime11" value="16 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime11" aria-label="16 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime12" value="16 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime12" aria-label="16 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime13" value="16 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime13" aria-label="16 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime14" value="16 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime14" aria-label="16 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime15" value="16 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime15" aria-label="16 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime16" value="16 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime16" aria-label="16 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime17" value="16 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime17" aria-label="16 Апреля, 12:30">12:30</label>
-      </div>
-      <div class="makeAnAppointment__day" data-appointmentday="17 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime20" value="17 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime20" aria-label="17 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime21" value="17 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime21" aria-label="17 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime22" value="17 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime22" aria-label="17 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime23" value="17 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime23" aria-label="17 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime24" value="17 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime24" aria-label="17 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime25" value="17 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime25" aria-label="17 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime26" value="17 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime26" aria-label="17 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime27" value="17 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime27" aria-label="17 Апреля, 12:30">12:30</label>
-      </div>
-      <div class="makeAnAppointment__day" data-appointmentday="18 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime30" value="18 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime30" aria-label="18 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime31" value="18 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime31" aria-label="18 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime32" value="18 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime32" aria-label="18 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime33" value="18 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime33" aria-label="18 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime34" value="18 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime34" aria-label="18 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime35" value="18 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime35" aria-label="18 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime36" value="18 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime36" aria-label="18 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime37" value="18 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime37" aria-label="18 Апреля, 12:30">12:30</label>
-      </div>
-      <div class="makeAnAppointment__day" data-appointmentday="19 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime40" value="19 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime40" aria-label="19 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime41" value="19 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime41" aria-label="19 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime42" value="19 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime42" aria-label="19 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime43" value="19 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime43" aria-label="19 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime44" value="19 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime44" aria-label="19 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime45" value="19 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime45" aria-label="19 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime46" value="19 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime46" aria-label="19 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime47" value="19 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime47" aria-label="19 Апреля, 12:30">12:30</label>
-      </div>
-      <div class="makeAnAppointment__day" data-appointmentday="20 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime50" value="20 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime50" aria-label="20 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime51" value="20 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime51" aria-label="20 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime52" value="20 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime52" aria-label="20 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime53" value="20 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime53" aria-label="20 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime54" value="20 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime54" aria-label="20 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime55" value="20 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime55" aria-label="20 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime56" value="20 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime56" aria-label="20 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime57" value="20 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime57" aria-label="20 Апреля, 12:30">12:30</label>
-      </div>
-      <div class="makeAnAppointment__day" data-appointmentday="21 Апреля">
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime60" value="21 Апреля, 9:00">
-        <label class="makeAnAppointment__time" for="appointmentTime60" aria-label="21 Апреля, 9:00">9:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime61" value="21 Апреля, 9:30">
-        <label class="makeAnAppointment__time" for="appointmentTime61" aria-label="21 Апреля, 9:30">9:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime62" value="21 Апреля, 10:00">
-        <label class="makeAnAppointment__time" for="appointmentTime62" aria-label="21 Апреля, 10:00">10:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime63" value="21 Апреля, 10:30" disabled>
-        <label class="makeAnAppointment__time makeAnAppointment__time--unavailable" for="appointmentTime63" aria-label="21 Апреля, 10:30">10:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime64" value="21 Апреля, 11:00">
-        <label class="makeAnAppointment__time" for="appointmentTime64" aria-label="21 Апреля, 11:00">11:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime65" value="21 Апреля, 11:30">
-        <label class="makeAnAppointment__time" for="appointmentTime65" aria-label="21 Апреля, 11:30">11:30</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime66" value="21 Апреля, 12:00">
-        <label class="makeAnAppointment__time" for="appointmentTime66" aria-label="21 Апреля, 12:00">12:00</label>
-        <input class="visually-hidden makeAnAppointment__hoursInput" type="radio" name="appointmentTime" id="appointmentTime67" value="21 Апреля, 12:30">
-        <label class="makeAnAppointment__time" for="appointmentTime67" aria-label="21 Апреля, 12:30">12:30</label>
-      </div>
-    </div>
+    <div class="makeAnAppointment__dates"></div>
+
+    <div class="makeAnAppointment__times"></div>
   </div>
 </form>
