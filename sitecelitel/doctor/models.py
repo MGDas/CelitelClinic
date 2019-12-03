@@ -170,6 +170,8 @@ class Review(BaseModel):
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
 
+    def __str__(self):
+        return self.review
 
 class Video(BaseModel):
     doctor = models.ManyToManyField(
