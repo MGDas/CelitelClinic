@@ -68,7 +68,7 @@ class Doctor(BaseModel):
         db_table = 'doctors'
         verbose_name = 'Доктор'
         verbose_name_plural = 'Доктора'
-        ordering = ['-id']
+        ordering = ['full_name']
 
     def __str__(self):
         return self.full_name
