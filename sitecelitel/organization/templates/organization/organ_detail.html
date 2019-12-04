@@ -42,11 +42,11 @@
           </picture>
         </div>
       {% endif %}
-      <div class="placeLooksLike__item placeLooksLike__item--pano" data-src="">
-        {% autoescape off %}{{ organ.panorama }}{% endautoescape %}
+      <div class="placeLooksLike__item placeLooksLike__item--pano" data-src="{{ organ.panorama }}">
+        <iframe src="" width="100%" height="650" allowfullscreen="true"></iframe>
       </div>
-      <div class="placeLooksLike__item placeLooksLike__item--map" data-src="">
-        {% autoescape off %}{{ organ.map }}{% endautoescape %}
+      <div class="placeLooksLike__item placeLooksLike__item--map" data-src="{{ organ.map }}">
+        <iframe src="" width="100%" height="650" allowfullscreen="true"></iframe>
       </div>
       <div class="placeLooksLike__controls">
         <button class="placeLooksLike__control placeLooksLike__control--photo placeLooksLike__control--active" type="button">

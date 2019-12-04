@@ -3249,6 +3249,9 @@ div.subMenu {
   display: block;
   border: none;
 }
+.placeLooksLike__item iframe{
+	height: 100%;
+}
 .placeLooksLike__item--active {
   visibility: visible;
 }
