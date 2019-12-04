@@ -8,6 +8,8 @@ class ServiceAdmin(admin.ModelAdmin):
     search_fields = ['name', 'service_group__name']
     list_display = ['name', 'service_group']
 
+    filter_horizontal = ['doctors']
+
 @admin.register(Price)
 class PriceAdmin(admin.ModelAdmin):
     list_display = ['service', 'price_type', 'price']
