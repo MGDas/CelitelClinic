@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from doctor.models import Doctor, DoctorTiming, Timing
 from organization.models import Organization, Department
+from service.models import Service
 
 class OrganizationSerializer(serializers.ModelSerializer):
 
@@ -34,10 +35,16 @@ class DepartmentSerializer(serializers.ModelSerializer):
         fields = ['organization']
 
 
+class ServiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Service
+        fields = '__all__'
+
+
 class DoctorListSerializer(serializers.ModelSerializer):
     department = DepartmentSerializer(many=True)
     dates = DoctorTimingSerializer(many=True)
 
     class Meta:
         model = Doctor
-        fields = ['id', 'full_name', 'department', 'dates']
+        fields = ('id', 'full_name', 'department', 'dates')

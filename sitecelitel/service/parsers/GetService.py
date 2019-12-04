@@ -19,7 +19,7 @@ async def get_doctors(doctors):
                 doctor = Doctor.objects.get(code=doc['doccode'])
             except Doctor.DoesNotExist:
                 continue
-                
+
             doc_list.append(doctor)
             print(f'..................Доктор....{doctor.code}')
 
@@ -48,6 +48,7 @@ async def save_in_db(code, name, cg, time, doctors):
         )
         if doc_list:
             service.doctors.add(*doc_list)
+        service.save()
 
         if not status:
             print(f"{service}......услуга ОБНОВЛЕНА!")

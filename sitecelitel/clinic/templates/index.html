@@ -112,7 +112,7 @@
 											<!-- class="subMenu__active" -->
 											{% for service_group in service_groups %}
 												<li>
-													<a href="#">
+													<a href="{% url 'service_detail_url' pk=service_group.pk %}">
 													    {{ service_group.name }}
 													</a>
 												</li>
@@ -374,7 +374,7 @@
         							{% endfor %}
 								{% endfor %}
                             </div>
-							
+
 						</div>
 					</section>
 
