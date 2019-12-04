@@ -15,7 +15,7 @@ def index(request):
     organ_cities = [organ for organ in Organization.pub_objects.values_list('city', flat=True).distinct() if organ]
     for city in organ_cities:
         if city:
-            organizations[city] = Organization.objects.filter(city=city).values_list('id', 'name', 'address', 'operating_mode', 'image')
+            organizations[city] = Organization.objects.filter(city=city, public=1).values_list('id', 'name', 'address', 'operating_mode', 'image')
 
     service_groups = ServiceGroup.pub_objects.all()
     # service_groups = get_service_group_to_alphabet()

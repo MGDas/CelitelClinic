@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
     			evt.currentTarget.nextElementSibling.classList.add('makeAnAppointment__time--selected')
     
     			orderModal1.querySelector('#orderModalAddress').value = document.querySelector('.makeAnAppointment__input:checked').getAttribute('value')
-    			orderModal1.querySelector('#orderModalTime').value = document.querySelector('.makeAnAppointment__hoursInput:checked').getAttribute('value')
+    			orderModal1.querySelector('#orderModalTime').value = document.querySelector('.makeAnAppointment__hoursInput:checked').getAttribute('value').split(" ")[0].split("T")[1]
     
     			var tempForm = event.currentTarget.closest(".makeAnAppointment");
     			orderModal1.classList.add('orderModal--view')

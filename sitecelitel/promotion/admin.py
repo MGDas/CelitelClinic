@@ -15,3 +15,5 @@ class PromotionAdmin(SummernoteModelAdmin):
         'created',
         'updated'
     ]
+
+    filter_horizontal = ['doctor']

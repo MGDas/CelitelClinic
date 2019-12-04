@@ -135,6 +135,7 @@
           // Выводим часы.
           for(var j=0; j<window.times[i].hours.length; j++){
 
+
             var randomNumber = Math.random() * Math.random()
             var timeInput = document.createElement('input')
 
@@ -146,7 +147,7 @@
               timeInput.setAttribute("disabled", "disabled")
             }
 
-            timeInput.setAttribute("value", window.times[i].rawDate + "T" + window.times[i].hours[j].hour + ":00")
+            timeInput.setAttribute("value", window.times[i].rawDate + "T" + window.times[i].hours[j].start + ":00 " + window.times[i].rawDate + "T" + window.times[i].hours[j].end + ":00")
 
             var timeLabel = document.createElement('label')
             if(window.times[i].hours[j].free){
@@ -155,8 +156,8 @@
               timeLabel.className = "makeAnAppointment__time makeAnAppointment__time--unavailable"
             }
             timeLabel.setAttribute("for", "appointmentTime" + randomNumber)
-            timeLabel.setAttribute("aria-label", window.times[i].date + ", " + window.times[i].hours[j].hour)
-            timeLabel.innerHTML = window.times[i].hours[j].hour
+            timeLabel.setAttribute("aria-label", window.times[i].date + ", " + window.times[i].hours[j].start)
+            timeLabel.innerHTML = window.times[i].hours[j].start
 
             dayWrapper.append(timeInput)
             dayWrapper.append(timeLabel)
