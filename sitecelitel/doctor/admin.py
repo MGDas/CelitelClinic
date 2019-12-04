@@ -15,6 +15,8 @@ class VideoAdmin(SummernoteModelAdmin):
     summernote_fields = ['video']
     list_display = ['title', 'created', 'updated', 'public']
     list_editable = ['public']
+    
+    filter_horizontal = ['doctor']
 
 @admin.register(Specialization)
 class SpecializationAdmin(admin.ModelAdmin):

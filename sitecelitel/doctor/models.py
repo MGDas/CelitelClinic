@@ -68,7 +68,7 @@ class Doctor(BaseModel):
         db_table = 'doctors'
         verbose_name = 'Доктор'
         verbose_name_plural = 'Доктора'
-        ordering = ['-id']
+        ordering = ['full_name']
 
     def __str__(self):
         return self.full_name
@@ -170,6 +170,8 @@ class Review(BaseModel):
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
 
+    def __str__(self):
+        return self.review
 
 class Video(BaseModel):
     doctor = models.ManyToManyField(

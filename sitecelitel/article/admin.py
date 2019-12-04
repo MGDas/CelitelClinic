@@ -15,7 +15,8 @@ class ArticleAdmin(SummernoteModelAdmin):
         'content',
         ('image', 'caption'),
         'created',
-        'updated'
+        'updated',
+        'tags'
     ]
 
     summernote_fields = ('preview', 'content',)
