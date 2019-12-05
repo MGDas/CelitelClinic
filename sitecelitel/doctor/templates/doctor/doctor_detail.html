@@ -71,6 +71,15 @@
 
         </section>
 
+        <section class="statistics">
+			<div class="container">
+				<div class="statistics__item"><b>{{ videos.count }}</b>видео</div>
+				<div class="statistics__item"><b>{{ consultations.count }}</b>консультаций</div>
+				<div class="statistics__item"><b>{{ reviews.count }}</b>отзывов</div>
+				<div class="statistics__item"><b>{{ articles.count }}</b>статей</div>
+			</div>
+		</section>
+
         {% if videos %}
             <section class="video">
                 <div class="container">
@@ -92,9 +101,44 @@
                             </div>
                         {% endfor %}
                 </div>
-            </section>
+			</section>
+		{% else %}
+			<section class="video">
+				<div class="container">
+					<h2 class="mdTitle mdTitle--white">Видео врача</h2>
+					<div class="mdIntro">Пока у врача нет видео.</div>
+				</div>
+			</section>
         {% endif %}
-        
+		
+        {% if reviews %}
+			<section class="reviews">
+				<div class="container">
+					<h2 class="mdTitle">Отзывы пациентов</h2>
+					<div class="mdIntro">Оставь свой отзый о враче.</div>
+					<a class="addBtn reviews__btn" href="#">Оставить отзыв</a>
+					
+					<ul class="reviews__body">
+						{% for review in reviews %}
+						<li class="reviews__item">
+							<p>
+								{{ review.review }}
+							</p>
+							<div class="reviews__author">{{ review.author }}</div>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</section>
+		{% else %}
+			<section class="reviews">
+				<div class="container">
+					<h2 class="mdTitle">Отзывы пациентов</h2>
+					<div class="mdIntro">Пока у врача нет отзывов, но вы можете оставить свой отзыв.</div><a class="addBtn reviews__btn" href="#">Оставить отзыв</a>
+				</div>
+			</section>
+        {% endif %}
+
         {% if articles %}
             <section class="articles">
             	<div class="container">
@@ -128,7 +172,18 @@
                         {% endfor %}
             		</ul>
             	</div>
-            </section>
+			</section>
+		{% else %}
+			<section class="articles">
+				<div class="container">
+					<h2 class="mdTitle">Пишет врач 
+						{% for spec in doctor.specialization.all %}
+							{{ spec }}.
+                        {% endfor %}
+					</h2>
+					<div class="mdIntro">Пока у врача нет авторских статей.</div>
+				</div>
+			</section>
         {% endif %}
 
     </article>
