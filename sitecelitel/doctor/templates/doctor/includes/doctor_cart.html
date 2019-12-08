@@ -9,6 +9,7 @@
       .then((response) => response.json())
       .then((data) => {
         window.rawData = data.dates
+        window.services = data.services
         // console.log("data: ", rawData)
       })
       .then(() => {
@@ -166,6 +167,15 @@
           timesWrapper.append(dayWrapper)
         }
       })
+        .then(() => {
+            var serviceSelect = document.querySelector("#orderModalService");
+            for(var i=0; i<window.services.length; i++){
+                var serviceOption = document.createElement('option')
+                serviceOption.setAttribute("value", window.services[i].code)
+                serviceOption.innerHTML = window.services[i].name
+                serviceSelect.append(serviceOption)
+            }
+        })
       .catch((err) => {
         console.log("Ошибка: ", err)
       })
@@ -239,6 +249,12 @@
                             <div class="orderModal__input">
                                 <label class="orderModal__label" for="orderModalBirthday">Дата рождения</label>
                                 <input type="date" name="orderModalBirthday" id="orderModalBirthday" required>
+                            </div>
+                            <div class="orderModal__input">
+                                <label class="orderModal__label" for="orderModalService">Выберите услугу</label>
+                                <select name="orderModalService" id="orderModalService" required>
+                                    
+                                </select>
                             </div>
                             <div class="orderModal__input">
                                 <span class="orderModal__label">Пол</span>
