@@ -2981,7 +2981,8 @@ div.subMenu {
   color: #000;
 }
 .orderModal__input input,
-.orderModal__input textarea {
+.orderModal__input textarea,
+.orderModal__input select{
   display: block;
   width: 100%;
   padding: 13px 10px;
