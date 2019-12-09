@@ -18,12 +18,10 @@
             <section class="materialInfo materialInfo--withAuthor">
               {% with doctor=article.doctor %}
                 <div class="materialInfo__author">
-                  {% if doctor.photo %}
-                    {% if doctor.photo %}
-                      <div class="materialInfo__photo">
-                        <img src="{{ doctor.photo.url }}" alt="" width="80" height="80">
-                      </div>
-                    {% endif %}
+                  {% if doctor.avatar %}
+                     <div class="materialInfo__photo">
+                       <img src="{{ doctor.avatar.url }}" alt="{{ doctor.full_name }}" width="80" height="80">
+                     </div>
                   {% endif %}
                   <div class="materialInfo__wrap">
                     <h3>{{ doctor.full_name }}</h3>
