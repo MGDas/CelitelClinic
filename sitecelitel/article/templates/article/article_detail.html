@@ -20,11 +20,11 @@
                 <div class="materialInfo__author">
                   {% if doctor.avatar %}
                      <div class="materialInfo__photo">
-                       <img src="{{ doctor.avatar.url }}" alt="{{ doctor.full_name }}" width="80" height="80">
+                       <a href="{% url 'doctor_detail_url' pk=doctor.pk %}" title="Открыть страницу доктора"><img src="{{ doctor.avatar.url }}" alt="{{ doctor.full_name }}" width="80" height="80"></a>
                      </div>
                   {% endif %}
                   <div class="materialInfo__wrap">
-                    <h3>{{ doctor.full_name }}</h3>
+                    <h3><a href="{% url 'doctor_detail_url' pk=doctor.pk %}" title="Открыть страницу доктора"> {{ doctor.full_name }}</a></h3>
                     {% if doctor.specialization %}
                         <p><span class="">{% for spec in doctor.specialization.all %}{{ spec }}.{% endfor %}</span></p>
                     {% endif %}
