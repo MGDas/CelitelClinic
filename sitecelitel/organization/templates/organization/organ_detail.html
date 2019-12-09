@@ -1,14 +1,12 @@
 {% extends 'index.html' %}
 
-{% block title %}
-    {{ organ.name}}
-{% endblock %}
+{% block title %}{{ organ.name }}{% endblock %}
 
 {% block content %}
 <main>
   <article class="clinic">
     <div class="container">
-      <h1 class="h1">{{ organ.name}}</h1>
+      <h1 class="h1">{{ organ.name }}</h1>
       <section class="placeInfo">
         <div class="placeInfo__item placeInfo__item--phones">
           {% if reg_phone %}
@@ -382,7 +380,7 @@
   </article>
         <section class="nextPage">
           <div class="container">
-            <p>Далее</p><a href="#"><span>ООО Детская поликлиника «Целитель»</span>
+            <p>Далее</p><a href="{% url 'organ_detail_url' pk=next_page.id %}"><span>{{ next_page.name }}</span>
                   <svg width="40" height="30" aria-hidden="true">
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight"></use>
                   </svg></a>
