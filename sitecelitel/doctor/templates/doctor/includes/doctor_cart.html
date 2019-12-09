@@ -1,4 +1,5 @@
-<input type="hidden" id="doctorFetchID" name="doctorFetchID" value={{ doctor.id }} />
+<input type="hidden" id="doctorFetchID" name="doctorFetchID" value="{{ doctor.id }}" />
+<input type="hidden" id="doctorAgreement" name="doctorAgreement" value="" />
 
 <script>
   
@@ -20,8 +21,12 @@
         var organizations = window.rawData.map((item) => {
           return item.organization.address
         })
+        var agreements = window.rawData.map((item) => {
+          return item.organization.agreement
+        })
         // Берём первую клинику, как временное решение.
         window.organizations = Array.from(new Set(organizations))[0]
+        document.querySelector("#doctorAgreement").setAttribute("value", Array.from(new Set(agreements))[0])
       })
       .then(() => {
         // Создаём массив с датами и часами для первой клиники.
@@ -189,8 +194,8 @@
 
 <!-- Форма отправляется по адресу в data-action и ожидает ответа "1", если всё нормально. В action указывается адрес, куда надо перекидывать для оплаты. В data-name прописывается имя врача. В data-desk - описание. В data-photo - адрес его фотографии.-->
 <form class="doctorPage__order makeAnAppointment" action="#" data-action="#" data-name="Зарема Алиевна Алиева" data-desk="детский врач-невролог. Опыт работы — 5 лет" data-photo="assets/doctorCardPhoto.png">
-  <input type="hidden" id="doctorCode" name="doctorCode" value={{ doctor.code }} />
-  <input type="hidden" id="doctorID" name="doctorID" value={{ doctor.id }} />
+  <input type="hidden" id="doctorCode" name="doctorCode" value="{{ doctor.code }}" />
+  <input type="hidden" id="doctorID" name="doctorID" value="{{ doctor.id }}" />
 
   <div class="makeAnAppointment__addresses"></div>
 
