@@ -2,12 +2,25 @@ from rest_framework import serializers
 from doctor.models import Doctor, DoctorTiming, Timing
 from organization.models import Organization, Department
 from service.models import Service
+import requests
+from django.db import connections
+connection = connections['default']
 
 class OrganizationSerializer(serializers.ModelSerializer):
+    agreement = serializers.SerializerMethodField('getServices')
+    
+    def getServices(self, Organization):
+        organizationID = Organization.id
+
+        cursor = connection.cursor()
+        organizationAgreement = cursor.execute("SELECT `code` FROM `agreements` WHERE `organization_id` = {}".format(organizationID))
+        row = cursor.fetchone()[0]
+
+        return row
 
     class Meta:
         model = Organization
-        fields = ['id', 'name', 'address']
+        fields = ['id', 'name', 'address', 'agreement']
 
 
 class TimingSerializer(serializers.ModelSerializer):
@@ -45,7 +58,7 @@ class DoctorListSerializer(serializers.ModelSerializer):
     department = DepartmentSerializer(many=True)
     dates = DoctorTimingSerializer(many=True)
     services = ServiceSerializer(many=True)
-
+    
     class Meta:
         model = Doctor
         fields = ('id', 'full_name', 'department', 'dates', 'services')
