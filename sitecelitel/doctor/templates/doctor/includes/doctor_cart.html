@@ -1,5 +1,4 @@
 <input type="hidden" id="doctorFetchID" name="doctorFetchID" value="{{ doctor.id }}" />
-<input type="hidden" id="doctorAgreement" name="doctorAgreement" value="" />
 
 <script>
   
@@ -194,6 +193,7 @@
 
 <!-- Форма отправляется по адресу в data-action и ожидает ответа "1", если всё нормально. В action указывается адрес, куда надо перекидывать для оплаты. В data-name прописывается имя врача. В data-desk - описание. В data-photo - адрес его фотографии.-->
 <form class="doctorPage__order makeAnAppointment" action="#" data-action="#" data-name="Зарема Алиевна Алиева" data-desk="детский врач-невролог. Опыт работы — 5 лет" data-photo="assets/doctorCardPhoto.png">
+  <input type="hidden" id="doctorAgreement" name="doctorAgreement" value="" />
   <input type="hidden" id="doctorCode" name="doctorCode" value="{{ doctor.code }}" />
   <input type="hidden" id="doctorID" name="doctorID" value="{{ doctor.id }}" />
 
