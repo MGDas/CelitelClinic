@@ -213,9 +213,9 @@
 																	<img src="{{ article.doctor.avatar.url }}" alt="" width="80" height="80">
 															{% endif %}
 															<div class="articles__wrap">
-																<div class="articles__name">Башир Алиасрхабович</div>
+																<div class="articles__name">{{ article.doctor.full_name }}</div>
 																{% if article.doctor.specialization %}
-																	<div class="articles__desc">{{ article.doctor.specialization }}</div>
+																    <div class="articles__desc">{% for spec in article.doctor.specialization.all %}<span class="">{{ spec }}. </span>{% endfor %}</div>
 																{% endif %}
 															</div>
 														</div>
