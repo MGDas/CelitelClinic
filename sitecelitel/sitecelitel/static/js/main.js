@@ -153,11 +153,25 @@ function sendDataAppointment(fileName, form) {
 	var XHR = new XMLHttpRequest();
 	var FD = new FormData(form);
 	XHR.addEventListener("load", function(event) {
-		console.log(this.responseText)
-		orderModalSuccess.classList.add('orderModal--view')
-		if(JSON.parse(this.responseText).response == "1"){
-			orderModalSuccess.classList.add('orderModal--view')
-		}
+        var responseServer = JSON.parse(this.responseText);
+        
+        if(!responseServer["Services"].length){
+            console.error("Ошибка: ", responseServer)
+            alert("Ошибка")
+        } else {
+            if(responseServer["Services"][0]["Status"] == "Подтверждена"){
+                console.log("Записан")
+        		orderModalSuccess.classList.add('orderModal--view')
+            } else if(responseServer["Services"][0]["Status"] == "Время занято"){
+                console.log("Время занято")
+                alert("Время занято. Пожалуйста, выберите другое время")                
+            } else {
+                console.error("Ошибка!")
+                alert("Ошибка")
+            }
+        }
+
+
 	});
 	XHR.addEventListener("error", function(event) {
 		alert('Ошибка!');
