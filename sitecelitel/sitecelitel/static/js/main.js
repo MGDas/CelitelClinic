@@ -155,20 +155,26 @@ function sendDataAppointment(fileName, form) {
 	XHR.addEventListener("load", function(event) {
         var responseServer = JSON.parse(this.responseText);
         
-        if(!responseServer["Services"].length){
-            console.error("Ошибка: ", responseServer)
-            alert("Ошибка")
-        } else {
-            if(responseServer["Services"][0]["Status"] == "Подтверждена"){
-                console.log("Записан")
-        		orderModalSuccess.classList.add('orderModal--view')
-            } else if(responseServer["Services"][0]["Status"] == "Время занято"){
-                console.log("Время занято")
-                alert("Время занято. Пожалуйста, выберите другое время")                
-            } else {
-                console.error("Ошибка!")
+        try{
+            if(!responseServer["Services"].length){
+                console.error("Ошибка: ", responseServer)
                 alert("Ошибка")
+            } else {
+                if(responseServer["Services"][0]["Status"] == "Подтверждена"){
+                    console.log("Записан")
+            		orderModalSuccess.classList.add('orderModal--view')
+                } else if(responseServer["Services"][0]["Status"] == "Время занято"){
+                    console.log("Время занято")
+                    alert("Время занято. Пожалуйста, выберите другое время")                
+                } else {
+                    console.error("Ошибка!")
+                    alert("Ошибка")
+                }
             }
+        }
+        catch (e) {
+            alert("Ошибка!")
+            console.error("Ошибка: ", e)
         }
 
 
