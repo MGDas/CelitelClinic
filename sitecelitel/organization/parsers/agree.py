@@ -5,7 +5,7 @@ from service.models import PriceType
 
 def connect():
 
-    response = requests.get('https://test.studiovector.art/json/GetAgreements.json')
+    response = requests.get('https://celitel05.ru/json/GetAgreements.json')
     return response.json()
 
 async def save_in_db(code, name, organ_code, price_type):
