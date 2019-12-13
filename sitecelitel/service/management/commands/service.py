@@ -12,9 +12,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         start = time()
-        # groups()
+        groups()
         asyncio.run(service())
-        # price_types()
+        price_types()
         asyncio.run(price())
 
         end = time()
