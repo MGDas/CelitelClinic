@@ -17,7 +17,7 @@ def save_in_db(code, name):
         print(f'{group}.... группа СОЗДАНА!')
 
 def main():
-    url = 'https://test.studiovector.art/json/GetServiceGroups.json'
+    url = 'https://celitel05.ru/json/GetServiceGroups.json'
     data = connect(url)
 
     for d in data:
