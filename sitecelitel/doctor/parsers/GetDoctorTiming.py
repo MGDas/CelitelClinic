@@ -10,10 +10,9 @@ from organization.models import Department
 
 path_to = os.path.dirname(__file__)
 
-def connect():
-
-    with open(f'{path_to}/GetDoctorsDays.json', 'r') as file:
-        return json.load(file)
+def connect(url):
+    response = requests.get(url)
+    return response.json()
 
 
 def date_comparison(date_reception):
@@ -65,8 +64,8 @@ async def save_db(doc_code, depart_code, days):
 
 
 async def main():
-
-    data = connect()
+    data = connect("https://celitel05.ru/json/GetDoctorsDays.json")
+    
     tasks = []
 
     for d in data:
