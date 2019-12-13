@@ -33,7 +33,7 @@ async def save_in_db(service_id, price_id, price):
             print(f'{service}...{service.price_type}... цена СОЗДАНА!')
 
 async def main():
-    url = 'http://test.studiovector.art/json/GetPrices.json'
+    url = 'https://celitel05.ru/json/GetPrices.json'
     data = connect(url)
 
     tasks = []
