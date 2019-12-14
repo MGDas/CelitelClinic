@@ -14,7 +14,10 @@ class OrganizationSerializer(serializers.ModelSerializer):
 
         cursor = connection.cursor()
         organizationAgreement = cursor.execute("SELECT `code` FROM `agreements` WHERE `organization_id` = {}".format(organizationID))
-        row = cursor.fetchone()[0]
+        if organizationAgreement:
+            row = cursor.fetchone()[0]
+        else:
+            row = ""
 
         return row
 
