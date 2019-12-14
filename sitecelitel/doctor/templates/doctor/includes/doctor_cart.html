@@ -1,198 +1,320 @@
 <input type="hidden" id="doctorFetchID" name="doctorFetchID" value="{{ doctor.id }}" />
 
 <script>
-  
+document.addEventListener("DOMContentLoaded", () => {
+	var doctorID = document.querySelector('#doctorFetchID').value
+	fetch("/doctors/api/v0/all/" + doctorID)
+		.then((response) => response.json())
+		.then((data) => {
+			window.rawData = data.dates
+			window.services = data.services
+			// console.log("data: ", rawData)
+		})
+		.then(() => {
+			if (!window.rawData.length) {
+				throw new Error()
+			}
+			// Создаём список клиник.
+			var organizations = window.rawData.map((item) => {
+				return item.organization.address
+			})
+			var agreements = window.rawData.map((item) => {
+				return item.organization.agreement
+			})
+			// Берём первую клинику, как временное решение.
+			window.organizations = Array.from(new Set(organizations))[0]
+			document.querySelector("#doctorAgreement").setAttribute("value", Array.from(new Set(agreements))[0])
+		})
+		.then(() => {
+			// Создаём массив с датами и часами для первой клиники.
+			var times = window.rawData.map((item) => {
+				if (item.organization.address == window.organizations) {
+					var tempDate = item.date.split("-").reverse()
+					tempDate.pop()
+					switch (tempDate[1]) {
+						case "01":
+							tempDate[1] = "Янв"
+							break
+						case "02":
+							tempDate[1] = "Фев"
+							break
+						case "03":
+							tempDate[1] = "Мар"
+							break
+						case "04":
+							tempDate[1] = "Апр"
+							break
+						case "05":
+							tempDate[1] = "Мая"
+							break
+						case "06":
+							tempDate[1] = "Июн"
+							break
+						case "07":
+							tempDate[1] = "Июл"
+							break
+						case "08":
+							tempDate[1] = "Авг"
+							break
+						case "09":
+							tempDate[1] = "Сен"
+							break
+						case "10":
+							tempDate[1] = "Окт"
+							break
+						case "11":
+							tempDate[1] = "Ноя"
+							break
+						case "12":
+							tempDate[1] = "Дек"
+							break
+					}
+					tempDate = tempDate.join(" ")
 
-  document.addEventListener("DOMContentLoaded", () => {
-    var doctorID = document.querySelector('#doctorFetchID').value
-    fetch("/doctors/api/v0/all/" + doctorID)
-      .then((response) => response.json())
-      .then((data) => {
-        window.rawData = data.dates
-        window.services = data.services
-        // console.log("data: ", rawData)
-      })
-      .then(() => {
-        if(!window.rawData.length){
-          throw new Error()
-        }
-        // Создаём список клиник.
-        var organizations = window.rawData.map((item) => {
-          return item.organization.address
-        })
-        var agreements = window.rawData.map((item) => {
-          return item.organization.agreement
-        })
-        // Берём первую клинику, как временное решение.
-        window.organizations = Array.from(new Set(organizations))[0]
-        document.querySelector("#doctorAgreement").setAttribute("value", Array.from(new Set(agreements))[0])
-      })
-      .then(() => {
-        // Создаём массив с датами и часами для первой клиники.
-        var times = window.rawData.map((item) => {
-          if(item.organization.address == window.organizations){
-            var tempDate = item.date.split("-").reverse()
-            tempDate.pop()
-            switch(tempDate[1]){
-              case "01":
-                tempDate[1] = "Янв"
-                break
-              case "02":
-                tempDate[1] = "Фев"
-                break
-              case "03":
-                tempDate[1] = "Мар"
-                break
-              case "04":
-                tempDate[1] = "Апр"
-                break
-              case "05":
-                tempDate[1] = "Мая"
-                break
-              case "06":
-                tempDate[1] = "Июн"
-                break
-              case "07":
-                tempDate[1] = "Июл"
-                break
-              case "08":
-                tempDate[1] = "Авг"
-                break
-              case "09":
-                tempDate[1] = "Сен"
-                break
-              case "10":
-                tempDate[1] = "Окт"
-                break
-              case "11":
-                tempDate[1] = "Ноя"
-                break
-              case "12":
-                tempDate[1] = "Дек"
-                break
-            }
-            tempDate = tempDate.join(" ")
+					return {
+						"date": tempDate,
+						"hours": item.timing,
+						"rawDate": item.date
+					}
+				}
+			})
+			window.times = times
+		})
+		.then(() => {
+			// Выводим на страницу адрес.
+			var addressesWrapper = document.querySelector('.makeAnAppointment__addresses')
+			var addressInput = document.createElement('input')
+			addressInput.className = "makeAnAppointment__input visually-hidden"
+			addressInput.setAttribute("data-address", window.organizations)
+			addressInput.setAttribute("value", window.organizations)
+			addressInput.setAttribute("type", "radio")
+			addressInput.setAttribute("id", "address0")
+			addressInput.setAttribute("name", "appointmentAddresses")
+			addressInput.setAttribute("checked", "checked")
 
-            return {
-              "date": tempDate,
-              "hours": item.timing,
-              "rawDate": item.date
-            }
-          }
-        })
-        window.times = times
-      })
-      .then(() => {
-        // Выводим на страницу адрес.
-        var addressesWrapper = document.querySelector('.makeAnAppointment__addresses')
-        var addressInput = document.createElement('input')
-        addressInput.className = "makeAnAppointment__input visually-hidden"
-        addressInput.setAttribute("data-address", window.organizations)
-        addressInput.setAttribute("value", window.organizations)
-        addressInput.setAttribute("type", "radio")
-        addressInput.setAttribute("id", "address0")
-        addressInput.setAttribute("name", "appointmentAddresses")
-        addressInput.setAttribute("checked", "checked")
+			var addressLabel = document.createElement('label')
+			addressLabel.className = "makeAnAppointment__address"
+			addressLabel.setAttribute("for", "address0")
+			addressLabel.innerHTML = window.organizations
 
-        var addressLabel = document.createElement('label')
-        addressLabel.className = "makeAnAppointment__address"
-        addressLabel.setAttribute("for", "address0")
-        addressLabel.innerHTML = window.organizations
+			addressesWrapper.append(addressInput)
+			addressesWrapper.append(addressLabel)
 
-        addressesWrapper.append(addressInput)
-        addressesWrapper.append(addressLabel)
+		})
+		.then(() => {
+			// Выводим даты.
+			var datesWrapper = document.querySelector('.makeAnAppointment__dates')
+			var timesWrapper = document.querySelector('.makeAnAppointment__times')
 
-      })
-      .then(() => {
-        // Выводим даты.
-        var datesWrapper = document.querySelector('.makeAnAppointment__dates')
-        var timesWrapper = document.querySelector('.makeAnAppointment__times')
-       
-        for(var i=0; i<window.times.length; i++){
-          var dateInput = document.createElement('input')
-          dateInput.className = "visually-hidden makeAnAppointment__dateInput"
-          dateInput.setAttribute("data-appointmentdate", window.times[i].date)
-          dateInput.setAttribute("value", window.times[i].date)
-          dateInput.setAttribute("type", "radio")
-          dateInput.setAttribute("id", "appointmentDates" + i)
-          dateInput.setAttribute("name", "appointmentDates0")
-          if(i==0){
-            dateInput.setAttribute("checked", "appointmentAddresses")
-          }
+			for (var i = 0; i < window.times.length; i++) {
+				var dateInput = document.createElement('input')
+				dateInput.className = "visually-hidden makeAnAppointment__dateInput"
+				dateInput.setAttribute("data-appointmentdate", window.times[i].date)
+				dateInput.setAttribute("value", window.times[i].date)
+				dateInput.setAttribute("type", "radio")
+				dateInput.setAttribute("id", "appointmentDates" + i)
+				dateInput.setAttribute("name", "appointmentDates0")
+				if (i == 0) {
+					dateInput.setAttribute("checked", "appointmentAddresses")
+				}
 
-          var dateLabel = document.createElement('label')
-          dateLabel.className = "makeAnAppointment__date"
-          dateLabel.setAttribute("for", "appointmentDates" + i)
-          dateLabel.innerHTML = window.times[i].date
+				var dateLabel = document.createElement('label')
+				dateLabel.className = "makeAnAppointment__date"
+				dateLabel.setAttribute("for", "appointmentDates" + i)
+				dateLabel.innerHTML = window.times[i].date
 
-          datesWrapper.append(dateInput)
-          datesWrapper.append(dateLabel)
+				datesWrapper.append(dateInput)
+				datesWrapper.append(dateLabel)
 
-          // Создаём обёртку для часов.
-          var dayWrapper = document.createElement('div')
-          if(i == 0){
-            dayWrapper.className = "makeAnAppointment__day makeAnAppointment__day--active"
-          } else {
-            dayWrapper.className = "makeAnAppointment__day"
-          }
-          dayWrapper.setAttribute("data-appointmentday", window.times[i].date)
+				// Создаём обёртку для часов.
+				var dayWrapper = document.createElement('div')
+				if (i == 0) {
+					dayWrapper.className = "makeAnAppointment__day makeAnAppointment__day--active"
+				} else {
+					dayWrapper.className = "makeAnAppointment__day"
+				}
+				dayWrapper.setAttribute("data-appointmentday", window.times[i].date)
 
-          // Выводим часы.
-          for(var j=0; j<window.times[i].hours.length; j++){
+				// Выводим часы.
+				for (var j = 0; j < window.times[i].hours.length; j++) {
 
 
-            var randomNumber = Math.random() * Math.random()
-            var timeInput = document.createElement('input')
+					var randomNumber = Math.random() * Math.random()
+					var timeInput = document.createElement('input')
 
-            timeInput.className = "visually-hidden makeAnAppointment__hoursInput"
-            timeInput.setAttribute("type", "radio")
-            timeInput.setAttribute("id", "appointmentTime" + randomNumber)
-            timeInput.setAttribute("name", "appointmentTime")
-            if(!window.times[i].hours[j].free){
-              timeInput.setAttribute("disabled", "disabled")
-            }
+					timeInput.className = "visually-hidden makeAnAppointment__hoursInput"
+					timeInput.setAttribute("type", "radio")
+					timeInput.setAttribute("id", "appointmentTime" + randomNumber)
+					timeInput.setAttribute("name", "appointmentTime")
+					if (!window.times[i].hours[j].free) {
+						timeInput.setAttribute("disabled", "disabled")
+					}
 
-            timeInput.setAttribute("value", window.times[i].rawDate + "T" + window.times[i].hours[j].start + ":00 " + window.times[i].rawDate + "T" + window.times[i].hours[j].end + ":00")
+					timeInput.setAttribute("value", window.times[i].rawDate + "T" + window.times[i].hours[j].start + ":00 " + window.times[i].rawDate + "T" + window.times[i].hours[j].end + ":00")
 
-            var timeLabel = document.createElement('label')
-            if(window.times[i].hours[j].free){
-              timeLabel.className = "makeAnAppointment__time"
-            } else {
-              timeLabel.className = "makeAnAppointment__time makeAnAppointment__time--unavailable"
-            }
-            timeLabel.setAttribute("for", "appointmentTime" + randomNumber)
-            timeLabel.setAttribute("aria-label", window.times[i].date + ", " + window.times[i].hours[j].start)
-            timeLabel.innerHTML = window.times[i].hours[j].start
+					var timeLabel = document.createElement('label')
+					if (window.times[i].hours[j].free) {
+						timeLabel.className = "makeAnAppointment__time"
+					} else {
+						timeLabel.className = "makeAnAppointment__time makeAnAppointment__time--unavailable"
+					}
+					timeLabel.setAttribute("for", "appointmentTime" + randomNumber)
+					timeLabel.setAttribute("aria-label", window.times[i].date + ", " + window.times[i].hours[j].start)
+					timeLabel.innerHTML = window.times[i].hours[j].start
 
-            dayWrapper.append(timeInput)
-            dayWrapper.append(timeLabel)
-          }
-          
-          timesWrapper.append(dayWrapper)
-        }
-      })
-        .then(() => {
-            var serviceSelect = document.querySelector("#orderModalService");
-            for(var i=0; i<window.services.length; i++){
-                var serviceOption = document.createElement('option')
-                serviceOption.setAttribute("value", window.services[i].code)
-                serviceOption.innerHTML = window.services[i].name
-                serviceSelect.append(serviceOption)
-            }
-        })
-      .catch((err) => {
-        console.log("Ошибка: ", err)
-      })
-  })
+					dayWrapper.append(timeInput)
+					dayWrapper.append(timeLabel)
+				}
+
+				timesWrapper.append(dayWrapper)
+			}
+		})
+		.then(() => {
+			var serviceSelect = document.querySelector("#orderModalService");
+			for (var i = 0; i < window.services.length; i++) {
+				var serviceOption = document.createElement('option')
+				serviceOption.setAttribute("value", window.services[i].code)
+				serviceOption.innerHTML = window.services[i].name
+				serviceSelect.append(serviceOption)
+			}
+		})
+		.then(() => {
+			var makeAnAppointmentInputs = document.querySelectorAll('.makeAnAppointment__input ')
+
+			if (makeAnAppointmentInputs) {
+				makeAnAppointmentInputs.forEach((input) => {
+					input.addEventListener('change', (evt) => {
+						document.querySelector('.makeAnAppointment__wrapper--active').classList.remove('makeAnAppointment__wrapper--active')
+						document.querySelector(`.makeAnAppointment__wrapper[data-address="${evt.currentTarget.dataset.address}"]`).classList.add('makeAnAppointment__wrapper--active')
+					})
+				});
+			}
+
+			var makeAnAppointmentDateInputs = document.querySelectorAll('.makeAnAppointment__dateInput')
+
+			if (makeAnAppointmentDateInputs) {
+				makeAnAppointmentDateInputs.forEach((input) => {
+					input.addEventListener('change', (evt) => {
+						evt.currentTarget.parentNode.parentNode.querySelector('.makeAnAppointment__day--active').classList.remove('makeAnAppointment__day--active')
+						evt.currentTarget.parentNode.parentNode.querySelector(`.makeAnAppointment__day[data-appointmentday='${evt.currentTarget.dataset.appointmentdate}']`).classList.add('makeAnAppointment__day--active')
+					})
+				});
+			}
+
+			var makeAnAppointmentHoursInputs = document.querySelectorAll('.makeAnAppointment__hoursInput')
+
+			if (makeAnAppointmentHoursInputs.length) {
+				var orderModal1 = document.querySelector('.orderModal--step1');
+				var orderModalSuccess = document.querySelector('.orderModal--success');
+
+				makeAnAppointmentHoursInputs.forEach((input) => {
+					input.addEventListener('click', (evt) => {
+						var temp = evt.currentTarget.parentNode.parentNode.querySelector('.makeAnAppointment__time--selected');
+						if (temp) {
+							temp.classList.remove('makeAnAppointment__time--selected')
+						}
+						evt.currentTarget.nextElementSibling.classList.add('makeAnAppointment__time--selected')
+
+						orderModal1.querySelector('#orderModalAddress').value = document.querySelector('.makeAnAppointment__input:checked').getAttribute('value')
+						orderModal1.querySelector('#orderModalTime').value = document.querySelector('.makeAnAppointment__hoursInput:checked').getAttribute('value').split(" ")[0].split("T")[1]
+
+						var tempForm = event.currentTarget.closest(".makeAnAppointment");
+						orderModal1.classList.add('orderModal--view')
+					})
+				});
+
+				var orderModalClose = document.querySelectorAll('.orderModal__close')
+
+				if (orderModalClose) {
+					orderModalClose.forEach((btn) => {
+						btn.addEventListener('click', () => {
+							document.querySelector('.orderModal--view').classList.remove('orderModal--view')
+						})
+					});
+				}
+
+				var orderModalPay = document.querySelector('#orderModalPay')
+				var orderModalNoPay = document.querySelector('#orderModalNoPay')
+
+				function sendDataAppointment(fileName, form) {
+					var XHR = new XMLHttpRequest();
+					var FD = new FormData(form);
+					XHR.addEventListener("load", function(event) {
+						var responseServer = JSON.parse(this.responseText);
+
+						try {
+							if (!responseServer["Services"].length) {
+								console.error("Ошибка: ", responseServer)
+								alert("Ошибка")
+							} else {
+								if (responseServer["Services"][0]["Status"] == "Подтверждена") {
+									console.log("Записан")
+									orderModalSuccess.classList.add('orderModal--view')
+								} else if (responseServer["Services"][0]["Status"] == "Время занято") {
+									console.log("Время занято")
+									alert("Время занято. Пожалуйста, выберите другое время")
+								} else {
+									console.error("Ошибка!")
+									alert("Ошибка")
+								}
+							}
+						} catch (e) {
+							alert("Ошибка!")
+							console.error("Ошибка: ", e)
+						}
 
 
+					});
+					XHR.addEventListener("error", function(event) {
+						alert('Ошибка!');
+					});
+					XHR.open("POST", fileName);
+					XHR.send(FD);
+				}
 
+				function checkModalPaymentFields(action, form) {
+					if (orderModalName.value.split(" ").length < 3 || !orderModalPhone.value || !orderModalBirthday.value) {
+						if (orderModalName.value.split(" ").length < 3) {
+							orderModalName.classList.add('error')
+						} else {
+							orderModalName.classList.remove('error')
+						}
+						if (!orderModalPhone.value) {
+							orderModalPhone.classList.add('error')
+						} else {
+							orderModalPhone.classList.remove('error')
+						}
+						if (!orderModalBirthday.value) {
+							orderModalBirthday.classList.add('error')
+						} else {
+							orderModalBirthday.classList.remove('error')
+						}
+					} else {
+						orderModal1.classList.remove('orderModal--view')
+						sendDataAppointment(action, form)
+					}
+				}
 
+				orderModalNoPay.addEventListener('click', () => {
+					var form = document.querySelector('.makeAnAppointment');
+					checkModalPaymentFields(form.getAttribute('data-action'), form)
+				})
+
+				/*    	orderModalPay.addEventListener('click', () => {
+				    		var form = document.querySelector('.makeAnAppointment');
+				    		checkModalPaymentFields(form.getAttribute('action'), form)
+				    	})*/
+			}
+		})
+		.catch((err) => {
+			console.log("Ошибка: ", err)
+		})
+})
 </script>
 
 
 <!-- Форма отправляется по адресу в data-action и ожидает ответа "1", если всё нормально. В action указывается адрес, куда надо перекидывать для оплаты. В data-name прописывается имя врача. В data-desk - описание. В data-photo - адрес его фотографии.-->
-<form class="doctorPage__order makeAnAppointment" action="https://studiovector.art/celitel.php" data-action="https://studiovector.art/celitel.php" data-name="Зарема Алиевна Алиева" data-desk="детский врач-невролог. Опыт работы — 5 лет" data-photo="assets/doctorCardPhoto.png">
+<form class="doctorPage__order makeAnAppointment" action="https://studiovector.art/celitel.php" data-action="https://studiovector.art/celitel.php" method="POST">
   {% csrf_token %}
   <input type="hidden" id="doctorAgreement" name="doctorAgreement" value="" />
   <input type="hidden" id="doctorCode" name="doctorCode" value="{{ doctor.code }}" />
