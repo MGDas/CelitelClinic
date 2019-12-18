@@ -21,7 +21,7 @@ class ArticleAdmin(SummernoteModelAdmin):
 
     summernote_fields = ('preview', 'content',)
     prepopulated_fields = {'slug': ('title',)}
-    list_display = ['title', 'doctor', 'slug', 'id', 'public', 'created', 'updated']
+    list_display = ['title', 'doctor', 'created', 'updated', 'public', 'id']
     list_editable = ['public']
     list_filter = ['public']
 
