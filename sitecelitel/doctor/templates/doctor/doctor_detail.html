@@ -15,7 +15,7 @@
         <section class="doctorPage__main">
             <div class="doctorPage__photo">
                 {% if doctor.photo %}
-                    <img src="{{ doctor.photo.url }}" alt="">
+                    <img src="{{ doctor.photo.url }}" alt="{{ doctor.full_name }}">
                 {% endif %}
 
                 <!-- Share links -->

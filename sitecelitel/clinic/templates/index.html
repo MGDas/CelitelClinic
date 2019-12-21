@@ -174,14 +174,14 @@
 									</ul>
 								</section>
 								<section class="menuEvents__section menuEvents__section--news">
-									{% for promotion in promotion_header %}
+									{% for rusdoc in rus_doc %}
 											<section>
-												{% if promotion.image %}
-													<img src="{{ promotion.image.url }}" alt="" width="1024" height="540">
+												{% if rusdoc.image %}
+													<img src="{{ rusdoc.image.url }}" alt="" width="1024" height="540">
 												{% else %}
 													<img src="{% static 'images/promotion.jpg' %}" alt="" width="1024" height="540">
 												{% endif %}
-												<h3><a href="{{ promotion.get_absolute_url }}">{{ promotion.title }}</a></h3>
+												<h3><a href="{% url 'rusdoc_detail_url' pk=rusdoc.id %}">{{ rusdoc.title }}</a></h3>
 											</section>
 									{% endfor %}
 								</section>
@@ -213,10 +213,11 @@
 																	<img src="{{ article.doctor.avatar.url }}" alt="" width="80" height="80">
 															{% endif %}
 															<div class="articles__wrap">
-																<div class="articles__name">Башир Алиасрхабович</div>
+																<div class="articles__name">{{ article.doctor.full_name }}</div>
 																{% if article.doctor.specialization %}
-																	<div class="articles__desc">{{ article.doctor.specialization }}</div>
-																{% endif %}
+                                                                    <div class="articles__desc">{% for spec in article.doctor.specialization.all %}<span class="">{{ spec }}. </span>{% endfor %}</div>
+                                                                {% endif %}
+															
 															</div>
 														</div>
 												{% endif %}

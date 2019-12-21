@@ -18,16 +18,19 @@
             <section class="materialInfo materialInfo--withAuthor">
               {% with doctor=article.doctor %}
                 <div class="materialInfo__author">
-                  {% if doctor.photo %}
-                    {% if doctor.photo %}
-                      <div class="materialInfo__photo">
-                        <img src="{{ doctor.photo.url }}" alt="" width="80" height="80">
-                      </div>
-                    {% endif %}
+                 
+                  {% if doctor.avatar %}
+                    <div class="materialInfo__photo">
+                      <a href="{% url 'doctor_detail_url' pk=doctor.pk %}" title="Открыть страницу доктора"><img src="{{ doctor.avatar.url }}" alt="{{ doctor.full_name }}" width="80" height="80"></a>
+                    </div>
                   {% endif %}
+                  
                   <div class="materialInfo__wrap">
-                    <h3>{{ doctor.full_name }}</h3>
-                    {% if doctor.specialization %}<p>{{ doctor.specialization }}</p>{% endif %}
+                    <h3><a href="{% url 'doctor_detail_url' pk=doctor.pk %}" title="Открыть страницу доктора"> {{ doctor.full_name }}</a></h3>
+                    {% if doctor.specialization %}
+                        <p><span class="">{% for spec in doctor.specialization.all %}{{ spec }}. {% endfor %}</span></p>
+                    {% endif %}
+                    
                   </div>
                 </div>
                 <div class="materialInfo__date"><span>Дата</span>{{ article.updated|ru_strftime:"%d %B %Y"}}</div>
@@ -98,13 +101,15 @@
                     <div class="articles__wrap">
                       <div class="articles__name">{{ other.doctor.full_name }}</div>
                       {% if other.doctor.specialization %}
-                      <div class="articles__desc">{{ other.doctor.specialization }}</div>
+                        <div class="articles__desc">{% for spec in other.doctor.specialization.all %}<span class="">{{ spec }}. </span>{% endfor %}</div>
                       {% endif %}
                     </div>
                   </div>
                   {% else %}
                   <div class="articles__desc">
-                    <p>{{ other.preview|truncatechars:250 }}</p>
+                        {% autoescape off %}
+                            {{ other.preview|truncatechars:250 }}
+                        {% endautoescape %}
                   </div>
                   {% endif %}
                 </li>

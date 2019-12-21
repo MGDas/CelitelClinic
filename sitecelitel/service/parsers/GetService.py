@@ -58,7 +58,7 @@ async def save_in_db(code, name, cg, time, doctors):
 
 async def main():
 
-    url = 'https://test.studiovector.art/json/GetServices.json'
+    url = 'https://celitel05.ru/json/GetServices.json'
     data = connect(url)
     tasks = []
     for d in data:

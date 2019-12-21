@@ -4,7 +4,7 @@ from organization.models import Organization
 
 def connect():
 
-    response = requests.get('http://test.studiovector.art/json/GetOrganizations.json')
+    response = requests.get('https://celitel05.ru/json/GetOrganizations.json')
     return response.json()
 
 async def save_in_db(code, name):

@@ -17,7 +17,7 @@ def save_in_db(code, name):
         print(f'{group}.... цена СОЗДАНА!')
 
 def main():
-    url = 'http://test.studiovector.art/json/GetPriceTypes.json'
+    url = 'https://celitel05.ru/json/GetPriceTypes.json'
     data = connect(url)
 
     for d in data:

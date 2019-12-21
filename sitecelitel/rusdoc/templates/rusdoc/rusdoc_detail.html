@@ -16,7 +16,7 @@
                 {% autoescape off %}{{ doc.preview }}{% endautoescape %}
               </div>
               {% if doc.image %}
-                {% if doc.image.url|active:request %}
+                {% if doc.image.url %}
                   <figure class="material__img">
                     <img src="{{ doc.image.url }}" alt="">
                     <figcaption>{{ doc.capcha }}</figcaption>

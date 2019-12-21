@@ -13,7 +13,7 @@ class DoctorAdmin(SummernoteModelAdmin):
 @admin.register(Video)
 class VideoAdmin(SummernoteModelAdmin):
     summernote_fields = ['video']
-    list_display = ['title', 'created', 'updated', 'public']
+    list_display = ['title', 'created', 'public']
     list_editable = ['public']
     
     filter_horizontal = ['doctor']
@@ -28,6 +28,13 @@ class SpecializationAdmin(admin.ModelAdmin):
 class TimingAdmin(admin.ModelAdmin):
     list_display = ['date', 'start', 'end']
 
+@admin.register(Consultation)
+class ConsultationAdmin(admin.ModelAdmin):
+    list_display = ['question', 'email', 'doctor', 'date_quest', 'id']
+    
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['review', 'author', 'doctor', 'created', 'id']
+
 admin.site.register(DoctorTiming)
-admin.site.register(Consultation)
-admin.site.register(Review)

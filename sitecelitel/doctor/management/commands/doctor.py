@@ -16,6 +16,13 @@ class Command(BaseCommand):
 
 async def runner():
 
-    # await special()
-    # await doctors()
+    await special()
+    print("Specializations parsed!")
+    await doctors()
+    print("Doctors parsed!")
     await timing()
+    print("Timings parsed!")
+    print("===================")
+    print("===================")
+    print("===================")
+    print("===================")

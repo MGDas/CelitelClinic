@@ -24,7 +24,7 @@
                       <div class="articles__wrap">
                         <div class="articles__name">{{ article.doctor.full_name }}</div>
                         {% if article.doctor.specialization %}
-                          <div class="articles__desc">{{ article.doctor.specialization }}</div>
+                           <div class="articles__desc">{% for spec in article.doctor.specialization.all %}<span>{{ spec }}. </span>{% endfor %}</div>
                         {% endif %}
                       </div>
                     </div>

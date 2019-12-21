@@ -20,7 +20,7 @@ async def save_in_db(code, name):
 
 async def main():
 
-    url = 'http://test.studiovector.art/json/GetSpecialization.json'
+    url = 'https://celitel05.ru/json/GetSpecialization.json'
     data = connect(url)
 
     tasks = []

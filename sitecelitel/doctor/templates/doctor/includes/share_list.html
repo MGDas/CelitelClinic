@@ -5,24 +5,21 @@
         </svg>
   </button>
   <div class="doctorPage__shareList">
-    <!-- Вместо гугла надо вставить ссылку на текущую страницу.--><a class="doctorPage__shareItem doctorPage__shareItem--fb" href="https://www.facebook.com/sharer.php?src=sp&amp;u=https://google.com" target="_blank" aria-label="Поделиться в фейсбук">
+    <a class="doctorPage__shareItem doctorPage__shareItem--fb" href="https://www.facebook.com/sharer.php?src=sp&amp;u={{ request.build_absolute_uri }}" target="_blank" aria-label="Поделиться в фейсбук">
           <svg width="30" height="30" aria-hidden="true">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#fb"></use>
-          </svg></a><a class="doctorPage__shareItem doctorPage__shareItem--vk" href="https://vk.com/share.php?url=https://google.com" target="_blank" aria-label="Поделиться в вконтакте">
+          </svg></a><a class="doctorPage__shareItem doctorPage__shareItem--vk" href="https://vk.com/share.php?url={{ request.build_absolute_uri }}" target="_blank" aria-label="Поделиться в вконтакте">
           <svg width="30" height="30" aria-hidden="true">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#vk"></use>
-          </svg></a><a class="doctorPage__shareItem doctorPage__shareItem--ok" href="https://connect.ok.ru/offer?url=https://google.com" target="_blank" aria-label="Поделиться в одноклассниках">
+          </svg></a><a class="doctorPage__shareItem doctorPage__shareItem--ok" href="https://connect.ok.ru/offer?url={{ request.build_absolute_uri }}" target="_blank" aria-label="Поделиться в одноклассниках">
           <svg width="30" height="30" aria-hidden="true">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ok"></use>
-          </svg></a><a class="doctorPage__shareItem doctorPage__shareItem--tg" href="tg://msg_url?url=https://www.google.com/" target="_blank" aria-label="Отправить в телеграм">
+          </svg></a><a class="doctorPage__shareItem doctorPage__shareItem--tg" href="tg://msg_url?url={{ request.build_absolute_uri }}" target="_blank" aria-label="Отправить в телеграм">
           <svg width="30" height="30" aria-hidden="true">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#tg"></use>
-          </svg></a><a class="doctorPage__shareItem doctorPage__shareItem--wa" href="https://api.whatsapp.com/send?text=https://google.com" target="_blank" aria-label="Отправить в вотсапп">
+          </svg></a><a class="doctorPage__shareItem doctorPage__shareItem--wa" href="https://api.whatsapp.com/send?text={{ request.build_absolute_uri }}" target="_blank" aria-label="Отправить в вотсапп">
           <svg width="30" height="30" aria-hidden="true">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#wa"></use>
-          </svg></a><a class="doctorPage__shareItem doctorPage__shareItem--link" href="https://api.whatsapp.com/send?text=https://google.com" target="_blank" aria-label="Скопировать ссылку">
-          <svg width="30" height="30" aria-hidden="true">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#link"></use>
           </svg></a>
   </div>
 </div>

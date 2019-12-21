@@ -153,6 +153,8 @@ class Consultation(models.Model):
         self.status = True if self.answer else False
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        return self.question
 
 class Review(BaseModel):
     doctor = models.ForeignKey(
