@@ -18,56 +18,56 @@
                 <button type="submit" name="button">
                     Send
                 </button>
-						<div class="orderFilters__item orderFilters__item--name">
-							<div class="orderFilters__wrap">
-								<button class="orderFilters__showFields" type="button" tabindex="-1">
-											<svg width="22" height="22" aria-hidden="true">
-												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#filter"></use>
-											</svg>
-								</button>
-								<input autocomplete="off" class="orderFilters__input orderFilters__input--name" type="text" name="orderFiltersName" placeholder="ФИО" id="orderFiltersName">
-								<div class="smallHidden orderFilters__dropDown">
-									<input class="visually-hidden orderFilters__input orderFilters__input--checkbox" type="checkbox" name="orderFiltersChild" id="orderFiltersChild0">
-									<label class="orderFilters__checkbox orderFilters__checkbox--desktop" for="orderFiltersChild0">Только детские врачи</label>
-								</div>
-							</div>
-						</div>
-						<div class="orderFilters__item orderFilters__item--specialization">
-							<div class="orderFilters__wrap">
-								<button class="orderFilters__checker" type="button" tabindex="-1">
-											<svg width="16" height="10" aria-hidden="true">
-												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#down"></use>
-											</svg>
-								</button>
-								<input autocomplete="off" class="orderFilters__input orderFilters__input--popup" type="text" name="orderFiltersSpecialization" placeholder="Специализация" id="orderFiltersSpecialization">
-								<button class="orderFilters__close" type="button" tabindex="-1">
-											<svg width="15" height="15" aria-hidden="true">
-												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
-											</svg>
-								</button>
-								<div class="orderFilters__dropDown">
+                        <div class="orderFilters__item orderFilters__item--name">
+                            <div class="orderFilters__wrap">
+                                <button class="orderFilters__showFields" type="button" tabindex="-1">
+                                            <svg width="22" height="22" aria-hidden="true">
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#filter"></use>
+                                            </svg>
+                                </button>
+                                <input autocomplete="off" class="orderFilters__input orderFilters__input--name" type="text" name="orderFiltersName" placeholder="ФИО" id="orderFiltersName">
+                                <div class="smallHidden orderFilters__dropDown">
+                                    <input class="visually-hidden orderFilters__input orderFilters__input--checkbox" type="checkbox" name="orderFiltersChild" id="orderFiltersChild0">
+                                    <label class="orderFilters__checkbox orderFilters__checkbox--desktop" for="orderFiltersChild0">Только детские врачи</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="orderFilters__item orderFilters__item--specialization">
+                            <div class="orderFilters__wrap">
+                                <button class="orderFilters__checker" type="button" tabindex="-1">
+                                            <svg width="16" height="10" aria-hidden="true">
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#down"></use>
+                                            </svg>
+                                </button>
+                                <input autocomplete="off" class="orderFilters__input orderFilters__input--popup" type="text" placeholder="Специализация" id="orderFiltersSpecialization">
+                                <button class="orderFilters__close" type="button" tabindex="-1">
+                                            <svg width="15" height="15" aria-hidden="true">
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
+                                            </svg>
+                                </button>
+                                <div class="orderFilters__dropDown">
                                     {% for specialization in specializations %}
                                         <label>
                                             <input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="Аллерголог"><span>{{ specialization.name|title }}</span>
                                         </label>
                                     {% endfor %}
-								</div>
-							</div>
-						</div>
-						<div class="orderFilters__item orderFilters__item--address">
-							<div class="orderFilters__wrap">
-								<button class="orderFilters__checker" type="button" tabindex="-1">
-											<svg width="16" height="10" aria-hidden="true">
-												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#down"></use>
-											</svg>
-								</button>
-								<input autocomplete="off" class="orderFilters__input orderFilters__input--popup" type="text" name="orderFiltersAddress" placeholder="Поликлиника" id="orderFiltersAddress">
-								<button class="orderFilters__close" type="button" tabindex="-1">
-											<svg width="15" height="15" aria-hidden="true">
-												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
-											</svg>
-								</button>
-								<div class="orderFilters__dropDown orderFilters__dropDown--addresses">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="orderFilters__item orderFilters__item--address">
+                            <div class="orderFilters__wrap">
+                                <button class="orderFilters__checker" type="button" tabindex="-1">
+                                            <svg width="16" height="10" aria-hidden="true">
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#down"></use>
+                                            </svg>
+                                </button>
+                                <input autocomplete="off" class="orderFilters__input orderFilters__input--popup" type="text" placeholder="Поликлиника" id="orderFiltersAddress">
+                                <button class="orderFilters__close" type="button" tabindex="-1">
+                                            <svg width="15" height="15" aria-hidden="true">
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
+                                            </svg>
+                                </button>
+                                <div class="orderFilters__dropDown orderFilters__dropDown--addresses">
                                     {% for city, organization in organizations.items %}
                                         <b>{{ city }}</b>
                                         {% for organ in organization %}
@@ -78,16 +78,16 @@
 
                                     {% endfor %}
 
-								</div>
-							</div>
-						</div>
-						<div class="mediumHidden orderFilters__item">
-							<div class="orderFilters__wrap">
-								<input class="visually-hidden orderFilters__input orderFilters__input--checkbox" type="checkbox" name="orderFiltersChild" id="orderFiltersChild1">
-								<label class="orderFilters__checkbox" for="orderFiltersChild1">Только детские врачи</label>
-							</div>
-						</div>
-					</form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mediumHidden orderFilters__item">
+                            <div class="orderFilters__wrap">
+                                <input class="visually-hidden orderFilters__input orderFilters__input--checkbox" type="checkbox" name="orderFiltersChild" id="orderFiltersChild1">
+                                <label class="orderFilters__checkbox" for="orderFiltersChild1">Только детские врачи</label>
+                            </div>
+                        </div>
+                    </form>
             <div class="doctors__list">
                 {% for doctor in doctors %}
                 <section class="doctorPreview">
@@ -119,8 +119,8 @@
                 </section>
                 {% endfor %}
 
-				{% if is_paginated %}
-					<div class="paginator">
+                {% if is_paginated %}
+                    <div class="paginator">
                     {% if page_obj.has_previous %}
                         <a href="?page={{ page_obj.previous_page_number }}">предыдущая</a>
                     {% endif %}
@@ -135,8 +135,8 @@
 
                     {% if page_obj.has_next %}
                         <a href="?page={{ page_obj.next_page_number }}">следующая</a>
-					{% endif %}
-					</div>
+                    {% endif %}
+                    </div>
                 {% endif %}
 
 
