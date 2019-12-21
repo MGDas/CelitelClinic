@@ -380,7 +380,7 @@
   </article>
         <section class="nextPage">
           <div class="container">
-            <p>Далее</p><a href="{{ next_page.get_absolute_url }}"><span>{{ next_page.name }}</span>
+            <p>Далее</p><a href="{% url 'organ_detail_url' pk=next_page.id %}"><span>{{ next_page.name }}</span>
                   <svg width="40" height="30" aria-hidden="true">
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight"></use>
                   </svg></a>

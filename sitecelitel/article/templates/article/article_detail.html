@@ -18,19 +18,16 @@
             <section class="materialInfo materialInfo--withAuthor">
               {% with doctor=article.doctor %}
                 <div class="materialInfo__author">
-                 
                   {% if doctor.avatar %}
-                    <div class="materialInfo__photo">
-                      <a href="{% url 'doctor_detail_url' pk=doctor.pk %}" title="Открыть страницу доктора"><img src="{{ doctor.avatar.url }}" alt="{{ doctor.full_name }}" width="80" height="80"></a>
-                    </div>
+                     <div class="materialInfo__photo">
+                       <a href="{% url 'doctor_detail_url' pk=doctor.pk %}" title="Открыть страницу доктора"><img src="{{ doctor.avatar.url }}" alt="{{ doctor.full_name }}" width="80" height="80"></a>
+                     </div>
                   {% endif %}
-                  
                   <div class="materialInfo__wrap">
                     <h3><a href="{% url 'doctor_detail_url' pk=doctor.pk %}" title="Открыть страницу доктора"> {{ doctor.full_name }}</a></h3>
                     {% if doctor.specialization %}
-                        <p><span class="">{% for spec in doctor.specialization.all %}{{ spec }}. {% endfor %}</span></p>
+                        <p><span class="">{% for spec in doctor.specialization.all %}{{ spec }}.{% endfor %}</span></p>
                     {% endif %}
-                    
                   </div>
                 </div>
                 <div class="materialInfo__date"><span>Дата</span>{{ article.updated|ru_strftime:"%d %B %Y"}}</div>

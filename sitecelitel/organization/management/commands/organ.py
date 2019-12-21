@@ -18,4 +18,4 @@ async def runner():
 
     await organ()
     await depart()
-    await agree()
+    #await agree() #не создает соглашение хоть оргонизация есть

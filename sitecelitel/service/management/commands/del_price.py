@@ -13,4 +13,3 @@ class Command(BaseCommand):
         print("All Services is deleted!!!")
         ServiceGroup.objects.all().delete()
         print("All ServiceGroup is deleted!!!")
-
