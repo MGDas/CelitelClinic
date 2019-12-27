@@ -680,6 +680,9 @@ section.articles {
   }
 }
 @media (min-width: 1024px) {
+    .doctorPage__container{
+        min-height: var(--heightForTablet);
+    }
   .doctorPage--2 .doctorPage__text {
     margin-top: 0;
   }

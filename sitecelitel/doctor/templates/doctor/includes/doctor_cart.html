@@ -305,6 +305,10 @@ document.addEventListener("DOMContentLoaded", () => {
 				    		checkModalPaymentFields(form.getAttribute('action'), form)
 				    	})*/
 			}
+			var doctorPageContainer = document.querySelector('.doctorPage__container')
+			var makeAnAppointmentWrapper = document.querySelector('.makeAnAppointment__wrapper')
+			doctorPageContainer.style.setProperty("--heightForTablet", makeAnAppointmentWrapper.offsetHeight + 'px')
+			
 		})
 		.catch((err) => {
 			console.log("Ошибка: ", err)
