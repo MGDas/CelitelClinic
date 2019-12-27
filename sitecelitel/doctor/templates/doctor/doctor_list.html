@@ -102,7 +102,6 @@ function sendDoctorListForm(form) {
             form.action += '&';
         }
       form.action += key + "=" + FD.get(key);
-      console.log(FD.get(key))
     }
     
     
@@ -117,6 +116,7 @@ function sendDoctorListForm(form) {
 				doctorsList.innerHTML = ''
 				for(var i=0; i<responseServer.length; i++){
 					var temp = document.createElement('section'); 
+					console.log(responseServer[i].url)
 					temp.className = 'doctorPreview'
 					temp.innerHTML = `<div class="doctorPreview__photo">
 								<a href="${responseServer[i].url}">
@@ -124,7 +124,7 @@ function sendDoctorListForm(form) {
 								</a>
 							</div>
 							<h3 class="doctorPreview__name">
-								<a href="/doctors/2774/">${responseServer[i].name}</a>
+								<a href="${responseServer[i].url}">${responseServer[i].name}</a>
 							</h3>
 							<div class="doctorPreview__desc">
 								${responseServer[i].degree}
