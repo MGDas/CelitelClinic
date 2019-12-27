@@ -116,10 +116,11 @@ var orderFiltersSpecialization = document.getElementById("orderFiltersSpecializa
 
 if(orderFiltersSpecialization){
 	var specializationLabels = document.querySelectorAll(".orderFilters__item--specialization label");
+	var specializationInputs = document.querySelectorAll(".orderFilters__item--specialization input");
 
-	specializationLabels.forEach((label) => {
+	specializationInputs.forEach((label) => {
 		label.addEventListener('change', (evt) => {
-			orderFiltersSpecialization.value = evt.currentTarget.querySelector('input').value
+			orderFiltersSpecialization.value = evt.currentTarget.value
 		})
 	})
 

@@ -2666,6 +2666,7 @@ div.subMenu {
 }
 .orderFilters__item span {
   color: #000;
+  pointer-events: none;
 }
 .orderFilters__input {
   width: 100%;
