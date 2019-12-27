@@ -14,80 +14,163 @@
     <article class="doctors">
         <div class="container">
             <h1 class="h1">Все врачи сети поликлиник «Целитель»</h1>
-            <form class="orderFilters" action="{% url 'get_filter_doctors_data' %}">
-                <button type="submit" name="button">
-                    Send
-                </button>
-                        <div class="orderFilters__item orderFilters__item--name">
-                            <div class="orderFilters__wrap">
-                                <button class="orderFilters__showFields" type="button" tabindex="-1">
-                                            <svg width="22" height="22" aria-hidden="true">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#filter"></use>
-                                            </svg>
-                                </button>
-                                <input autocomplete="off" class="orderFilters__input orderFilters__input--name" type="text" name="orderFiltersName" placeholder="ФИО" id="orderFiltersName">
-                                <div class="smallHidden orderFilters__dropDown">
-                                    <input class="visually-hidden orderFilters__input orderFilters__input--checkbox" type="checkbox" name="orderFiltersChild" id="orderFiltersChild0">
-                                    <label class="orderFilters__checkbox orderFilters__checkbox--desktop" for="orderFiltersChild0">Только детские врачи</label>
-                                </div>
-                            </div>
+            <form class="orderFilters" action="." method="get">
+                <div class="orderFilters__item orderFilters__item--name">
+                    <div class="orderFilters__wrap">
+                        <button class="orderFilters__showFields" type="button" tabindex="-1">
+                                    <svg width="22" height="22" aria-hidden="true">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#filter"></use>
+                                    </svg>
+                        </button>
+                        <input autocomplete="off" class="orderFilters__input orderFilters__input--name" type="text" name="orderFiltersName" placeholder="ФИО" id="orderFiltersName">
+                        <div class="smallHidden orderFilters__dropDown">
+                            <input class="visually-hidden orderFilters__input orderFilters__input--checkbox" type="checkbox" name="orderFiltersChild" id="orderFiltersChild0">
+                            <label class="orderFilters__checkbox orderFilters__checkbox--desktop" for="orderFiltersChild0">Только детские врачи</label>
                         </div>
-                        <div class="orderFilters__item orderFilters__item--specialization">
-                            <div class="orderFilters__wrap">
-                                <button class="orderFilters__checker" type="button" tabindex="-1">
-                                            <svg width="16" height="10" aria-hidden="true">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#down"></use>
-                                            </svg>
-                                </button>
-                                <input autocomplete="off" class="orderFilters__input orderFilters__input--popup" type="text" placeholder="Специализация" id="orderFiltersSpecialization">
-                                <button class="orderFilters__close" type="button" tabindex="-1">
-                                            <svg width="15" height="15" aria-hidden="true">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
-                                            </svg>
-                                </button>
-                                <div class="orderFilters__dropDown">
-                                    {% for specialization in specializations %}
-                                        <label>
-                                            <input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="Аллерголог"><span>{{ specialization.name|title }}</span>
-                                        </label>
-                                    {% endfor %}
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                <div class="orderFilters__item orderFilters__item--specialization">
+                    <div class="orderFilters__wrap">
+                        <button class="orderFilters__checker" type="button" tabindex="-1">
+                                    <svg width="16" height="10" aria-hidden="true">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#down"></use>
+                                    </svg>
+                        </button>
+                        <input autocomplete="off" class="orderFilters__input orderFilters__input--popup" type="text" placeholder="Специализация" name="orderFiltersSpecialization" id="orderFiltersSpecialization">
+                        <button class="orderFilters__close" type="button" tabindex="-1">
+                                    <svg width="15" height="15" aria-hidden="true">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
+                                    </svg>
+                        </button>
+                        <div class="orderFilters__dropDown">
+                            {% for specialization in specializations %}
+                                <label>
+                                    <input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="{{ specialization.name|title }}"><span>{{ specialization.name|title }}</span>
+                                </label>
+                            {% endfor %}
                         </div>
-                        <div class="orderFilters__item orderFilters__item--address">
-                            <div class="orderFilters__wrap">
-                                <button class="orderFilters__checker" type="button" tabindex="-1">
-                                            <svg width="16" height="10" aria-hidden="true">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#down"></use>
-                                            </svg>
-                                </button>
-                                <input autocomplete="off" class="orderFilters__input orderFilters__input--popup" type="text" placeholder="Поликлиника" id="orderFiltersAddress">
-                                <button class="orderFilters__close" type="button" tabindex="-1">
-                                            <svg width="15" height="15" aria-hidden="true">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
-                                            </svg>
-                                </button>
-                                <div class="orderFilters__dropDown orderFilters__dropDown--addresses">
-                                    {% for city, organization in organizations.items %}
-                                        <b>{{ city }}</b>
-                                        {% for organ in organization %}
-                                            <label><i>{{ organ.1 }}</i>
-                                                <input class="visually-hidden" type="radio" name="orderFiltersAddress" value="ул. Ш. Алиева, 4а, Махачкала"><span>{{ organ.2 }}</span>
-                                            </label>
-                                        {% endfor %}
+                    </div>
+                </div>
+                <div class="orderFilters__item orderFilters__item--address">
+                    <div class="orderFilters__wrap">
+                        <button class="orderFilters__checker" type="button" tabindex="-1">
+                                    <svg width="16" height="10" aria-hidden="true">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#down"></use>
+                                    </svg>
+                        </button>
+                        <input autocomplete="off" class="orderFilters__input orderFilters__input--popup" type="text" placeholder="Поликлиника" name="orderFiltersAddress" id="orderFiltersAddress">
+                        <button class="orderFilters__close" type="button" tabindex="-1">
+                                    <svg width="15" height="15" aria-hidden="true">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
+                                    </svg>
+                        </button>
+                        <div class="orderFilters__dropDown orderFilters__dropDown--addresses">
+                            {% for city, organization in organizations.items %}
+                                <b>{{ city }}</b>
+                                {% for organ in organization %}
+                                    <label><i>{{ organ.1 }}</i>
+                                        <input class="visually-hidden" type="radio" name="orderFiltersAddress" value="{{ organ.2 }}"><span>{{ organ.2 }}</span>
+                                    </label>
+                                {% endfor %}
 
-                                    {% endfor %}
+                            {% endfor %}
 
-                                </div>
-                            </div>
                         </div>
-                        <div class="mediumHidden orderFilters__item">
-                            <div class="orderFilters__wrap">
-                                <input class="visually-hidden orderFilters__input orderFilters__input--checkbox" type="checkbox" name="orderFiltersChild" id="orderFiltersChild1">
-                                <label class="orderFilters__checkbox" for="orderFiltersChild1">Только детские врачи</label>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
+                </div>
+                <div class="mediumHidden orderFilters__item">
+                    <div class="orderFilters__wrap">
+                        <input class="visually-hidden orderFilters__input orderFilters__input--checkbox" type="checkbox" name="orderFiltersChild" id="orderFiltersChild1">
+                        <label class="orderFilters__checkbox" for="orderFiltersChild1">Только детские врачи</label>
+                    </div>
+                </div>
+                {% csrf_token %}
+            </form>
+            
+<script>
+function sendDoctorListForm(form) {
+	var XHR = new XMLHttpRequest();
+	var FD = new FormData(form);
+    
+    
+    var firstRun = true;
+    for (var key of FD.keys()){
+        if (firstRun){
+            form.action = '.?';
+            firstRun = false;
+        } else {
+            form.action += '&';
+        }
+      form.action += key + "=" + FD.get(key);
+      console.log(FD.get(key))
+    }
+    
+    
+	XHR.addEventListener("load", function(event) {
+		var responseServer = JSON.parse(this.responseText);
+
+		try {
+		    var doctorsList = document.querySelector('.doctors__list')
+			if(responseServer == 0){
+			    doctorsList.innerHTML = '<h3 style="margin: 2em auto;">Ничего не найдено</h3>'
+			} else {
+				doctorsList.innerHTML = ''
+				for(var i=0; i<responseServer.length; i++){
+					var temp = document.createElement('section'); 
+					temp.className = 'doctorPreview'
+					temp.innerHTML = `<div class="doctorPreview__photo">
+								<a href="${responseServer[i].url}">
+									<img src="${responseServer[i].avatar ? responseServer[i].avatar : '/static/images/doctor_without_photo.png'}" alt="${responseServer[i].name}" width="270" height="270">
+								</a>
+							</div>
+							<h3 class="doctorPreview__name">
+								<a href="/doctors/2774/">${responseServer[i].name}</a>
+							</h3>
+							<div class="doctorPreview__desc">
+								${responseServer[i].degree}
+							</div>`
+					doctorsList.appendChild(temp)
+				}
+			}
+		} catch (e) {
+		    doctorsList.innerHTML = 'Ничего не найдено :('
+			console.error("Ошибка: ", e)
+		}
+
+
+	});
+	XHR.addEventListener("error", function(event) {
+		alert('Ошибка!');
+	});
+	XHR.open("GET", form.getAttribute('action'));
+	XHR.send(FD);
+}
+				
+    document.addEventListener("DOMContentLoaded", () => {
+        var orderFilters = document.querySelector('.orderFilters')
+        var inputs = document.querySelectorAll('.orderFilters input');
+        var doctorListFilterDubounser;
+        for(var i=0; i<inputs.length; i++){
+            inputs[i].addEventListener('input', () => {
+                if(doctorListFilterDubounser){
+                    clearTimeout(doctorListFilterDubounser)
+                    doctorListFilterDubounser = setTimeout(() => {
+                        sendDoctorListForm(orderFilters)
+                    }, 250)
+                } else {
+                    doctorListFilterDubounser = setTimeout(() => {
+                        sendDoctorListForm(orderFilters)
+                    }, 250)
+                }
+            })
+        }
+        orderFilters.addEventListener('submit', (evt) => {
+            evt.preventDefault()
+            sendDoctorListForm(orderFilters)
+        })
+    })
+</script>
+
             <div class="doctors__list">
                 {% for doctor in doctors %}
                 <section class="doctorPreview">

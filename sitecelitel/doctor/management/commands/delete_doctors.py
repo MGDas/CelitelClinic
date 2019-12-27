@@ -1,19 +1,16 @@
 from doctor.models import Doctor, Specialization, Timing, DoctorTiming
 from django.core.management.base import BaseCommand
 
-
 class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
 
         # Doctor.objects.all().delete()
         Specialization.objects.all().delete()
-        print("Specializations deleted!")
+        print("УСПЕШНО — удалены с сайта Специализации")
         Timing.objects.all().delete()
-        print("Timings deleted!")
+        print("УСПЕШНО — удалены с сайта Часы приема!")
         DoctorTiming.objects.all().delete()
-        print("DoctorTimings deleted!")
+        print("УСПЕШНО — удалены с сайта Дни приема!")
         print("===================")
-        print("===================")
-        print("===================")
-        print("===================")
+#       print("На это ушло: ", end - start)
