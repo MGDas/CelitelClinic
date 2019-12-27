@@ -250,7 +250,9 @@ var currentPartnersSlider;
 
 window.addEventListener("resize", () => {
 	if(window.innerWidth >= 1024){
-		activateFrontClinicSLiders(document.querySelector('.partners__list'))
+	    if(document.querySelector('.partners__list')){
+	        activateFrontClinicSLiders(document.querySelector('.partners__list'))   
+	    }
 	} else {
 		if(currentPartnersSlider){
 			currentPartnersSlider.destroy()
@@ -260,8 +262,10 @@ window.addEventListener("resize", () => {
 
 window.addEventListener("DOMContentLoaded", () => {
 	if(window.innerWidth >= 1024){
-		activateFrontClinicSLiders(document.querySelector('.partners__list'))
-	}
+	    if(document.querySelector('.partners__list')){
+    		activateFrontClinicSLiders(document.querySelector('.partners__list'))
+	    }
+    }
 });
 
 
@@ -329,13 +333,15 @@ if(reviewsBtn){
 
 window.addEventListener("resize", () => {
 	if(window.innerWidth >= 720){
-		setTimeout(() => {
-			var sliderHeight = document.querySelector('.slider__item').offsetHeight + 'px'
-			document.querySelector('.slider__list').style.height = sliderHeight
-		}, 50)
-			if(!document.querySelector('.slider__list').classList.contains('mainSlider')){
-			document.querySelector('.slider__list').classList.add('mainSlider')
-		}
+	    if(document.querySelector('.slider__item')){
+    		setTimeout(() => {
+    			var sliderHeight = document.querySelector('.slider__item').offsetHeight + 'px'
+    			document.querySelector('.slider__list').style.height = sliderHeight
+    		}, 50)
+    			if(!document.querySelector('.slider__list').classList.contains('mainSlider')){
+    			document.querySelector('.slider__list').classList.add('mainSlider')
+    		}
+	    }
 	} else {
 		if(mainSlider){
 			document.querySelector('.slider__list').classList.remove('mainSlider')
@@ -346,11 +352,13 @@ window.addEventListener("resize", () => {
 
 window.addEventListener("DOMContentLoaded", () => {
 	if(window.innerWidth >= 720){
-		document.querySelector('.slider__list').classList.add('mainSlider')
-		setTimeout(() => {
-			var sliderHeight = document.querySelector('.slider__item').offsetHeight + 'px'
-			document.querySelector('.slider__list').style.height = sliderHeight
-		}, 50)
+		if(document.querySelector('.slider__list')){
+    		document.querySelector('.slider__list').classList.add('mainSlider')
+    		setTimeout(() => {
+    			var sliderHeight = document.querySelector('.slider__item').offsetHeight + 'px'
+    			document.querySelector('.slider__list').style.height = sliderHeight
+    		}, 50)
+		}
 	}
 })
 
@@ -453,8 +461,10 @@ if(frontClinicsTabs.length){
 
 window.addEventListener("resize", () => {
 	if(window.innerWidth >= 1200){
-		activateFrontClinicSLiders(document.querySelector('.clinicsMD__body--active'))
-	} else {
+	    if(document.querySelector('.clinicsMD__body--active')){
+    		activateFrontClinicSLiders(document.querySelector('.clinicsMD__body--active'))
+	    }
+    } else {
 		if(currentClinicSlider){
 			currentClinicSlider.destroy()
 		}
@@ -463,7 +473,9 @@ window.addEventListener("resize", () => {
 
 window.addEventListener("DOMContentLoaded", () => {
 	if(window.innerWidth >= 1200){
-		activateFrontClinicSLiders(document.querySelector('.clinicsMD__body--active'))
+	    if(document.querySelector('.clinicsMD__body--active')){
+    		activateFrontClinicSLiders(document.querySelector('.clinicsMD__body--active'))
+	    }
 	}
 });
 

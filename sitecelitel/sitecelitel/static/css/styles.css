@@ -1295,7 +1295,7 @@ section.articles {
 }
 .header {
   position: relative;
-  z-index: 4;
+  z-index: 9;
   background: #f5f5f5;
 }
 .header__container {
@@ -2702,6 +2702,7 @@ div.subMenu {
   display: -ms-flexbox;
   display: flex;
   position: relative;
+  z-index: 1;
 }
 .orderFilters__dropDown label::after {
   position: absolute;
