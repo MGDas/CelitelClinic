@@ -116,14 +116,13 @@ var orderFiltersSpecialization = document.getElementById("orderFiltersSpecializa
 
 if(orderFiltersSpecialization){
 	var specializationLabels = document.querySelectorAll(".orderFilters__item--specialization label");
-	var specializationInputs = document.querySelectorAll(".orderFilters__item--specialization input");
 
-	specializationInputs.forEach((label) => {
+	specializationLabels.forEach((label) => {
 		label.addEventListener('change', (evt) => {
-			orderFiltersSpecialization.value = evt.currentTarget.value
+			orderFiltersSpecialization.value = evt.currentTarget.querySelector('input').value
 		})
 	})
-
+	
 	function filterSpecialization() {
 		var filter = orderFiltersSpecialization.value.toUpperCase();
 
@@ -191,7 +190,7 @@ if(orderFiltersInputsPopup.length){
 				input.closest('.orderFilters__wrap').classList.remove('orderFilters__wrap--active')
 				input.closest('.orderFilters__item').classList.remove('orderFilters__item--active')
 				input.parentNode.querySelector('.orderFilters__dropDown').classList.remove('orderFilters__dropDown--active')
-			}, 100)
+			}, 250)
 		})
 	})
 }
