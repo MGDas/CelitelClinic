@@ -33,11 +33,11 @@ class DoctorListView(ListView):
             result.append(Q(full_name__icontains=name))
 
         if spec:
-            specials = Specialization.objects.filter(name__icontains=spec)
+            specials = Specialization.objects.filter(name__iexact=spec)
             result.append(Q(specialization__in=specials))
 
         if addr:
-            organ = Organization.objects.filter(address__icontains=addr)
+            organ = Organization.objects.filter(address__iexact=addr)
             depart = Department.objects.filter(organization__in=organ)
             result.append(Q(department__in=depart))
 
@@ -77,34 +77,3 @@ class DoctorDetailView(DetailView):
         context['other_doctors'] = Doctor.pub_objects.filter(specialization__in=self.object.specialization.all()).exclude(pk=self.object.pk)
         context['promotions'] = self.object.promotions.filter(public=True).filter(data_end__gt=timezone.now())
         return context
-
-
-def get_filter_doctors_data(request):
-    # spec = request.GET.get('orderFiltersSpecialization', None)
-    # addr = request.GET.get('orderFiltersAddress', None)
-    # child = request.GET.get('orderFiltersChild', None)
-
-    return HttpResponseRedirect(reverse('doctor_list_url'))
-
-        # organ = Organization.objects.filter(address__icontains=addr)
-        # depart = Department.objects.filter(organization__in=organ)
-        # specials = Specialization.objects.filter(name__icontains=spec)
-        #
-        # doctors = Doctor.pub_objects.filter(
-        #     full_name__icontains=name,
-        #     specialization__in=specials,
-        #     department__in=depart,
-        #     childish=True if child == 'on' else False
-        # )
-        #
-        # data = []
-        # for doctor in doctors:
-        #     response_data = {}
-        #     response_data['name'] = f"{doctor.full_name}"
-        #     response_data['avatar'] = doctor.avatar.url if doctor.avatar else None
-        #     response_data['url'] = f"/doctors/{doctor.pk}"
-        #     response_data['degree'] = doctor.academic_degree
-        #     response_data['experience'] = doctor.experience
-        #     data.append(response_data)
-        #
-        # return HttpResponse(json.dumps(data,  indent=4), content_type='application/json')
