@@ -2,8 +2,11 @@ import json
 from django.db.models import Q
 from django.http import HttpResponse
 from django.urls import reverse
+
 from django.views.generic import ListView
 from django.views.generic import DetailView
+from django.views.generic import TemplateView
+
 from doctor.models import Doctor, Specialization
 from organization.models import Organization, Department
 from django.utils import timezone
@@ -77,3 +80,7 @@ class DoctorDetailView(DetailView):
         context['other_doctors'] = Doctor.pub_objects.filter(specialization__in=self.object.specialization.all()).exclude(pk=self.object.pk)
         context['promotions'] = self.object.promotions.filter(public=True).filter(data_end__gt=timezone.now())
         return context
+
+
+class OrderView(TemplateView):
+    template_name = 'doctor/order.html'

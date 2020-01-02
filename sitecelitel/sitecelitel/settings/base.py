@@ -146,5 +146,6 @@ SUMMERNOTE_CONFIG = {
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 40
+    'PAGE_SIZE': 40,
+    'UNICODE_JSON': True,
 }
