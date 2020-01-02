@@ -2,7 +2,8 @@ from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import Q
 
-from doctor.models import Doctor
+from doctor.models import Doctor, Specialization
+from organization.models import Organization, Department
 from doctor.serializers import DoctorListSerializer
 from doctor.serializers import OrderSerializer
 
@@ -17,9 +18,8 @@ class DoctorViewSet(ModelViewSet):
 class OrderViewSet(ModelViewSet):
     serializer_class = OrderSerializer
     filter_beckend = [DjangoFilterBackend]
-    queryset = Doctor.pub_objects.all()[:3]
 
-    def get(self, request, *args, **kwargs):
+    def get_queryset(self):
 
         result = []
 
@@ -44,6 +44,6 @@ class OrderViewSet(ModelViewSet):
             result.append(Q(childish=True))
 
         if result:
-            return self.queryset.filter(*result)
+            return Doctor.pub_objects.filter(*result)
 
-        return None
+        return Doctor.pub_objects.all()[:3]

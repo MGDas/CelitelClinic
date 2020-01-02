@@ -84,3 +84,8 @@ class DoctorDetailView(DetailView):
 
 class OrderView(TemplateView):
     template_name = 'doctor/order.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['specializations'] = Specialization.objects.all().only('name').order_by('name')
+        return context
