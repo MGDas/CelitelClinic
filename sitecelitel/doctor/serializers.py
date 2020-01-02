@@ -3,17 +3,19 @@ from doctor.models import Doctor, DoctorTiming, Timing
 from organization.models import Organization, Department, Agreement
 from service.models import Service
 import requests
-
+from django.db import connections
+connection = connections['default']
 
 class OrganizationSerializer(serializers.ModelSerializer):
     agreement = serializers.SerializerMethodField('getServices')
-
+    
     def getServices(self, Organization):
         organizationID = Organization.id
 
-        organizationAgreement = Agreement.objects.filter(organization_id=organizationID).only('code')
+        cursor = connection.cursor()
+        organizationAgreement = cursor.execute("SELECT `code` FROM `agreements` WHERE `organization_id` = {}".format(organizationID))
         if organizationAgreement:
-            row = organizationAgreement[0]
+            row = cursor.fetchone()[0]
         else:
             row = ""
 
@@ -72,9 +74,9 @@ class OrderSerializer(serializers.ModelSerializer):
     dates = DoctorTimingSerializer(many=True)
     services = ServiceSerializer(many=True)
 
-    url = serializers.SerializerMethodField('get_url')
+    url = serializers.SerializerMethodField('getUrl')
 
-    def get_url(self, doctor):
+    def getUrl(self, doctor):
         return f"/doctors/{doctor.id}"
 
     class Meta:
