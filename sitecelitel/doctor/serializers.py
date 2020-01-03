@@ -82,4 +82,4 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Doctor
         fields = (
-            'id', 'full_name', 'avatar', 'academic_degree', 'experience', 'url', 'department', 'dates', 'services')
+            'id', 'full_name', 'avatar', 'academic_degree', 'experience', 'url', 'department', 'dates', 'services', 'code')

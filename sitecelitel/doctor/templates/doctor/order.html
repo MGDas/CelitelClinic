@@ -87,6 +87,100 @@
                 {% csrf_token %}
             </form>
             
+
+<section class="orderModal orderModal--step1">
+<form class="makeAnAppointment" action="https://studiovector.art/celitel.php" data-action="https://studiovector.art/celitel.php" method="POST">	
+	{% csrf_token %}
+	<input type="hidden" id="doctorAgreement" name="doctorAgreement" value="" />
+	<input type="hidden" id="doctorCode" name="doctorCode" value="" />
+	<input type="hidden" id="doctorID" name="doctorID" value="" />
+
+	<header class="orderModal__header">
+		<h3 class="orderModal__title">Запись к врачу и оплата</h3>
+		<button class="orderModal__close" type="button" aria-label="Закрыть">
+			<svg width="15" height="15" aria-hidden="true">
+				<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
+			</svg>
+		</button>
+	</header>
+	<div class="orderModal__body">
+		<div class="orderModal__wrapper">
+			<div class="orderModal__photo">
+
+				<img src="/media/doctors/gitinova-zainab-2681/gitinova-zainab-2681_ZHriIvq.jpg" alt="" width="80" height="80">
+
+			</div>
+			<div class="orderModal__wrap">
+				<div class="orderModal__name">Гитинова Зайнаб Айгумовна</div>
+				<div class="orderModal__desc">
+
+					аллерголог иммунолог
+
+				</div>
+			</div>
+		</div>
+		<div class="orderModal__body">
+			<div class="orderModal__input orderModal__input--withBorder">
+				<label class="orderModal__label" for="orderModalAddress">Поликлиника</label>
+				<input type="text" readOnly disabled tabindex="-1" name="orderModalAddress" id="orderModalAddress">
+			</div>
+			<div class="orderModal__input orderModal__input--withBorder">
+				<label class="orderModal__label" for="orderModalTime">Дата и время приёма</label>
+				<input type="text" readOnly disabled tabindex="-1" name="orderModalTime" id="orderModalTime">
+			</div>
+			<div class="orderModal__input">
+				<label class="orderModal__label" for="orderModalName">ФИО</label>
+				<input type="text" name="orderModalName" id="orderModalName" placeholder="Магомедов Магомед Магомедович" required>
+			</div>
+			<div class="orderModal__input">
+				<label class="orderModal__label" for="orderModalPhone">Телефон</label>
+				<input type="text" name="orderModalPhone" id="orderModalPhone" placeholder="+7 000 111-22-33" required>
+			</div>
+			<div class="orderModal__input">
+				<label class="orderModal__label" for="orderModalBirthday">Дата рождения</label>
+				<input type="date" name="orderModalBirthday" id="orderModalBirthday" required>
+			</div>
+			<div class="orderModal__input">
+				<label class="orderModal__label" for="orderModalService">Выберите услугу</label>
+				<select name="orderModalService" id="orderModalService" required>
+
+				</select>
+			</div>
+			<div class="orderModal__input">
+				<span class="orderModal__label">Пол</span>
+				<input type="radio" name="orderModalGender" id="orderModalGenderM" value="М" required style="width: auto; margin: 1px 5px 0 0">
+				<label for="orderModalGenderM">М</label>
+				<input type="radio" name="orderModalGender" id="orderModalGenderF" value="Ж" required style="width: auto; margin: 1px 5px 0 10px">
+				<label for="orderModalGenderF">Ж</label>
+			</div>
+			<button class="orderModal__btn" type="button" id="orderModalNoPay">Записаться</button>
+			<p class="orderModal__note">Я согласен с условиями обработки&nbsp;<a href="#" target="_blank">персональных данных</a></p>
+		</div>
+	</div>
+</form>
+</section>
+<section class="orderModal orderModal--success">
+	<header class="orderModal__header">
+		<h3 class="orderModal__title">Запись к врачу и оплата</h3>
+		<button class="orderModal__close" type="button" aria-label="Закрыть">
+			<svg width="15" height="15" aria-hidden="true">
+				<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
+			</svg>
+		</button>
+	</header>
+	<div class="orderModal__body">
+		<div class="orderModal__wrapper">
+			<svg width="100" height="76" aria-hidden="true">
+				<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#correct-signal"></use>
+			</svg>
+			<h2 class="orderModal__successHeading">Спасибо за запись!</h2>
+			<p class="orderModal__successText">Скоро мы свяжемся по телефону для уточнения записи</p>
+		</div>
+	</div>
+</section>
+
+
+            
 <script>
 function sendDoctorListForm(form) {
 	var XHR = new XMLHttpRequest();
@@ -109,34 +203,222 @@ function sendDoctorListForm(form) {
 		var responseServer = JSON.parse(this.responseText);
 
 		try {
-		    var doctorsList = document.querySelector('.doctors__list')
+		    var doctorsList = document.querySelector('.doctorrTable')
 			if(responseServer == 0){
 			    doctorsList.innerHTML = '<h3 style="margin: 2em auto;">Ничего не найдено</h3>'
 			} else {
 				doctorsList.innerHTML = ''
 				for(var i=0; i<responseServer.results.length; i++){
-					var temp = document.createElement('section'); 
-					temp.className = 'doctorPreview'
-					temp.innerHTML = `<div class="doctorPreview__photo">
-								<a href="${responseServer.results[i].url}">
-									<img src="${responseServer.results[i].avatar ? responseServer.results[i].avatar : '/static/images/doctor_without_photo.png'}" alt="${responseServer.results[i].full_name}" width="270" height="270">
-								</a>
-							</div>
-							<h3 class="doctorPreview__name">
-								<a href="${responseServer.results[i].url}">${responseServer.results[i].full_name}</a>
-							</h3>
-							<div class="doctorPreview__desc">
-								${responseServer.results[i].academic_degree}
-							</div>`
-					doctorsList.appendChild(temp)
-				}
-			}
-		} catch (e) {
+				    if(responseServer.results[i].dates.length){
+    				
+    					var temp = document.createElement('section'); 
+    					temp.className = 'order__item doctorCardWrapper doctorCardWrapper--grey'
+                        temp.innerHTML = `<section class="doctorCard">
+                        	<input type="hidden" id="doctorAgreement" name="doctorAgreement" value="" />
+                        	<input type="hidden" id="doctorCode" name="doctorCode" value="" />
+                        	<input type="hidden" id="doctorID" name="doctorID" value="" />
+                        
+                        	<div class="doctorCard__photo"><img src="${responseServer.results[i].avatar ? responseServer.results[i].avatar : '/static/images/doctor_without_photo.png'}" alt="${responseServer.results[i].full_name}" width="270" height="270"></div>
+                        	<div class="doctorCard__name">${responseServer.results[i].full_name}</div>
+                        	<div class="doctorCard__desc">${responseServer.results[i].academic_degree}</div>
+                        	<div class="doctorCard__info">
+                        				<svg width="15" height="15" aria-hidden="true">
+                        					<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+                        				</svg>
+                        		<div class="doctorCard__infoWrap">Поликлиника на&nbsp;<a href="#">ул. Гоголя, 24, Махачкала</a></div>
+                        	</div>
+                        </section>
+                        
+                        <div class="kostil">
+                        	<style>
+                                @media (min-width: 1024px){
+                            		.kostil{
+                        				width: 50%;
+                        			}
+                        		}
+                        	</style>
+                        	<div class="makeAnAppointment__addresses"></div>
+                        
+                        	<div class="makeAnAppointment__wrapper makeAnAppointment__wrapper--active" data-address="Гоголя, 24">
+                        		<div class="makeAnAppointment__dates"></div>
+                        
+                        		<div class="makeAnAppointment__times"></div>
+                        	</div>
+                        </div>`
+                        	
+                        temp.querySelector('#doctorCode').setAttribute('value', responseServer.results[i].code)
+                        temp.querySelector('#doctorID').setAttribute('value', responseServer.results[i].id)
+                        window.rawData = responseServer.results[i].dates
+                        window.services = responseServer.results[i].services
+                        
+                        if (!window.rawData.length) {
+                        	throw new Error()
+                        }
+                        // Создаём список клиник.
+                        var organizations = window.rawData.map((item) => {
+                        	return item.organization.address
+                        })
+                        var agreements = window.rawData.map((item) => {
+                        	return item.organization.agreement
+                        })
+                        // Берём первую клинику, как временное решение.
+                        window.organizations = Array.from(new Set(organizations))[0]
+                        temp.querySelector("#doctorAgreement").setAttribute("value", Array.from(new Set(agreements))[0])
+                        
+                        // Создаём массив с датами и часами для первой клиники.
+                        var times = window.rawData.map((item) => {
+                        	if (item.organization.address == window.organizations) {
+                        		var tempDate = item.date.split("-").reverse()
+                        		tempDate.pop()
+                        		switch (tempDate[1]) {
+                        			case "01":
+                        				tempDate[1] = "Янв"
+                        				break
+                        			case "02":
+                        				tempDate[1] = "Фев"
+                        				break
+                        			case "03":
+                        				tempDate[1] = "Мар"
+                        				break
+                        			case "04":
+                        				tempDate[1] = "Апр"
+                        				break
+                        			case "05":
+                        				tempDate[1] = "Мая"
+                        				break
+                        			case "06":
+                        				tempDate[1] = "Июн"
+                        				break
+                        			case "07":
+                        				tempDate[1] = "Июл"
+                        				break
+                        			case "08":
+                        				tempDate[1] = "Авг"
+                        				break
+                        			case "09":
+                        				tempDate[1] = "Сен"
+                        				break
+                        			case "10":
+                        				tempDate[1] = "Окт"
+                        				break
+                        			case "11":
+                        				tempDate[1] = "Ноя"
+                        				break
+                        			case "12":
+                        				tempDate[1] = "Дек"
+                        				break
+                        		}
+                        		tempDate = tempDate.join(" ")
+                        
+                        		return {
+                        			"date": tempDate,
+                        			"hours": item.timing,
+                        			"rawDate": item.date
+                        		}
+                        	}
+                        })
+                        window.times = times
+                        
+                        
+                        // Выводим на страницу адрес.
+                        var addressesWrapper = temp.querySelector('.makeAnAppointment__addresses')
+                        var addressInput = document.createElement('input')
+                        addressInput.className = "makeAnAppointment__input visually-hidden"
+                        addressInput.setAttribute("data-address", window.organizations)
+                        addressInput.setAttribute("value", window.organizations)
+                        addressInput.setAttribute("type", "radio")
+                        addressInput.setAttribute("id", "address0")
+                        addressInput.setAttribute("name", "appointmentAddresses")
+                        addressInput.setAttribute("checked", "checked")
+                        
+                        var addressLabel = document.createElement('label')
+                        addressLabel.className = "makeAnAppointment__address"
+                        addressLabel.setAttribute("for", "address0")
+                        addressLabel.innerHTML = window.organizations
+                        
+                        addressesWrapper.append(addressInput)
+                        addressesWrapper.append(addressLabel)
+                    
+                        // Выводим даты.
+                        var datesWrapper = temp.querySelector('.makeAnAppointment__dates')
+                        var timesWrapper = temp.querySelector('.makeAnAppointment__times')
+                        
+                        for (var k = 0; k < window.times.length; k++) {
+                        	var dateInput = document.createElement('input')
+                        	dateInput.className = "visually-hidden makeAnAppointment__dateInput"
+                        	dateInput.setAttribute("data-appointmentdate", window.times[k].date)
+                        	dateInput.setAttribute("value", window.times[k].date)
+                        	dateInput.setAttribute("type", "radio")
+                        	dateInput.setAttribute("id", "appointmentDates" + i)
+                        	dateInput.setAttribute("name", "appointmentDates0")
+                        	if (k == 0) {
+                        		dateInput.setAttribute("checked", "appointmentAddresses")
+                        	}
+                        
+                        	var dateLabel = document.createElement('label')
+                        	dateLabel.className = "makeAnAppointment__date"
+                        	dateLabel.setAttribute("for", "appointmentDates" + k)
+                        	dateLabel.innerHTML = window.times[k].date
+                        
+                        	datesWrapper.append(dateInput)
+                        	datesWrapper.append(dateLabel)
+                        
+                        	// Создаём обёртку для часов.
+                        	var dayWrapper = document.createElement('div')
+                        	if (k == 0) {
+                        		dayWrapper.className = "makeAnAppointment__day makeAnAppointment__day--active"
+                        	} else {
+                        		dayWrapper.className = "makeAnAppointment__day"
+                        	}
+                        	dayWrapper.setAttribute("data-appointmentday", window.times[k].date)
+                        
+                        	// Выводим часы.
+                        	for (var j = 0; j < window.times[k].hours.length; j++) {
+                        
+                        
+                        		var randomNumber = Math.random() * Math.random()
+                        		var timeInput = document.createElement('input')
+                        
+                        		timeInput.className = "visually-hidden makeAnAppointment__hoursInput"
+                        		timeInput.setAttribute("type", "radio")
+                        		timeInput.setAttribute("id", "appointmentTime" + randomNumber)
+                        		timeInput.setAttribute("name", "appointmentTime")
+                        		if (!window.times[k].hours[j].free) {
+                        			timeInput.setAttribute("disabled", "disabled")
+                        		}
+                        
+                        		timeInput.setAttribute("value", window.times[k].rawDate + "T" + window.times[k].hours[j].start + ":00 " + window.times[k].rawDate + "T" + window.times[k].hours[j].end + ":00")
+                        
+                        		var timeLabel = document.createElement('label')
+                        		if (window.times[k].hours[j].free) {
+                        			timeLabel.className = "makeAnAppointment__time"
+                        		} else {
+                        			timeLabel.className = "makeAnAppointment__time makeAnAppointment__time--unavailable"
+                        		}
+                        		timeLabel.setAttribute("for", "appointmentTime" + randomNumber)
+                        		timeLabel.setAttribute("aria-label", window.times[k].date + ", " + window.times[k].hours[j].start)
+                        		timeLabel.innerHTML = window.times[k].hours[j].start
+                        
+                        		dayWrapper.append(timeInput)
+                        		dayWrapper.append(timeLabel)
+                        	}
+                        
+                        	timesWrapper.append(dayWrapper)
+                        }
+                    
+                    
+                    
+                    
+                        	
+                        	
+    					doctorsList.appendChild(temp)
+    				}
+    			}
+    		}
+    	} catch (e) {
 		    doctorsList.innerHTML = 'Ничего не найдено :('
 			console.error("Ошибка: ", e)
 		}
-
-
 	});
 	XHR.addEventListener("error", function(event) {
 		alert('Ошибка!');
@@ -170,7 +452,7 @@ function sendDoctorListForm(form) {
     })
 </script>
 
-            <div class="doctors__list">
+            <div class="doctorrTable">
                 {% for doctor in doctors %}
                 <section class="doctorPreview">
                     <div class="doctorPreview__photo">
