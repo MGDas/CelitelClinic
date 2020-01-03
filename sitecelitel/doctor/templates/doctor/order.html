@@ -114,19 +114,19 @@ function sendDoctorListForm(form) {
 			    doctorsList.innerHTML = '<h3 style="margin: 2em auto;">Ничего не найдено</h3>'
 			} else {
 				doctorsList.innerHTML = ''
-				for(var i=0; i<responseServer.length; i++){
+				for(var i=0; i<responseServer.results.length; i++){
 					var temp = document.createElement('section'); 
 					temp.className = 'doctorPreview'
 					temp.innerHTML = `<div class="doctorPreview__photo">
-								<a href="${responseServer[i].url}">
-									<img src="${responseServer[i].avatar ? responseServer[i].avatar : '/static/images/doctor_without_photo.png'}" alt="${responseServer[i].name}" width="270" height="270">
+								<a href="${responseServer.results[i].url}">
+									<img src="${responseServer.results[i].avatar ? responseServer.results[i].avatar : '/static/images/doctor_without_photo.png'}" alt="${responseServer.results[i].full_name}" width="270" height="270">
 								</a>
 							</div>
 							<h3 class="doctorPreview__name">
-								<a href="${responseServer[i].url}">${responseServer[i].name}</a>
+								<a href="${responseServer.results[i].url}">${responseServer.results[i].full_name}</a>
 							</h3>
 							<div class="doctorPreview__desc">
-								${responseServer[i].degree}
+								${responseServer.results[i].academic_degree}
 							</div>`
 					doctorsList.appendChild(temp)
 				}
