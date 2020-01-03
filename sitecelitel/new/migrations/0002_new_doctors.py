@@ -7,13 +7,13 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('doctor', '0001_initial'),
-        ('service', '0001_initial'),
+        ('new', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='service',
+            model_name='new',
             name='doctors',
-            field=models.ManyToManyField(related_name='services', to='doctor.Doctor', verbose_name='Доктор(а)'),
+            field=models.ManyToManyField(blank=True, related_name='news', to='doctor.Doctor', verbose_name='Доктора'),
         ),
     ]
