@@ -1,0 +1,35 @@
+<section class="clinicsMD">
+    <div class="container">
+        <div class="mdWrap mdWrap--frontClinics">
+            <h2 class="mdTitle">Поликлиники</h2>
+            <ul class="mdWrap__links" style="height: 40px"></ul>
+        </div>
+        <div class="clinicsMD__body clinicsMD__body--active" data-city="Махачкала">
+            {% for city, organizations in organizations.items %}
+                {% for organ in organizations %}
+                    <a class="clinicsMD__item" href="{% url 'organ_detail_url' pk=organ.0 %}">
+                        <div class="clinicsMD__img"><img src="media/{{ organ.4 }}" alt=""></div>
+                        <h3 class="clinicsMD__title">{{ organ.1 }}</h3>
+                        <div class="clinicsMD__contacts">
+                            <div class="clinicsMD__contact">
+                                        <svg width="16" height="16" aria-hidden="true">
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+                                        </svg>
+                                <p>{{ organ.2 }}</p>
+                            </div>
+                        {% if organ.3 %}
+                            <div class="clinicsMD__contact clinicsMD__contact--reverse">
+                                        <svg width="16" height="16" aria-hidden="true">
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clock"></use>
+                                        </svg>
+                                <p>{% autoescape off %}{{ organ.3 }}{% endautoescape %}</p>
+                            </div>
+                        {% endif %}
+                        </div>
+                    </a>
+                {% endfor %}
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
