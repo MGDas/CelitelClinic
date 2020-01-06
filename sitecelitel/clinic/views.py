@@ -13,6 +13,7 @@ class IndexView(TemplateView):
         context = super().get_context_data(*args, **kwargs)
         context['reviews'] = Review.objects.all()[:6]
         context['videos'] = Video.objects.all()[:4]
+        context['consultations'] = Consultation.objects.all()[:6]
         return context
 
 
