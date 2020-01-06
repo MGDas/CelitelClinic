@@ -250,21 +250,23 @@
 
 				<main>
 					<!-- Slider -->
-					{% include 'includes/slider.html' %}
+					{% include 'includes/blocks/slider.html' %}
 					<!-- Hospital -->
-					{% include 'includes/organization.html' %}
+					{% include 'includes/blocks/organization.html' %}
 
 					<!-- FeedBack -->
-					{% include 'includes/feedback.html' %}
+					{% include 'includes/blocks/feedback.html' %}
+					<!-- Video -->
+					{% include 'includes/blocks/video.html' %}
 					<!-- Partners -->
-					{% include 'includes/partners.html' %}
+					{% include 'includes/blocks/partners.html' %}
 
 				</main>
 
 		{% endblock %}
 
 		<!-- Footer -->
-		{% include 'includes/footer.html' %}
+		{% include 'includes/blocks/footer.html' %}
 
 		<script src="{% static 'js/main.js' %}"></script>
 		<link rel="stylesheet" href="{% static 'css/plugins.css' %}">
