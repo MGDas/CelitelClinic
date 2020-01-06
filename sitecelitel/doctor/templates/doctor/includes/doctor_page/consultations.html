@@ -1,0 +1,37 @@
+<section class="faq faq--frontpage">
+				<div class="container">
+					<h2 class="mdTitle">Консультации</h2>
+					<div class="mdIntro">Читай и задай свой вопрос на личной странице врача.</div>
+					<ul class="faq__body">
+                    {% for consultation in consultations %}
+                        <li class="faq__item">
+                            <h4 class="faq__question">
+                                <a href="#">{% autoescape off %}{{ consultation.question }}{% endautoescape %}</a>
+                            </h4>
+                            <div class="faq__answer">
+                                {% autoescape off %}<p>{{ consultation.answer }}</p>{% endautoescape %}
+                                {% with doctor=consultation.doctor %}
+                                    <div class="faq__author">
+                                        {% if doctor.avatar %}
+                                            <a href="{% url 'doctor_detail_url' pk=doctor.pk %}"><img src="{{ doctor.avatar.url }}" alt="" width="80" height="80"></a>
+                                        {% endif %}
+
+                                        <div class="faq__wrap">
+                                            <a class="faq__name" href="{% url 'doctor_detail_url' pk=doctor.pk %}">{{ doctor.full_name }}</a>
+                                            <div class="faq__desc">
+                                                {% for spec in doctor.specialization.all %}
+                                                    {% if forloop.last %}
+                                                        {{ spec.name }}
+                                                    {% else %}
+                                                        {{ spec.name }},
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endwith %}
+                            </div>
+                        </li>
+                    {% endfor %}
+				</div>
+			</section>
