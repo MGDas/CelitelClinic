@@ -1,0 +1,46 @@
+{% if articles %}
+    <section class="articles">
+        <div class="container">
+            {% if doctor.specialization %}
+                <h2 class="mdTitle">Пишет врач
+                {% for spec in doctor.specialization.all %}
+                    {{ spec }}.
+                {% endfor %}
+                </h2>
+            {% endif %}
+
+            <ul class="articles__body">
+                {% for article in articles %}
+                    <li class="articles__item">
+                        <div class="articles__date">{{ article.created }}</div>
+                        <h3 class="articles__title"><a href="{% url 'article_detail_url' slug=article.slug %}">{{ article.title }}</a></h3>
+                        <div class="articles__author">
+                            <img src="{{ doctor.avatar.url }}" alt="" width="80" height="80">
+                            <div class="articles__wrap">
+                                <div class="articles__name">{{ doctor.full_name }}</div>
+                                {% if doctor.specialization %}
+                                    <div class="articles__desc">
+                                    {% for spec in doctor.specialization.all %}
+                                        {{ spec }}.
+                                    {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+{% else %}
+    <section class="articles">
+        <div class="container">
+            <h2 class="mdTitle">Пишет врач
+                {% for spec in doctor.specialization.all %}
+                    {{ spec }}.
+                {% endfor %}
+            </h2>
+            <div class="mdIntro">Пока у врача нет авторских статей.</div>
+        </div>
+    </section>
+{% endif %}
