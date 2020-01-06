@@ -77,6 +77,7 @@ class DoctorDetailView(DetailView):
         context['videos'] = self.object.videos.filter(public=True)
         context['articles'] = self.object.articles.filter(public=True)
         context['reviews'] = self.object.review.filter(public=True)
+        context['consultations'] = self.object.consultation.all()
         context['other_doctors'] = Doctor.pub_objects.filter(specialization__in=self.object.specialization.all()).exclude(pk=self.object.pk)
         context['promotions'] = self.object.promotions.filter(public=True).filter(data_end__gt=timezone.now())
         return context
