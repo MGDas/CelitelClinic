@@ -1,0 +1,42 @@
+{% load pytils_dt %}
+
+<li class="mainMenu__item"><a class="mainMenu__link" href="{% url 'article_list_url' %}">Статьи</a>
+    <div class="subMenu menuArticles">
+        <section class="menuArticles__section menuArticles__section--menu">
+            <ul class="subMenu__menu">
+                <li class="orderOneForMobile">
+                    <a class="subMenu__active" href="{% url 'article_list_url' %}">Все статьи</a>
+                </li>
+                {% for tag in articles_tags %}
+                    {% if tag.header %}<li><a href="{% url 'article_tags_detail_url' slug=tag.slug %}">{{ tag.title }}</a></li>{% endif %}
+                {% endfor %}
+            </ul>
+        </section>
+        <section class="menuArticles__section menuArticles__section--articles">
+            <ul class="articles">
+                {% for article in articles_header %}
+                    <li class="articles__item menuArticles__item">
+                        <div class="articles__date">{{ article.updated|ru_strftime:"%d %B %Y" }}</div>
+                        <h3 class="articles__title">
+                            <a href="{% url 'article_detail_url' slug=article.slug %}">{{ article.title }}</a>
+                        </h3>
+                        {% if article.doctor %}
+                                <div class="articles__author">
+                                    {% if article.doctor.avatar %}
+                                            <img src="{{ article.doctor.avatar.url }}" alt="" width="80" height="80">
+                                    {% endif %}
+                                    <div class="articles__wrap">
+                                        <div class="articles__name">{{ article.doctor.full_name }}</div>
+                                        {% if article.doctor.specialization %}
+                                            <div class="articles__desc">{% for spec in article.doctor.specialization.all %}<span class="">{{ spec }}. </span>{% endfor %}</div>
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+</li>

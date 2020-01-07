@@ -1,0 +1,45 @@
+<li class="mainMenu__item mainMenu__item--active"><a class="mainMenu__link" href="#">Поликлиники</a>
+    <div class="subMenu menuClinics">
+        <ul class="mainMenu__tabs mainMenu__tabs--clinics">
+            {% for city in organ_cities %}
+                {% if forloop.first %}
+                    <li class="mainMenu__activeTab"><a href="#" data-tab="{{ city }}">{{ city }}</a></li>
+                {% else %}
+                    <li><a href="#" data-tab="{{ city }}">{{ city }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <div class="menuClinics__wrap">
+            {% for city, organizations in organizations.items %}
+                {% if forloop.first %}
+                <div class="menuClinics__section menuClinics__section--active" data-tab="{{ city }}">
+                    <ul>
+                            {% for organ in organizations %}
+                                    <li class="menuClinics__clinic"><a href="{% url 'organ_detail_url' pk=organ.0 %}"><span>{{ organ.1 }}</span>
+                                        <p>
+                                            <svg width="12" height="12" aria-hidden="true">
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+                                            </svg>{{ organ.2 }}
+                                        </p><i>{% autoescape off %}{{ organ.3 }}{% endautoescape %}</i></a></li>
+                            {% endfor %}
+                    </ul>
+                </div>
+                {% else %}
+                <div class="menuClinics__section" data-tab="{{ city }}">
+                    <ul>
+                            {% for organ in organizations %}
+                                    <li class="menuClinics__clinic"><a href="{% url 'organ_detail_url' pk=organ.0 %}"><span>{{ organ.1 }}</span>
+                                        <p>
+                                            <svg width="12" height="12" aria-hidden="true">
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+                                            </svg>{{ organ.2 }}
+                                        </p><i>{% autoescape off %}{{ organ.3 }}{% endautoescape %}</i></a></li>
+                            {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+    </div>
+</li>
