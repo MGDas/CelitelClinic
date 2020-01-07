@@ -4,7 +4,6 @@ from promotion.models import Promotion
 from service.models import ServiceGroup
 from rusdoc.models import RussianDoctor
 from organization.models import Organization
-from clinic.utils import get_service_group_to_alphabet
 
 
 def index(request):
@@ -19,7 +18,6 @@ def index(request):
             organizations[city] = Organization.objects.filter(city=city, public=1).values_list('id', 'name', 'address', 'operating_mode', 'image')
 
     service_groups = ServiceGroup.pub_objects.all()
-    # service_groups = get_service_group_to_alphabet()
 
     return {
         "rus_doc": rus_doc,

@@ -14,6 +14,9 @@ class ServiceGroup(BaseModel):
     def __str__(self):
         return self.name
 
+    def get_active(self):
+        return f"/service/{self.pk}"
+
 
 class Service(BaseModel):
     code = models.CharField(max_length=15)

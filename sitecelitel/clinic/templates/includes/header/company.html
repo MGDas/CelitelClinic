@@ -1,0 +1,21 @@
+{% load static %}
+
+<li class="mainMenu__item"><a class="mainMenu__link" href="#">Компания</a>
+    <div class="subMenu menuCompany">
+        <section class="menuCompany__section menuCompany__section--menu">
+            <ul class="subMenu__menu">
+                <li><a class="subMenu__active" href="{% url 'about_url' %}">О нас</a></li>
+                <li><a href="{% url 'vacancy_list_url' %}">Вакансии</a></li>
+                <li><a href="{% url 'faq_list_url' %}">Вопросы и ответы</a></li>
+            </ul>
+        </section>
+        <section class="menuCompany__section menuCompany__section--social">
+            <ul>
+                <li><a target="_blank" href="https://www.instagram.com/celitel05/" aria-label="Мы в инстаграм"><img src="{% static 'images/ig.svg' %}" width="60" height="60" alt=""></a></li>
+                <li><a target="_blank" href="https://www.facebook.com/celitel05/" aria-label="Мы в фейсбук"><img src="{% static 'images/fb.svg' %}" width="60" height="60" alt=""></a></li>
+                <li><a target="_blank" href="https://ok.ru/profile/578706473130" aria-label="Мы в одноклассниках"><img src="{% static 'images/ok.svg' %}" width="60" height="60" alt=""></a></li>
+                <li><a target="_blank" href="https://www.youtube.com/channel/UCRFyQVTZ3S-oh1vogf7KKdA" aria-label="Мы на ютуб"><img src="{% static 'images/yt.svg' %}" width="60" height="60" alt=""></a></li>
+            </ul>
+        </section>
+    </div>
+</li>
