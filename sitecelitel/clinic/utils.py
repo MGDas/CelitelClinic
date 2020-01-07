@@ -1,15 +1,16 @@
-from service.models import ServiceGroup
+from slugify import slugify
 
-def get_service_group_to_alphabet():
+def get_image_pc(instance, filename):
+    format = filename.split('.')[-1]
+    slug = slugify(instance.title[:30])
+    file_name = f"{slug}_pc.{format}"
 
-    alphabet = [i.upper() for i in 'абвгдеёжзиклмнопрстуфхцчшщэюя']
-    service_group = {}
-    for alph in alphabet:
-        try:
-            sg = ServiceGroup.pub_objects.values_list('id', 'name').filter(name__istartswith=alph)
-            if sg:
-                service_group[alph] = sg
-        except ServiceGroup.DoesNotExist as e:
-            continue
+    return "/".join(["sliders", f"{slug}", file_name])
 
-    return service_group
+
+def get_image_mob(instance, filename):
+    format = filename.split('.')[-1]
+    slug = slugify(instance.title[:30])
+    file_name = f"{slug}_mob.{format}"
+
+    return "/".join(["sliders", f"{slug}", file_name])

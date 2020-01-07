@@ -5,6 +5,8 @@ from doctor.models import Review
 from doctor.models import Video
 from doctor.models import Consultation
 
+from clinic.models import Slider
+
 
 class IndexView(TemplateView):
     template_name = 'index.html'
@@ -14,6 +16,7 @@ class IndexView(TemplateView):
         context['reviews'] = Review.objects.all()[:6]
         context['videos'] = Video.objects.all()[:4]
         context['consultations'] = Consultation.objects.all()[:6]
+        context['sliders'] = Slider.objects.all()
         return context
 
 
