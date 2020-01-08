@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # other moduls
+    'adminsortable2',
     "django_summernote",
     'pytils',   # for translate date in russion language
     'debug_toolbar',

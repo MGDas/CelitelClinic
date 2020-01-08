@@ -34,11 +34,18 @@ class Slider(PublicModel):
     url = models.URLField(blank=True, help_text='Пример: http://example.com/about', verbose_name='URL')
     image_pc = models.ImageField(upload_to=get_image_pc, blank=True, verbose_name='Изображение')
     image_mob = models.ImageField(upload_to=get_image_mob, blank=True, verbose_name='Изображение моб.')
+    order = models.PositiveIntegerField(default=0, blank=True, verbose_name='Сортировка')
 
     class Meta:
         db_table = 'sliders'
         verbose_name = 'Слайдер'
         verbose_name_plural = 'Слайдер'
+        ordering = ['-order']
+
+    def save(self, *args, **kwargs):
+        if not self.order:
+            self.order = self.id
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.url
