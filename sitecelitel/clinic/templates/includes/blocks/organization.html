@@ -2,10 +2,21 @@
     <div class="container">
         <div class="mdWrap mdWrap--frontClinics">
             <h2 class="mdTitle">Поликлиники</h2>
-            <ul class="mdWrap__links" style="height: 40px"></ul>
+            <ul class="mdWrap__links">
+                {% for city in organizations %}
+                    {% if forloop.first %}
+                        <li class="mdWrap__link mdWrap__link--active"><a href="#" data-city="{{ city }}">{{ city }}</a></li>
+                    {% else %}
+                        <li class="mdWrap__link"><a href="#" data-city="{{ city }}">{{ city }}</a></li>
+                    {% endif %}
+
+                {% endfor %}
+			</ul>
         </div>
-        <div class="clinicsMD__body clinicsMD__body--active" data-city="Махачкала">
-            {% for city, organizations in organizations.items %}
+
+        {% for city, organizations in organizations.items %}
+            <div class="clinicsMD__body {% if forloop.first %}clinicsMD__body--active{% endif %}
+            " data-city="{{ city }}">
                 {% for organ in organizations %}
                     <a class="clinicsMD__item" href="{% url 'organ_detail_url' pk=organ.0 %}">
                         <div class="clinicsMD__img"><img src="media/{{ organ.4 }}" alt=""></div>
@@ -28,8 +39,8 @@
                         </div>
                     </a>
                 {% endfor %}
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
 
     </div>
 </section>
