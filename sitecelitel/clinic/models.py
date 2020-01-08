@@ -28,7 +28,7 @@ class BaseModel(PublicModel):
         abstract = True
 
 
-class Slider(models.Model):
+class Slider(PublicModel):
 
     title = models.CharField(max_length=500, verbose_name='Название')
     url = models.URLField(blank=True, help_text='Пример: http://example.com/about', verbose_name='URL')
