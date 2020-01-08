@@ -1,29 +1,36 @@
 from django.views.generic import ListView, DetailView
 from django.shortcuts import render
 from new.models import New
-import random
+
 
 
 class NewListView(ListView):
     model = New
     template_name = 'new/new_list.html'
     context_object_name = "news"
-    queryset = New.pub_objects.all()
+    queryset = New.pub_objects.all().order_by('-updated')
+    paginate_by = 8
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['years'] = New.pub_objects.values_list('updated__year', flat=True).distinct()
+        context['years'] = list(reversed(New.pub_objects.values_list('updated__year', flat=True).distinct()))
         return context
 
 
 class NewListViewYear(ListView):
     model = New
     template_name = 'new/new_list_year.html'
+    context_object_name = 'news'
+    paginate_by = 8
 
-    def get(self, request, year):
-        news = New.pub_objects.filter(updated__year=year)
-        news_dates = New.pub_objects.values_list('updated__year', flat=True).distinct()
-        return render(request, self.template_name, {'news': news, 'news_dates': news_dates})
+    def get_queryset(self):
+        queryset = New.pub_objects.filter(updated__year=self.kwargs['year']).order_by('-updated')
+        return queryset
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['news_dates'] = list(reversed(New.pub_objects.values_list('updated__year', flat=True).distinct()))
+        return context
 
 
 class NewDetailView(DetailView):
