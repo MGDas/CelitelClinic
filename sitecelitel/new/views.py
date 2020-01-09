@@ -41,7 +41,7 @@ class NewDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        news = list(New.pub_objects.all())
+        news = list(New.pub_objects.all().order_by('-updated'))
         try:
             context['next_page'] = news[news.index(self.object) + 1]
         except:
