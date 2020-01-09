@@ -31,7 +31,5 @@ class New(BaseModel):
     def get_absolute_url(self):
         return reverse('news_detail_url', kwargs={
             'year': self.updated.year,
-            'month': self.updated.strftime('%m'),
-            'day': self.updated.strftime('%d'),
             'pk': self.pk
         })
