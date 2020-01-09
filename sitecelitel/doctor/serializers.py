@@ -8,14 +8,17 @@ connection = connections['default']
 
 class OrganizationSerializer(serializers.ModelSerializer):
     agreement = serializers.SerializerMethodField('getServices')
-    
+
     def getServices(self, Organization):
         organizationID = Organization.id
 
-        cursor = connection.cursor()
-        organizationAgreement = cursor.execute("SELECT `code` FROM `agreements` WHERE `organization_id` = {}".format(organizationID))
+        try:
+            organizationAgreement = Organization.pub_objects.filter(organization_id=organizationID)
+        except:
+            organizationAgreement = ''
+
         if organizationAgreement:
-            row = cursor.fetchone()[0]
+            row = organizationAgreement[0]
         else:
             row = ""
 

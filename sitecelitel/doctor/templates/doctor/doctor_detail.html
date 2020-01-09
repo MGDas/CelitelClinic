@@ -30,41 +30,74 @@
                         <h1 class="doctorCard__name doctorCard__name--heading">{{ doctor.full_name }}</h1>
                         <div class="doctorCard__desc">
                             {% if doctor.specialization %}
-                            {% for spec in doctor.specialization.all %}
-                                <span class="doctorCard__desc--specialization">{{ spec }}.</span>
-                            {% endfor %}
+                                {% for spec in doctor.specialization.all %}
+                                    {% if not forloop.last %}
+                                        <span class="doctorCard__desc--specialization">{{ spec }},</span>
+                                    {% else %}
+                                        <span class="doctorCard__desc--specialization">{{ spec }}.</span>
+                                    {% endif %}
+
+                                {% endfor %}
                             {% endif %}
 
-                            <span class="doctorCard__desc--academic_degree">{% if doctor.academic_degree %}{{ doctor.academic_degree }}.</span>{% endif %}
-                            {% if doctor.experience %}<span classs="doctorCard__desc--experience">Опыт работы — {{ doctor.experience }}.</span>{% endif %}
+                            {% if doctor.academic_degree %}
+                                <span class="doctorCard__desc--academic_degree">
+                                    {{ doctor.academic_degree }}.
+                                </span>
+                            {% endif %}
+
+                            {% if doctor.experience %}
+                                <span classs="doctorCard__desc--experience">
+                                    Опыт работы — {{ doctor.experience }}.
+                                </span>
+                            {% endif %}
                         </div>
 
+                        {% if min_price %}
+                            <div class="doctorCard__info">
+                                <svg width="15" height="15" aria-hidden="true">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ruble"></use>
+                                </svg>
+                                <div class="doctorCard__infoWrap">Приём от {{ min_price }} руб.<em>(для записи оплата обязательно)</em></div>
+                            </div>
+                        {% endif %}
+
+
                         <!-- for addres in addresses -->
-                        <div class="doctorCard__info">
-                            {% include 'doctor/includes/elements/mark.html' %}
-                            <div class="doctorCard__infoWrap">Поликлиника на&nbsp;<a href="#">ул. Гоголя, 24, Махачкала</a></div>
-                        </div>
+                        {% for depart in doctor.department.all %}
+                            {% with organ=depart.organization %}
+                                <div class="doctorCard__info">
+                                    {% include 'doctor/includes/elements/mark.html' %}
+                                    <div class="doctorCard__infoWrap">Поликлиника на&nbsp;
+                                        <a href="{% url 'organ_detail_url' pk=organ.pk %}">{{ organ.address }}</a>
+                                    </div>
+                                </div>
+                            {% endwith %}
+                        {% endfor %}
+
 
                         <!-- All promotions with this doctor -->
                         {% if promotions %}
-                        {% for promotion in promotions %}
-                        <div class="doctorCard__info doctorCard__info--mark">
-                            {% include 'doctor/includes/elements/procent.html' %}
-                            <div class="doctorCard__infoWrap">{{ promotion.title }}</div>
-                        </div>
-                        {% endfor %}
+                            {% for promotion in promotions %}
+                            <div class="doctorCard__info doctorCard__info--mark">
+                                {% include 'doctor/includes/elements/procent.html' %}
+                                <div class="doctorCard__infoWrap">{{ promotion.title }}</div>
+                            </div>
+                            {% endfor %}
                         {% endif %}
                     </div>
 
                     <!-- Doctor cart -->
                     {% include 'doctor/includes/doctor_page/doctor_cart.html' %}
 
+
+
                     {% if doctor.content %}
-                    <div class="doctorPage__text">
-                        {% autoescape off %}
-                        {{ doctor.content }}
-                        {% endautoescape %}
-                    </div>
+                        <div class="doctorPage__text">
+                            {% autoescape off %}
+                                {{ doctor.content }}
+                            {% endautoescape %}
+                        </div>
                     {% endif %}
                 </div>
             </div>
@@ -76,6 +109,8 @@
         {% include 'doctor/includes/doctor_page/consultations.html' %}
         {% include 'doctor/includes/doctor_page/review.html' %}
         {% include 'doctor/includes/doctor_page/article.html' %}
+        {% include 'doctor/includes/doctor_page/other_doctors.html' %}
+
 
     </article>
 </main>

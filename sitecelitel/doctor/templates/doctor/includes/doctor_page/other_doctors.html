@@ -1,0 +1,52 @@
+{% if other_doctors %}
+    <section class="otherDoctors">
+        <div class="container">
+            <h2 class="mdTitle">Мои коллеги</h2>
+            <div class="mdIntro">Все врачи по специальности
+                {% for spec in doctor.specialization.all %}
+                    {% if not forloop.last %}
+                        {{ spec }},
+                    {% else %}
+                        {{ spec }}.
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <ul class="otherDoctors__body">
+                {% for other in other_doctors %}
+                    <section class="doctorPreview">
+                        {% if other.avatar %}
+                            <div class="doctorPreview__photo">
+                                <a href="{% url 'doctor_detail_url' pk=other.pk %}">
+                                    <img src="{{ other.avatar.url }}" alt="{{ other.full_name }}" width="270" height="270">
+                                </a>
+                            </div>
+                        {% endif %}
+
+                        <h3 class="doctorPreview__name"><a href="{% url 'doctor_detail_url' pk=other.pk %}">{{ other.full_name }}</a>
+                        </h3>
+                        <div class="doctorPreview__desc">
+                            {% for other_spec in other.specialization.all %}
+                                {% if not forloop.last %}
+                                    {{ other_spec.name }},
+                                {% else %}
+                                    {{ other_spec.name }}.
+                                {% endif %}
+
+                            {% endfor %}
+
+                            {% if other.academic_degree %}
+                                {{ other.academic_degree }}
+                            {% endif %}
+
+                            {% if other.experience %}
+                                Опыт работы — {{ other.experience }}
+                            {% endif %}
+
+                        </div>
+                    </section>
+                {% endfor %}
+
+            </ul>
+        </div>
+    </section>
+{% endif %}

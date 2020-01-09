@@ -1,7 +1,8 @@
 import json
-from django.db.models import Q
+from django.db.models import Q, Min
 from django.http import HttpResponse
 from django.urls import reverse
+from django.utils import timezone
 
 from django.views.generic import ListView
 from django.views.generic import DetailView
@@ -9,7 +10,7 @@ from django.views.generic import TemplateView
 
 from doctor.models import Doctor, Specialization
 from organization.models import Organization, Department
-from django.utils import timezone
+from service.models import Price
 
 
 class DoctorListView(ListView):
@@ -78,8 +79,17 @@ class DoctorDetailView(DetailView):
         context['articles'] = self.object.articles.filter(public=True)
         context['reviews'] = self.object.review.filter(public=True)
         context['consultations'] = self.object.consultation.all()[:5]
-        context['other_doctors'] = Doctor.pub_objects.filter(specialization__in=self.object.specialization.all()).exclude(pk=self.object.pk)
+        context['other_doctors'] = Doctor.pub_objects.filter(specialization__in=self.object.specialization.all()).exclude(pk=self.object.pk).distinct()[:8]
         context['promotions'] = self.object.promotions.filter(public=True).filter(data_end__gt=timezone.now())
+
+        try:
+            price = self.object.services.aggregate(Min("price"))
+            min_price = int(Price.objects.get(id=price['price__min']).price)
+        except:
+            min_price = ''
+
+        context['min_price'] = min_price
+
         return context
 
 
