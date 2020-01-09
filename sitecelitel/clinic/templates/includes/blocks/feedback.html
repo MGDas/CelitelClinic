@@ -1,18 +1,19 @@
-{% if reviews %}
-    <section class="reviews reviews--frontpage">
-        <div class="container">
-            <h2 class="mdTitle">Отзывы пациентов</h2>
-            <div class="mdIntro">Читай новые отзывы и оставь о своём враче на его личной странице.</div>
-            <ul class="reviews__body">
-                {% for review in reviews %}
-                <li class="reviews__item">
-                    {% autoescape off %}
-                    <p>{{ review.review }}</p>
-                    {% endautoescape %}
+<section class="reviews reviews--frontpage">
+    <div class="container">
+        <h2 class="mdTitle">Отзывы пациентов</h2>
+        <div class="mdIntro">Читай новые отзывы и оставь о своём враче на его личной странице.</div>
+        {% if reviews %}
+        <ul class="reviews__body">
+            {% for review in reviews %}
+            <li class="reviews__item">
+                {% autoescape off %}
+                <p>{{ review.review }}</p>
+                {% endautoescape %}
 
-                    <div class="reviews__author">{{ review.author }}</div>
-                </li>
-                {% endfor %}
-            </div>
-        </section>
-{% endif %}
+                <div class="reviews__author">{{ review.author }}</div>
+            </li>
+            {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+</section>
