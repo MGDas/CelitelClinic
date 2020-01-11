@@ -1,0 +1,25 @@
+<div class="container">
+  <h1 class="h1">{{ organ.name }}</h1>
+  <section class="placeInfo">
+    <div class="placeInfo__item placeInfo__item--phones">
+      {% if reg_phone %}
+        <span>Регистратура</span>
+        {% for phone in reg_phone %}
+          <p>{{ phone }}</p>
+        {% endfor %}
+      {% endif %}
+      <span>Колл-центр</span>
+      <p>{{ organ.phone_callcenter }}</p>
+    </div>
+    <div class="placeInfo__item placeInfo__item--address"><span>Адрес</span>
+      <p>{{ organ.address }}<br>{{ organ.city }}</p>
+    </div>
+    <div class="placeInfo__item placeInfo__item--time"><span>Режим работы</span>
+      <p>{% autoescape off %}{{ organ.operating_mode }}{% endautoescape %}</p>
+    </div>
+    <div class="placeInfo__item placeInfo__item--links"><span>Сайт</span>
+      <p><a href="{{ organ.site }}">{{ organ.site }}</a></p><span>Инстаграм</span>
+      <p><a href="{{ organ.instagram }}">{{ organ.instagram_tag }}</a></p>
+    </div>
+  </section>
+</div>
