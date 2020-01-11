@@ -60,17 +60,6 @@ class ServiceSerializer(serializers.ModelSerializer):
         fields = ['id', 'code', 'name']
 
 
-class DoctorListSerializer(serializers.ModelSerializer):
-    department = DepartmentSerializer(many=True)
-    dates = DoctorTimingSerializer(many=True)
-    services = ServiceSerializer(many=True)
-
-    class Meta:
-        model = Doctor
-        fields = ('id', 'full_name', 'department', 'dates', 'services')
-
-
-
 class OrderSerializer(serializers.ModelSerializer):
 
     department = DepartmentSerializer(many=True)

@@ -130,6 +130,11 @@ DEBUG_TOOLBAR_CONFIG = {
     'SQL_WARNING_THRESHOLD': 2000
 }
 
+DEBUG_TOOLBAR_PANELS = [
+    'debug_toolbar.panels.timer.TimerPanel',
+    'debug_toolbar.panels.sql.SQLPanel',
+]
+
 try:
     from sitecelitel.settings.local import *
 except ImportError:
