@@ -1,5 +1,10 @@
 from django.views.generic import DetailView
+
 from organization.models import Organization
+from organization.models import Department
+
+from doctor.models import Specialization
+from doctor.models import Doctor
 
 
 class OrganDetailView(DetailView):
@@ -10,11 +15,15 @@ class OrganDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['reg_phone'] = [phone.strip() for phone in self.object.phone_registry.split(',') if phone]
-        
+        context['specializations'] = Specialization.objects.all().order_by("name")
+
+        departments = Department.pub_objects.filter(organization=self.object)
+        context['doctors'] = Doctor.pub_objects.filter(department__in=departments)[:8]
+
         organization = list(Organization.pub_objects.all())
         try:
             context['next_page'] = organization[organization.index(self.object) + 1]
         except:
             context['next_page'] = Organization.pub_objects.first()
-            
+
         return context

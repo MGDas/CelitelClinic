@@ -1,5 +1,7 @@
 {% extends 'index.html' %}
 
+{% load static %}
+
 {% block title %}{{ organ.name }}{% endblock %}
 
 {% block content %}
@@ -64,319 +66,84 @@
         </button>
       </div>
     </section>
-    <!-- <div class="container">
-      <section class="clinic__doctors">
-        <h2 class="mdTitle">Врачи поликлиники</h2>
-        <div class="mdIntro">Все врачи работающие в поликлинике по адресу пр-т. Акушинского, 34д</div>
-        <form class="orderFilters orderFilters--large" action="#">
-          <div class="orderFilters__item orderFilters__item--name">
-            <div class="orderFilters__wrap">
-              <button class="orderFilters__showFields" type="button" tabindex="-1">
-                    <svg width="22" height="22" aria-hidden="true">
-                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#filter"></use>
-                    </svg>
-              </button>
-              <input class="orderFilters__input orderFilters__input--name" type="text" name="orderFiltersName" placeholder="Фамилия Имя Отчество" id="orderFiltersName">
-              <div class="smallHidden orderFilters__dropDown">
-                <input class="visually-hidden orderFilters__input orderFilters__input--checkbox" type="checkbox" name="orderFiltersChild" id="orderFiltersChild0">
-                <label class="orderFilters__checkbox orderFilters__checkbox--desktop" for="orderFiltersChild0">Только детские врачи</label>
-              </div>
+
+    <div class="container">
+        <section class="clinic__doctors">
+			<h2 class="mdTitle">Врачи поликлиники</h2>
+			<div class="mdIntro">Все врачи работающие в поликлинике по адресу {{ organ.address }}</div>
+			<form class="orderFilters orderFilters--large" action="/organization/api/v0/doctors/" method='get'>
+                <button type="submit" name="button">SEND</button>
+				<div class="orderFilters__item orderFilters__item--name">
+					<div class="orderFilters__wrap">
+						<button class="orderFilters__showFields" type="button" tabindex="-1">
+									<svg width="22" height="22" aria-hidden="true">
+										<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#filter"></use>
+									</svg>
+						</button>
+						<input class="orderFilters__input orderFilters__input--name" type="text" name="orderFiltersName" placeholder="Фамилия Имя Отчество" id="orderFiltersName">
+						<div class="smallHidden orderFilters__dropDown">
+							<input class="visually-hidden orderFilters__input orderFilters__input--checkbox" type="checkbox" name="orderFiltersChild" id="orderFiltersChild0">
+							<label class="orderFilters__checkbox orderFilters__checkbox--desktop" for="orderFiltersChild0">Только детские врачи</label>
+						</div>
+					</div>
+				</div>
+				<div class="orderFilters__item orderFilters__item--specialization">
+					<div class="orderFilters__wrap">
+						<button class="orderFilters__checker" type="button" tabindex="-1">
+									<svg width="16" height="10" aria-hidden="true">
+										<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#down"></use>
+									</svg>
+						</button>
+						<input class="orderFilters__input orderFilters__input--popup" type="text" name="orderFiltersSpecialization" placeholder="Специализация" id="orderFiltersSpecialization">
+						<button class="orderFilters__close" type="button" tabindex="-1">
+									<svg width="15" height="15" aria-hidden="true">
+										<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
+									</svg>
+						</button>
+						<div class="orderFilters__dropDown">
+                            {% for spec in specializations %}
+                                <label>
+                                    <input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="{{ spec.name }}"><span>{{ spec.name|title }}</span>
+                                </label>
+                            {% endfor %}
+						</div>
+					</div>
+				</div>
+				<div class="mediumHidden orderFilters__item">
+					<div class="orderFilters__wrap">
+						<input class="visually-hidden orderFilters__input orderFilters__input--checkbox" type="checkbox" name="orderFiltersChild" id="orderFiltersChild1">
+						<label class="orderFilters__checkbox" for="orderFiltersChild1">Только детские врачи</label>
+					</div>
+				</div>
+			</form>
+			<div class="clinic__doctorsWrap">
+                {% for doctor in doctors %}
+                    <section class="doctorPreview">
+                        <div class="doctorPreview__photo">
+                            {% if doctor.avatar %}
+                                <a href="{% url 'doctor_detail_url' pk=doctor.pk %}"><img src="{{ doctor.avatar.url }}" alt="" width="270" height="270"></a>
+                            {% else %}
+                                <a href="{% url 'doctor_detail_url' pk=doctor.pk %}"><img src="{% static 'images/doctor_without_photo.png' %}" alt="" width="270" height="270"></a>
+                            {% endif %}
+                        </div>
+                        <h3 class="doctorPreview__name"><a href="#">{{ doctor.full_name }}</a>
+                        </h3>
+                        <div class="doctorPreview__desc">
+                            {% if doctor.specialization %}
+                                {% for spec in doctor.specialization.all %}
+                                    {{ spec.name }}{% if not forloop.last %},{% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            {% if doctor.academic_degree %}{{ doctor.academic_degree }}.{% endif %}
+                            {% if doctor.experience %}Опыт работы — {{ doctor.experience }}.{% endif %}
+                        </div>
+                    </section>
+                {% endfor %}
             </div>
-          </div>
-          <div class="orderFilters__item orderFilters__item--specialization">
-            <div class="orderFilters__wrap">
-              <button class="orderFilters__checker" type="button" tabindex="-1">
-                    <svg width="16" height="10" aria-hidden="true">
-                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#down"></use>
-                    </svg>
-              </button>
-              <input class="orderFilters__input orderFilters__input--popup" type="text" name="orderFiltersSpecialization" placeholder="Специализация" id="orderFiltersSpecialization">
-              <button class="orderFilters__close" type="button" tabindex="-1">
-                    <svg width="15" height="15" aria-hidden="true">
-                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
-                    </svg>
-              </button>
-              <div class="orderFilters__dropDown">
-                <label><i>А</i>
-                  <input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="Аллерголог"><span>Аллерголог</span>
-                </label>
-                <label><i>Г</i>
-                  <input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="Гинеколог"><span>Гинеколог</span>
-                </label>
-                <label><i>Д</i>
-                  <input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="Дерматолог"><span>Дерматолог</span>
-                </label>
-                <label><i>И</i>
-                  <input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="Инфекционист"><span>Инфекционист</span>
-                </label>
-                <label><i>К</i>
-                  <input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="Кардиолог"><span>Кардиолог</span>
-                </label>
-                <label><i></i>
-                  <input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="Косметолог"><span>Косметолог</span>
-                </label>
-                <label><i>Л</i>
-                  <input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="Инфекционист"><span>ЛОР</span>
-                </label>
-                <label><i>Н</i>
-                  <input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="Кардиолог"><span>Невролог</span>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="mediumHidden orderFilters__item">
-            <div class="orderFilters__wrap">
-              <input class="visually-hidden orderFilters__input orderFilters__input--checkbox" type="checkbox" name="orderFiltersChild" id="orderFiltersChild1">
-              <label class="orderFilters__checkbox" for="orderFiltersChild1">Только детские врачи</label>
-            </div>
-          </div>
-        </form>
-        <div class="clinic__doctorsWrap">
-                        <section class="doctorPreview">
-                          <div class="doctorPreview__photo"><a href="#"><img src="assets/doctorPreview.jpg" alt="" width="270" height="270"></a></div>
-                          <h3 class="doctorPreview__name"><a href="#">Амина Гирамудиновна Абдулазизова</a>
-                          </h3>
-                          <div class="doctorPreview__desc">Терапевт, Узист. Врач высшей категории. Опыт работы — 17 лет</div>
-                        </section>
-                        <section class="doctorPreview">
-                          <div class="doctorPreview__photo"><a href="#"><img src="assets/doctorPreview.jpg" alt="" width="270" height="270"></a></div>
-                          <h3 class="doctorPreview__name"><a href="#">Амина Гирамудиновна Абдулазизова</a>
-                            <div class="doctorPreview__label"><span class="visually-hidden">В данный момент у врача действует акция</span><i aria-hidden="true" title="В данный момент у врача действует акция">%</i></div>
-                          </h3>
-                          <div class="doctorPreview__desc">Терапевт, Узист. Врач высшей категории. Опыт работы — 17 лет</div>
-                        </section>
-                        <section class="doctorPreview">
-                          <div class="doctorPreview__photo"><a href="#"><img src="assets/doctorPreview.jpg" alt="" width="270" height="270"></a></div>
-                          <h3 class="doctorPreview__name"><a href="#">Амина Гирамудиновна Абдулазизова</a>
-                          </h3>
-                          <div class="doctorPreview__desc">Терапевт, Узист. Врач высшей категории. Опыт работы — 17 лет</div>
-                        </section>
-                        <section class="doctorPreview">
-                          <div class="doctorPreview__photo"><a href="#"><img src="assets/doctorPreview.jpg" alt="" width="270" height="270"></a></div>
-                          <h3 class="doctorPreview__name"><a href="#">Амина Гирамудиновна Абдулазизова</a>
-                            <div class="doctorPreview__label"><span class="visually-hidden">В данный момент у врача действует акция</span><i aria-hidden="true" title="В данный момент у врача действует акция">%</i></div>
-                          </h3>
-                          <div class="doctorPreview__desc">Терапевт, Узист. Врач высшей категории. Опыт работы — 17 лет</div>
-                        </section>
-                        <section class="doctorPreview">
-                          <div class="doctorPreview__photo"><a href="#"><img src="assets/doctorPreview.jpg" alt="" width="270" height="270"></a></div>
-                          <h3 class="doctorPreview__name"><a href="#">Амина Гирамудиновна Абдулазизова</a>
-                          </h3>
-                          <div class="doctorPreview__desc">Терапевт, Узист. Врач высшей категории. Опыт работы — 17 лет</div>
-                        </section>
-                        <section class="doctorPreview">
-                          <div class="doctorPreview__photo"><a href="#"><img src="assets/doctorPreview.jpg" alt="" width="270" height="270"></a></div>
-                          <h3 class="doctorPreview__name"><a href="#">Амина Гирамудиновна Абдулазизова</a>
-                            <div class="doctorPreview__label"><span class="visually-hidden">В данный момент у врача действует акция</span><i aria-hidden="true" title="В данный момент у врача действует акция">%</i></div>
-                          </h3>
-                          <div class="doctorPreview__desc">Терапевт, Узист. Врач высшей категории. Опыт работы — 17 лет</div>
-                        </section>
-                        <section class="doctorPreview">
-                          <div class="doctorPreview__photo"><a href="#"><img src="assets/doctorPreview.jpg" alt="" width="270" height="270"></a></div>
-                          <h3 class="doctorPreview__name"><a href="#">Амина Гирамудиновна Абдулазизова</a>
-                          </h3>
-                          <div class="doctorPreview__desc">Терапевт, Узист. Врач высшей категории. Опыт работы — 17 лет</div>
-                        </section>
-                        <section class="doctorPreview">
-                          <div class="doctorPreview__photo"><a href="#"><img src="assets/doctorPreview.jpg" alt="" width="270" height="270"></a></div>
-                          <h3 class="doctorPreview__name"><a href="#">Амина Гирамудиновна Абдулазизова</a>
-                            <div class="doctorPreview__label"><span class="visually-hidden">В данный момент у врача действует акция</span><i aria-hidden="true" title="В данный момент у врача действует акция">%</i></div>
-                          </h3>
-                          <div class="doctorPreview__desc">Терапевт, Узист. Врач высшей категории. Опыт работы — 17 лет</div>
-                        </section>
-        </div><a class="more" href="#">Ещё 21 врач</a>
-      </section>
-                <section class="servicesList">
-                  <h2 class="mdTitle">Услуги поликлиники</h2>
-                  <ul class="servicesList__categories">
-                    <li class="servicesList__category servicesList__category--active"><a href="#">Аллергология</a></li>
-                    <li class="servicesList__category"><a href="#">Гинекология</a></li>
-                    <li class="servicesList__category"><a href="#">Дерматология</a></li>
-                    <li class="servicesList__category"><a href="#">Инфекционные заболевания</a></li>
-                    <li class="servicesList__category"><a href="#">Кардиология</a></li>
-                    <li class="servicesList__category"><a href="#">Косметология</a></li>
-                    <li class="servicesList__category"><a href="#">ЛОР</a></li>
-                    <li class="servicesList__category"><a href="#">Неврология</a></li>
-                    <li class="servicesList__category"><a href="#">Ортопедия</a></li>
-                    <li class="servicesList__category"><a href="#">Педиатрия</a></li>
-                    <li class="servicesList__category"><a href="#">Процедурный кабинет</a></li>
-                    <li class="servicesList__category"><a href="#">Стоматология</a></li>
-                    <li class="servicesList__category"><a href="#">Терапия</a></li>
-                    <li class="servicesList__category"><a href="#">УЗИ</a></li>
-                    <li class="servicesList__category"><a href="#">Урология</a></li>
-                    <li class="servicesList__category"><a href="#">Хирургия</a></li>
-                    <li class="servicesList__category"><a href="#">Эндокринология</a></li>
-                    <li class="servicesList__category"><a href="#">Ювениолог</a></li>
-                  </ul>
-                  <div class="servicesList__body">
-                    <table class="servicesList__item">
-                      <thead>
-                        <tr>
-                          <th colspan="2">Контурная пластика лица</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Лифтинг с/з (Silhouette Lift), в/в (1 нитка)</td>
-                          <td>1 000 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Лифтинг с/з (Silhouette Lift), м/а (1 нитка)</td>
-                          <td>1 800 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Чек-лифтинг</td>
-                          <td>2 500 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Лонгидаза</td>
-                          <td>2 900 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Мезотерапия проблемная зона</td>
-                          <td>1 700 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Мезоскульпт C71 1 мл</td>
-                          <td>18 000 ₽</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <table class="servicesList__item">
-                      <thead>
-                        <tr>
-                          <th colspan="2">Контурная пластика лица</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Лифтинг с/з (Silhouette Lift), в/в (1 нитка)</td>
-                          <td>1 000 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Лифтинг с/з (Silhouette Lift), м/а (1 нитка)</td>
-                          <td>1 800 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Чек-лифтинг</td>
-                          <td>2 500 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Лонгидаза</td>
-                          <td>2 900 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Мезотерапия проблемная зона</td>
-                          <td>1 700 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Мезоскульпт C71 1 мл</td>
-                          <td>18 000 ₽</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <table class="servicesList__item">
-                      <thead>
-                        <tr>
-                          <th colspan="2">Контурная пластика лица</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Лифтинг с/з (Silhouette Lift), в/в (1 нитка)</td>
-                          <td>1 000 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Лифтинг с/з (Silhouette Lift), м/а (1 нитка)</td>
-                          <td>1 800 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Чек-лифтинг</td>
-                          <td>2 500 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Лонгидаза</td>
-                          <td>2 900 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Мезотерапия проблемная зона</td>
-                          <td>1 700 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Мезоскульпт C71 1 мл</td>
-                          <td>18 000 ₽</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <table class="servicesList__item">
-                      <thead>
-                        <tr>
-                          <th colspan="2">Контурная пластика лица</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Лифтинг с/з (Silhouette Lift), в/в (1 нитка)</td>
-                          <td>1 000 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Лифтинг с/з (Silhouette Lift), м/а (1 нитка)</td>
-                          <td>1 800 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Чек-лифтинг</td>
-                          <td>2 500 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Лонгидаза</td>
-                          <td>2 900 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Мезотерапия проблемная зона</td>
-                          <td>1 700 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Мезоскульпт C71 1 мл</td>
-                          <td>18 000 ₽</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <table class="servicesList__item">
-                      <thead>
-                        <tr>
-                          <th colspan="2">Контурная пластика лица</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Лифтинг с/з (Silhouette Lift), в/в (1 нитка)</td>
-                          <td>1 000 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Лифтинг с/з (Silhouette Lift), м/а (1 нитка)</td>
-                          <td>1 800 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Чек-лифтинг</td>
-                          <td>2 500 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Лонгидаза</td>
-                          <td>2 900 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Мезотерапия проблемная зона</td>
-                          <td>1 700 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>Мезоскульпт C71 1 мл</td>
-                          <td>18 000 ₽</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </section>
-    </div> -->
+
+        </section>
+    </div>
+
   </article>
         <section class="nextPage">
           <div class="container">
