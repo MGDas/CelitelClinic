@@ -1,0 +1,34 @@
+<section class="placeLooksLike">
+  {% if organ.image %}
+    <div class="placeLooksLike__item placeLooksLike__item--photo placeLooksLike__item--active">
+      <picture>
+          <source media="(min-width: 1024px)" srcset="{{ organ.image.url }}">
+          <source media="(min-width: 580px)" srcset="{{ organ.image.url }}">
+          <img src="{{ organ.image.url }}" alt="">
+      </picture>
+    </div>
+  {% endif %}
+  <div class="placeLooksLike__item placeLooksLike__item--pano" data-src="{{ organ.panorama }}">
+    <iframe src="" width="100%" height="650" allowfullscreen="true"></iframe>
+  </div>
+  <div class="placeLooksLike__item placeLooksLike__item--map" data-src="{{ organ.map }}">
+    <iframe src="" width="100%" height="650" allowfullscreen="true"></iframe>
+  </div>
+  <div class="placeLooksLike__controls">
+    <button class="placeLooksLike__control placeLooksLike__control--photo placeLooksLike__control--active" type="button">
+          <svg width="20" height="15" aria-hidden="true">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#image"></use>
+          </svg>Фото
+    </button>
+    <button class="placeLooksLike__control placeLooksLike__control--pano" type="button">
+          <svg width="11" height="18" aria-hidden="true">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#panorama"></use>
+          </svg>Панорама
+    </button>
+    <button class="placeLooksLike__control placeLooksLike__control--map" type="button">
+          <svg width="14" height="18" aria-hidden="true">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#placeholder"></use>
+          </svg>Карта
+    </button>
+  </div>
+</section>

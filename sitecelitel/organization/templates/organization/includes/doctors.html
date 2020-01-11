@@ -1,0 +1,76 @@
+{% load static %}
+
+<section class="clinic__doctors">
+    <h2 class="mdTitle">Врачи поликлиники</h2>
+    <div class="mdIntro">Все врачи работающие в поликлинике по адресу {{ organ.address }}</div>
+    <form class="orderFilters orderFilters--large" action="/organization/api/v0/doctors/" method='get'>
+        <button type="submit" name="button">SEND</button>
+        <div class="orderFilters__item orderFilters__item--name">
+            <div class="orderFilters__wrap">
+                <button class="orderFilters__showFields" type="button" tabindex="-1">
+                            <svg width="22" height="22" aria-hidden="true">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#filter"></use>
+                            </svg>
+                </button>
+                <input class="orderFilters__input orderFilters__input--name" type="text" name="orderFiltersName" placeholder="Фамилия Имя Отчество" id="orderFiltersName">
+                <div class="smallHidden orderFilters__dropDown">
+                    <input class="visually-hidden orderFilters__input orderFilters__input--checkbox" type="checkbox" name="orderFiltersChild" id="orderFiltersChild0">
+                    <label class="orderFilters__checkbox orderFilters__checkbox--desktop" for="orderFiltersChild0">Только детские врачи</label>
+                </div>
+            </div>
+        </div>
+        <div class="orderFilters__item orderFilters__item--specialization">
+            <div class="orderFilters__wrap">
+                <button class="orderFilters__checker" type="button" tabindex="-1">
+                            <svg width="16" height="10" aria-hidden="true">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#down"></use>
+                            </svg>
+                </button>
+                <input class="orderFilters__input orderFilters__input--popup" type="text" name="orderFiltersSpecialization" placeholder="Специализация" id="orderFiltersSpecialization">
+                <button class="orderFilters__close" type="button" tabindex="-1">
+                            <svg width="15" height="15" aria-hidden="true">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
+                            </svg>
+                </button>
+                <div class="orderFilters__dropDown">
+                    {% for spec in specializations %}
+                        <label>
+                            <input class="visually-hidden" type="radio" name="orderFiltersSpecialization" value="{{ spec.name }}"><span>{{ spec.name|title }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="mediumHidden orderFilters__item">
+            <div class="orderFilters__wrap">
+                <input class="visually-hidden orderFilters__input orderFilters__input--checkbox" type="checkbox" name="orderFiltersChild" id="orderFiltersChild1">
+                <label class="orderFilters__checkbox" for="orderFiltersChild1">Только детские врачи</label>
+            </div>
+        </div>
+    </form>
+    <div class="clinic__doctorsWrap">
+        {% for doctor in doctors %}
+            <section class="doctorPreview">
+                <div class="doctorPreview__photo">
+                    {% if doctor.avatar %}
+                        <a href="{% url 'doctor_detail_url' pk=doctor.pk %}"><img src="{{ doctor.avatar.url }}" alt="" width="270" height="270"></a>
+                    {% else %}
+                        <a href="{% url 'doctor_detail_url' pk=doctor.pk %}"><img src="{% static 'images/doctor_without_photo.png' %}" alt="" width="270" height="270"></a>
+                    {% endif %}
+                </div>
+                <h3 class="doctorPreview__name"><a href="#">{{ doctor.full_name }}</a>
+                </h3>
+                <div class="doctorPreview__desc">
+                    {% if doctor.specialization %}
+                        {% for spec in doctor.specialization.all %}
+                            {{ spec.name }}{% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if doctor.academic_degree %}{{ doctor.academic_degree }}.{% endif %}
+                    {% if doctor.experience %}Опыт работы — {{ doctor.experience }}.{% endif %}
+                </div>
+            </section>
+        {% endfor %}
+    </div>
+
+</section>
