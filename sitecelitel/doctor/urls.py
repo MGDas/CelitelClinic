@@ -5,12 +5,14 @@ from doctor.views_list.views import DoctorListView
 from doctor.views_list.views import DoctorDetailView
 from doctor.views_list.views import OrderView
 
+from doctor.views_list.view_sets import DoctorViewSet
 from doctor.views_list.view_sets import OrderViewSet
 
 from rest_framework.routers import DefaultRouter
 
 
 router = DefaultRouter()
+router.register('all', DoctorViewSet, basename='doctors_api')
 router.register('order', OrderViewSet, basename='order_api')
 
 urlpatterns = [

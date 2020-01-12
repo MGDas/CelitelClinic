@@ -5,6 +5,7 @@ from django.db.models import Q
 from doctor.models import Doctor, Specialization
 from organization.models import Organization, Department
 from doctor.serializers import OrderSerializer
+from doctor.serializers import DoctorListSerializer
 
 
 class OrderViewSet(ModelViewSet):
@@ -39,3 +40,10 @@ class OrderViewSet(ModelViewSet):
             return Doctor.pub_objects.filter(*result)
 
         return Doctor.pub_objects.all()[:3]
+
+
+class DoctorViewSet(ModelViewSet):
+    serializer_class = DoctorListSerializer
+    filter_beckend = [DjangoFilterBackend]
+    search_fields = ['name', 'code']
+    queryset = Doctor.pub_objects.all()
