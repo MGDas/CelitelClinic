@@ -7,7 +7,7 @@
             <div class="slider__list">
                 {% for slider in sliders %}
                     <div class="slider__item slider__item--active">
-                        <a href="{{ slider.url }}">
+                        <a href="{{ slider.get_current_site }}">
                             <picture>
                                 <source media="(min-width: 720px)" srcset="{{ slider.image_pc.url }}"><img src="{{ slider.image_mob.url }}">
                             </picture>

@@ -1,5 +1,7 @@
 from django.db import models
+from django.conf import settings
 from django.utils import timezone
+
 from clinic.utils import get_image_pc, get_image_mob
 
 
@@ -31,7 +33,7 @@ class BaseModel(PublicModel):
 class Slider(PublicModel):
 
     title = models.CharField(max_length=500, verbose_name='Название')
-    url = models.URLField(blank=True, help_text='Пример: http://example.com/about', verbose_name='URL')
+    url = models.CharField(max_length=500, blank=True, help_text='Пример: /article/about/', verbose_name='URL')
     image_pc = models.ImageField(upload_to=get_image_pc, blank=True, verbose_name='Изображение')
     image_mob = models.ImageField(upload_to=get_image_mob, blank=True, verbose_name='Изображение моб.')
     order = models.PositiveIntegerField(default=0, blank=True, verbose_name='Сортировка')
@@ -46,6 +48,10 @@ class Slider(PublicModel):
         if not self.order:
             self.order = self.id
         return super().save(*args, **kwargs)
+
+    @property
+    def get_current_site(self):
+        return "/".join(['http:/', settings.SITE[0].strip('/'), self.url.strip('/')])
 
     def __str__(self):
         return self.url

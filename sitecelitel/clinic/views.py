@@ -17,6 +17,8 @@ class IndexView(TemplateView):
         context['videos'] = Video.objects.all()[:4]
         context['consultations'] = Consultation.objects.all()[:6]
         context['sliders'] = Slider.pub_objects.all()
+        for slider in context['sliders']:
+            print(slider.get_current_site)
         return context
 
 
