@@ -6,6 +6,7 @@ from doctor.models import Video
 from doctor.models import Consultation
 
 from clinic.models import Slider
+from clinic.models import Partner
 
 
 class IndexView(TemplateView):
@@ -17,8 +18,7 @@ class IndexView(TemplateView):
         context['videos'] = Video.objects.all()[:4]
         context['consultations'] = Consultation.objects.all()[:6]
         context['sliders'] = Slider.pub_objects.all()
-        for slider in context['sliders']:
-            print(slider.get_current_site)
+        context['partners'] = Partner.pub_objects.all()
         return context
 
 

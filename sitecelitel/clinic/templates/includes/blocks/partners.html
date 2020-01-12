@@ -1,11 +1,12 @@
-<section class="partners">
-    <div class="container">
-        <h2 class="mdTitle">Наши партнеры</h2>
-        <div class="partners__list">
-            <div class="partners__item"><a target="_blank" href="https://glaz-almaz05.ru/"><img src="/media/partners/1.png" alt=""></a></div>
-            <div class="partners__item"><a target="_blank" href="https://ooovseanalizi.ru/"><img src="/media/partners/2.png" alt=""></a></div>
-            <div class="partners__item"><a target="_blank" href="http://kkt-profiplus.ru/"><img src="/media/partners/3.png" alt=""></a></div>
-            <div class="partners__item"><a target="_blank" href="http://ability-centr.ru/"><img src="/media/partners/4.png" alt=""></a></div>
+{% if partners %}
+    <section class="partners">
+        <div class="container">
+            <h2 class="mdTitle">Наши партнеры</h2>
+            <div class="partners__list">
+                {% for partner in partners %}
+                <div class="partners__item"><a target="_blank" href="{{ partner.url }}"><img src="{{ partner.logo.url }}" alt="{{ partner.name }}"></a></div>
+                {% endfor %}
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+{% endif %}
