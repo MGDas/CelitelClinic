@@ -9,14 +9,14 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         start = time()
-        asyncio.run(runner())
+        runner()
         end = time()
 
         print(end - start)
 
-async def runner():
+def runner():
 
-    await special()
+    special()
     print("===================")
     print("===================")
     print("===================")
@@ -24,15 +24,8 @@ async def runner():
     print("===================")
     print("===================")
     print("===================")
-    await doctors()
-    print("===================")
-    print("===================")
-    print("===================")
-    print("УСПЕШНО — Записаны Доктора")
-    print("===================")
-    print("===================")
-    print("===================")
-    await timing()
+    doctors()
+    asyncio.run(timing())
     print("===================")
     print("===================")
     print("===================")

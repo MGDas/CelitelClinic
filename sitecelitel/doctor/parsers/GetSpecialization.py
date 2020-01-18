@@ -6,7 +6,7 @@ def connect(url):
     response = requests.get(url)
     return response.json()
 
-async def save_in_db(code, name):
+def save_in_db(code, name):
 
     special, status = Specialization.objects.update_or_create(
         code=code,
@@ -18,14 +18,16 @@ async def save_in_db(code, name):
     else:
         print(f"{special}......СОЗДАНО!")
 
-async def main():
+def main():
 
     url = 'https://celitel05.ru/json/GetSpecialization.json'
     data = connect(url)
 
-    tasks = []
+    count = 0
     for d in data:
-        task = asyncio.create_task(save_in_db(d['code'], d['name']))
-        tasks.append(task)
+        save_in_db(d['code'], d['name'])
+        count += 1
 
-    await asyncio.gather(*tasks)
+    print("============================")
+    print(f"Specialization saved. Count {count}.")
+    print("============================")
