@@ -15,10 +15,14 @@ class OrganDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['reg_phone'] = [phone.strip() for phone in self.object.phone_registry.split(',') if phone]
-        context['specializations'] = Specialization.objects.all().order_by("name")
 
         departments = Department.pub_objects.filter(organization=self.object)
-        context['doctors'] = Doctor.pub_objects.filter(department__in=departments)[:8]
+        doctors = Doctor.pub_objects.filter(department__in=departments)
+        doctors_spec = set(doctors.values_list('specialization__name', flat=True))
+        specialization = Specialization.objects.filter(name__in=doctors_spec).order_by('name')
+
+        context['doctors'] = doctors
+        context['specializations'] = specialization
 
         organization = list(Organization.pub_objects.all())
         try:
