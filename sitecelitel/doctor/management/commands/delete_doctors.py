@@ -5,10 +5,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
 
-        Doctor.objects.all().delete()
-        print("УСПЕШНО — удалены с сайта Доктора")
-        Specialization.objects.all().delete()
-        print("УСПЕШНО — удалены с сайта Специализации")
+#        Doctor.objects.all().delete()
+#        print("УСПЕШНО — удалены с сайта Доктора")
+#        Specialization.objects.all().delete()
+#        print("УСПЕШНО — удалены с сайта Специализации")
         Timing.objects.all().delete()
         print("УСПЕШНО — удалены с сайта Часы приема!")
         DoctorTiming.objects.all().delete()
