@@ -1,0 +1,51 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load pytils_dt %}
+
+{% block title %}
+     Тег: {{ tag_doctor.title }}
+{% endblock %}
+
+{% block content %}
+    <main>
+        <article class="doctors">
+            <div class="container">
+                <h1 class="h1">Врачи по тегу: {{ tag_doctor.title }}</h1>
+                <div class="doctors__list">
+                    {% with doctors=tag_doctor.doctors.all %}
+                        {% for doctor in doctors %}
+                        <section class="doctorPreview">
+                            <div class="doctorPreview__photo">
+                                {% if doctor.avatar %}
+                                    <a href="{% url 'doctor_detail_url' pk=doctor.pk %}"><img src="{{ doctor.avatar.url }}" alt="" width="270" height="270"></a>
+                                {% else %}
+                                    <a href="{% url 'doctor_detail_url' pk=doctor.pk %}"><img src="{% static 'images/doctor_without_photo.png' %}" alt="" width="270" height="270"></a>
+                                {% endif %}
+                            </div>
+                            <h3 class="doctorPreview__name">
+                                <a href="{% url 'doctor_detail_url' pk=doctor.pk %}">{{ doctor.full_name }}</a>
+                                {% if doctor.promotions.first %}
+                                <div class="doctorPreview__label">
+                                    <span class="visually-hidden">В данный момент у врача действует акция</span>
+                                    <i aria-hidden="true" title="В данный момент у врача действует акция">%</i>
+                                </div>
+                                {% endif %}
+                            </h3>
+                            <div class="doctorPreview__desc">
+                                {% if doctor.specialization %}
+                                {% for spec in doctor.specialization.all %}
+                                {{ spec.name }}{% if not forloop.last %},{% endif %}
+                                {% endfor %}
+                                {% endif %}
+                                {% if doctor.academic_degree %}{{ doctor.academic_degree }}.{% endif %}
+                                {% if doctor.experience %}{{ doctor.experience }}.{% endif %}
+                            </div>
+                        </section>
+                        {% endfor %}
+
+                    {% endwith %}
+                </div>
+            </div>
+        </article>
+    </main>
+{% endblock %}

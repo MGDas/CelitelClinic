@@ -3,19 +3,28 @@
         <section class="menuDoctors__section menuDoctors__section--menu">
             <ul class="subMenu__menu">
                 <li class="orderOneForMobile"><a class="subMenu__active" href="{% url 'doctor_list_url' %}">Все врачи</a></li>
-                <li><a href="#">Детские врачи</a></li>
-                <li><a href="#">Врачи с большим опытом</a></li>
-                <li><a href="#">Молодые специалисты</a></li>
-                <li><a href="#">Врачи с действующими акциями&nbsp;<span>%</span></a></li>
+                {% for doctor_tag in doctors_tags %}
+                    <li><a href="{% url 'doctor_tags_detail_url' slug=doctor_tag.slug %}">{{ doctor_tag.title }}</a></li>
+                {% endfor %}
             </ul>
         </section>
         <section class="menuDoctors__section menuDoctors__section--doctor">
-            <div class="menuDoctors__photo"><img src="assets/faqDoctor.jpg" alt=""></div>
-            <div class="menuDoctors__wrap">
-                <h3 class="menuDoctors__name"><a href="#">Башир Алиасрхабович</a></h3>
-                <div class="menuDoctors__desk">уролог-андролог</div>
-                <div class="menuDoctors__note">Врач-дня</div>
-            </div>
+            {% if best_doctor %}
+                <div class="menuDoctors__photo"><img src="{{ best_doctor.avatar.url }}" alt=""></div>
+                <div class="menuDoctors__wrap">
+                    <h3 class="menuDoctors__name"><a href="{% url 'doctor_detail_url' pk=best_doctor.pk %}">{{ best_doctor.full_name }}</a></h3>
+                    <div class="menuDoctors__desk">
+                        {% for spec in best_doctor.specialization.all %}
+                            {% if not forloop.last %}
+                                {{ spec.name }},
+                            {% else %}
+                                {{ spec.name }}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="menuDoctors__note">Врач-дня</div>
+                </div>
+            {% endif %}
         </section>
     </div>
 </li>

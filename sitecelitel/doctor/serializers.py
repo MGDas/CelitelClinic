@@ -1,10 +1,8 @@
 from rest_framework import serializers
 from doctor.models import Doctor, DoctorTiming, Timing
-from organization.models import Organization, Department, Agreement
+from organization.models import Organization, Department
 from service.models import Service
-import requests
-from django.db import connections
-connection = connections['default']
+
 
 class OrganizationSerializer(serializers.ModelSerializer):
     agreement = serializers.SerializerMethodField('getServices')
