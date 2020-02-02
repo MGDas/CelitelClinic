@@ -13,7 +13,7 @@ class RussianDoctorNowListView(ListView):
 class RussianDoctorPastListView(ListView):
     template_name = 'rusdoc/rusdoc_list_past.html'
     context_object_name = 'russian_doctors'
-    queryset = RussianDoctor.pub_objects.filter(data_end__lt=timezone.now())
+    queryset = RussianDoctor.objects.filter(data_end__lt=timezone.now())
 
 
 class RussianDoctorDetailView(DetailView):
@@ -24,11 +24,10 @@ class RussianDoctorDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         rusdocs = list(RussianDoctor.pub_objects.filter(data_end__gt=timezone.now()))
-        print()
-        print(rusdocs)
-        print()
-        try:
-            context['next_page'] = rusdocs[rusdocs.index(self.object) + 1]
-        except:
-            context['next_page'] = rusdocs[0]
+
+        if rusdocs:
+            try:
+                context['next_page'] = rusdocs[rusdocs.index(self.object) + 1]
+            except:
+                context['next_page'] = rusdocs[0]
         return context

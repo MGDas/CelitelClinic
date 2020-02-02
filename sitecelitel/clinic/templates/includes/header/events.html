@@ -17,7 +17,7 @@
                         {% else %}
                             <img src="{% static 'images/promotion.jpg' %}" alt="" width="1024" height="540">
                         {% endif %}
-                        <h3><a href="{% url 'rusdoc_detail_url' pk=rusdoc.id %}">{{ rusdoc.title }}</a></h3>
+                        <h3><a href="{% url 'rusdoc_detail_url' pk=rusdoc.pk %}">{{ rusdoc.title }}</a></h3>
                     </section>
             {% endfor %}
         </section>

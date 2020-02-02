@@ -87,7 +87,7 @@
                 {% csrf_token %}
             </form>
             
-<script>
+            <script>
 function sendDoctorListForm(form) {
 	var XHR = new XMLHttpRequest();
 	var FD = new FormData(form);
@@ -168,7 +168,7 @@ function sendDoctorListForm(form) {
             sendDoctorListForm(orderFilters)
         })
     })
-</script>
+    </script>
 
             <div class="doctors__list">
                 {% for doctor in doctors %}
@@ -223,7 +223,7 @@ function sendDoctorListForm(form) {
 
 
             </div>
-        </article>
-    </main>
+    </article>
+</main>
 
-    {% endblock %}
+{% endblock %}

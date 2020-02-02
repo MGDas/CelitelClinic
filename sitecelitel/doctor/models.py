@@ -51,18 +51,27 @@ class Doctor(BaseModel):
         verbose_name='Депортамент'
     )
 
-    full_name = models.CharField(max_length=255, blank=True, verbose_name='Полное имя')                         # Name Surname Middle name
-    gender = models.CharField(max_length=1, choices=GENDER, default=non, blank=True, verbose_name='Пол' )
+    full_name = models.CharField(max_length=255, blank=True, verbose_name='Полное имя')
+    gender = models.CharField(max_length=1, choices=GENDER, default=non, blank=True, verbose_name='Пол')
     childish = models.BooleanField(default=False, verbose_name='Детский доктор')
     adult = models.BooleanField(default=False, verbose_name='Взрослый доктор')
-    photo = models.ImageField(upload_to=get_photo, blank=True, verbose_name='Фото')               # img, svg,
-    avatar = models.ImageField(upload_to=get_photo, blank=True, verbose_name='Аватарка')          # avater docter
-    experience = models.CharField(max_length=45, blank=True, verbose_name='Опыт')                   # Опыт работы — 19 лет
-    academic_degree = models.CharField(max_length=100, blank=True, verbose_name='Ученая степень')   # Врач высшей категории
+    photo = models.ImageField(upload_to=get_photo, blank=True, verbose_name='Фото')
+    avatar = models.ImageField(upload_to=get_photo, blank=True, verbose_name='Аватарка')
+    experience = models.CharField(max_length=45, blank=True, verbose_name='Опыт')
+    academic_degree = models.CharField(max_length=100, blank=True, verbose_name='Ученая степень')
 
     # Редакторы
     content = models.TextField(blank=True, verbose_name='Контент')
     special_note = models.TextField(blank=True, null=True, verbose_name='Примечание')
+
+    the_best = models.BooleanField(default=False, blank=True, verbose_name="Доктор дня")
+
+    tags = models.ManyToManyField(
+        "tag.DoctorTag",
+        blank=True,
+        related_name='doctors',
+        verbose_name='Теги'
+    )
 
     class Meta:
         db_table = 'doctors'

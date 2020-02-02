@@ -2,7 +2,12 @@ from rest_framework.viewsets import ModelViewSet
 from django.db.models import Q
 
 from organization.serializers import OrganDoctorSerializer
-from doctor.models import Doctor, Specialization
+from organization.serializers import OrganizationSerializer
+
+from organization.models import Organization
+
+from doctor.models import Doctor
+from doctor.models import Specialization
 
 
 class OrganDoctorViewSet(ModelViewSet):
@@ -30,3 +35,10 @@ class OrganDoctorViewSet(ModelViewSet):
             self.queryset = Doctor.pub_objects.filter(*result)
 
         return self.queryset
+
+
+class OrganViewSet(ModelViewSet):
+    serializer_class = OrganizationSerializer
+    queryset = Organization.objects.all()
+
+
