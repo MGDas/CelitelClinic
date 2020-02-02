@@ -2,6 +2,7 @@ from django.db import models
 from clinic.models import BaseModel
 from sitecelitel.utils import get_photo
 
+
 class RussianDoctor(BaseModel):
     title = models.CharField(max_length=255, verbose_name='Заголовок')
     note = models.CharField(max_length=100, blank=True, verbose_name='Примечание')
@@ -15,7 +16,6 @@ class RussianDoctor(BaseModel):
 
     data_start = models.DateField(verbose_name='Дата начала')
     data_end = models.DateField(verbose_name='Дата конца')
-
 
     class Meta:
         db_table = 'russian_doctors'

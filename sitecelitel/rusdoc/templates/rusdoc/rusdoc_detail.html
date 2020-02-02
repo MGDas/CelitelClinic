@@ -30,16 +30,19 @@
             {% include 'includes/social_links/social_links.html' %}
           </div>
         </article>
-              <section class="nextPage">
-                <div class="container">
-                  <p>Далее</p>
-                  <a href="{% url 'rusdoc_detail_url' pk=next_page.pk %}">
-                    <span>{{ next_page.title }}</span>
-                    <svg width="40" height="30" aria-hidden="true">
-                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight"></use>
-                    </svg>
-                  </a>
-                </div>
-              </section>
+
+        {% if next_page %}
+          <section class="nextPage">
+            <div class="container">
+              <p>Далее</p>
+              <a href="{% url 'rusdoc_detail_url' pk=next_page.pk %}">
+                <span>{{ next_page.title }}</span>
+                <svg width="40" height="30" aria-hidden="true">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrowRight"></use>
+                </svg>
+              </a>
+            </div>
+          </section>
+        {% endif %}
       </main>
 {% endblock %}

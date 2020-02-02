@@ -2,6 +2,8 @@ from django.db import models
 from clinic.models import BaseModel
 from sitecelitel.utils import get_photo
 
+from doctor.models import Doctor
+
 
 class Organization(BaseModel):
     code = models.CharField(max_length=36)
@@ -22,7 +24,6 @@ class Organization(BaseModel):
     # Редакторы
     panorama = models.TextField(blank=True, verbose_name='Панорама')
     map = models.TextField(blank=True, verbose_name='Карта')
-
 
     class Meta:
         db_table = 'organizations'
