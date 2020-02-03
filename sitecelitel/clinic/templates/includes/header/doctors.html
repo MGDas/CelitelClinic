@@ -10,7 +10,7 @@
         </section>
         <section class="menuDoctors__section menuDoctors__section--doctor">
             {% if best_doctor %}
-                <div class="menuDoctors__photo"><img src="{{ best_doctor.avatar.url }}" alt=""></div>
+                <div class="menuDoctors__photo"><img width="80" src="{{ best_doctor.avatar.url }}" alt=""></div>
                 <div class="menuDoctors__wrap">
                     <h3 class="menuDoctors__name"><a href="{% url 'doctor_detail_url' pk=best_doctor.pk %}">{{ best_doctor.full_name }}</a></h3>
                     <div class="menuDoctors__desk">
