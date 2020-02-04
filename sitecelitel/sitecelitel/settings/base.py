@@ -24,7 +24,7 @@ INSTALLED_APPS = [
     'adminsortable2',
     "django_summernote",
     'pytils',   # for translate date in russion language
-    'debug_toolbar',
+    # 'debug_toolbar',
     'django_extensions',
     'rest_framework',
     'django_filters',
@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'sitecelitel.urls'
@@ -67,7 +67,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'clinic.context_processors.index',
-                'django.template.context_processors.debug',
+                # 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
