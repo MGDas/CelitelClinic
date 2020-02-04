@@ -1,7 +1,7 @@
 DEBUG = True           # DEBUG MODE
 
-ALLOWED_HOSTS = ['test2.studiovector.art']    # your site domen_name
-SITE = ['test2.studiovector.art']
+ALLOWED_HOSTS = ['*']    # your site domen_name
+SITE = ['*']
 
 # Database settings
 DATABASES = {
