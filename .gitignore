@@ -6,3 +6,4 @@ __pycache__/
 local.py
 templates_html
 db
+public_html/json/
