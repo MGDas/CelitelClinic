@@ -471,7 +471,8 @@ var makeAnAppointmentDateInputs = document.querySelectorAll('.makeAnAppointment_
                 orderModal1.querySelector('.orderModal__photo img').setAttribute('src', evt.currentTarget.closest('.doctorCardWrapper').querySelector('.doctorCard__photo img').src)
                 
                 var tempSelect = evt.currentTarget.closest('.doctorCardWrapper').querySelector('#orderModalService')
-                orderModal1.querySelector('#orderModalService').after(tempSelect)
+                var cloneTempSelect = evt.currentTarget.closest('.doctorCardWrapper').querySelector('#orderModalService').cloneNode(true)
+                orderModal1.querySelector('#orderModalService').after(cloneTempSelect)
                 orderModal1.querySelector('#orderModalService').remove()
                 
                 orderModal1.querySelector('#appointmentTime').setAttribute('value', evt.currentTarget.value)
@@ -604,6 +605,16 @@ var makeAnAppointmentDateInputs = document.querySelectorAll('.makeAnAppointment_
         })
     })
 </script>
+
+<style>
+    .orderModal select, .orderModal input[type="date"]{
+        -webkit-appearance: none;
+        appearance: none;
+    }
+    input[name="orderModalGender"]{
+        display: inline-block;
+    }
+</style>
 
             <div class="doctorrTable">
                 {% for doctor in doctors %}
