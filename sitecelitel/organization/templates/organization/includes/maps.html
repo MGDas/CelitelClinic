@@ -3,8 +3,13 @@
     <div class="placeLooksLike__item placeLooksLike__item--photo placeLooksLike__item--active">
       <picture>
           <source media="(min-width: 1024px)" srcset="{{ organ.image.url }}">
-          <source media="(min-width: 580px)" srcset="{{ organ.image.url }}">
-          <img src="{{ organ.image.url }}" alt="">
+            {% if organ.image_tablet %}
+                <source media="(min-width: 580px)" srcset="{{ organ.image_tablet.url }}">
+            {% endif %}
+            {% if organ.image_mobile %}
+                <source media="(min-width: 320px)" srcset="{{ organ.image_mobile.url }}">
+            {% endif %}
+            <img src="{{ organ.image.url }}" alt="">
       </picture>
     </div>
   {% endif %}

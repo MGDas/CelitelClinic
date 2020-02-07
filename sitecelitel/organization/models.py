@@ -20,6 +20,8 @@ class Organization(BaseModel):
     instagram = models.URLField(max_length=45, blank=True, verbose_name='Инстаграм URL')
     instagram_tag = models.CharField(max_length=50, blank=True, verbose_name='Инстаграм тег')
     image = models.ImageField(upload_to=get_photo, blank=True, verbose_name='Изображение')
+    image_tablet = models.ImageField(upload_to=get_photo, blank=True, verbose_name='Изображение для планшета')
+    image_mobile = models.ImageField(upload_to=get_photo, blank=True, verbose_name='Изображение для телефона')
 
     # Редакторы
     panorama = models.TextField(blank=True, verbose_name='Панорама')
