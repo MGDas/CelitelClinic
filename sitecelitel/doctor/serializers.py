@@ -17,7 +17,14 @@ class OrganizationSerializer(serializers.ModelSerializer):
         model = Organization
         fields = ['id', 'name', 'address', 'agreement']
 
-    agreement = AgreementSerializer(many=True, read_only=True)
+    agreement = serializers.SerializerMethodField()
+
+    def get_agreement(self, organ):
+        try:
+            agree = organ.agreement.only('code').all().values_list('code', flat=True)[0]
+        except:
+            agree = ''
+        return agree
 
 
 class TimingSerializer(serializers.ModelSerializer):
