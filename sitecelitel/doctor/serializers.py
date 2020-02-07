@@ -1,30 +1,23 @@
 from rest_framework import serializers
 from doctor.models import Doctor, DoctorTiming, Timing
-from organization.models import Organization, Department
+from organization.models import Organization, Department, Agreement
 from service.models import Service
 
 
+class AgreementSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Agreement
+        fields = ['code']
+
+
 class OrganizationSerializer(serializers.ModelSerializer):
-    agreement = serializers.SerializerMethodField('getServices')
-
-    def getServices(self, Organization):
-        organizationID = Organization.id
-
-        try:
-            organizationAgreement = Organization.pub_objects.filter(organization_id=organizationID)
-        except:
-            organizationAgreement = ''
-
-        if organizationAgreement:
-            row = organizationAgreement[0]
-        else:
-            row = ""
-
-        return row
 
     class Meta:
         model = Organization
         fields = ['id', 'name', 'address', 'agreement']
+
+    agreement = AgreementSerializer(many=True, read_only=True)
 
 
 class TimingSerializer(serializers.ModelSerializer):
