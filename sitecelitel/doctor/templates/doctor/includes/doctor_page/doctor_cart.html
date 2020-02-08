@@ -321,7 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <form class="doctorPage__order makeAnAppointment" action="https://studiovector.art/celitel.php" data-action="https://studiovector.art/celitel.php" method="POST">
   {% csrf_token %}
   <input type="hidden" id="doctorAgreement" name="doctorAgreement" value="" />
-  <input type="hidden" id="doctorCode" name="doctorCode" value="{{ doctor.code }}" />
+  <input type="hidden" id="doctorCode" name="doctorCode" value="{{ doctor.code }}&{{ doctor.full_name }}" />
   <input type="hidden" id="doctorID" name="doctorID" value="{{ doctor.id }}" />
 
   <div class="makeAnAppointment__addresses"></div>

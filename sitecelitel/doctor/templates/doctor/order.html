@@ -248,7 +248,7 @@ function sendDoctorListForm(form) {
                         	</div>
                         </div>`
                         	
-                        temp.querySelector('#doctorCode').setAttribute('value', responseServer.results[i].code)
+                        temp.querySelector('#doctorCode').setAttribute('value', `${responseServer.results[i].code}&${responseServer.results[i].full_name}`)
                         temp.querySelector('#doctorID').setAttribute('value', responseServer.results[i].id)
                         
                         window.rawData = responseServer.results[i].dates
