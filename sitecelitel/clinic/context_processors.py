@@ -6,12 +6,13 @@ from rusdoc.models import RussianDoctor
 from service.models import ServiceGroup
 from organization.models import Organization
 
+from django.utils import timezone
 
 def index(request):
     articles_header = Article.pub_objects.all().order_by('-updated')[:2]
     articles_tags = ArticleTag.objects.only("id", "title").order_by('-id')[:6]
     doctors_tags = DoctorTag.pub_objects.only("id", "title").filter(header=True).order_by('-id')[:6]
-    rus_doc = RussianDoctor.pub_objects.only("pk", "title", "image").filter(header=True).order_by('-updated')[:3]
+    rus_doc = RussianDoctor.pub_objects.only("pk", "title", "image").filter(header=True).filter(data_end__gt=timezone.now()).order_by('-updated')[:3]
     best_doctor = Doctor.pub_objects.only("avatar", "full_name", "specialization").filter(the_best=True).first()
 
     organizations = {}
