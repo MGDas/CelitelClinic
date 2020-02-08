@@ -7,6 +7,7 @@ from doctor.models import Consultation
 
 from clinic.models import Slider
 from clinic.models import Partner
+from clinic.models import Hospital
 
 
 class IndexView(TemplateView):
@@ -19,6 +20,7 @@ class IndexView(TemplateView):
         context['consultations'] = Consultation.objects.all()[:6]
         context['sliders'] = Slider.pub_objects.all()
         context['partners'] = Partner.pub_objects.all()
+        context['hospital'] = Hospital.objects.all()[0]
         return context
 
 

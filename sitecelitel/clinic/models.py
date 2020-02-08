@@ -77,3 +77,21 @@ class Partner(PublicModel):
         if not self.order:
             self.order = self.id
         return super().save(*args, **kwargs)
+
+
+class Hospital(PublicModel):
+    title = models.CharField(max_length=500, verbose_name='Название')
+    url = models.CharField(max_length=500, blank=True, verbose_name='URL')
+    image_one = models.ImageField(upload_to=get_image_pc, blank=True, verbose_name='Изображение для шапки 1')
+    image_two = models.ImageField(upload_to=get_image_pc, blank=True, verbose_name='Изображение для шапки 2')
+    image_three = models.ImageField(upload_to=get_image_pc, blank=True, verbose_name='Изображение для шапки 3')
+    description = models.TextField(blank=True, verbose_name='Текст на шапке')
+    content = models.TextField(blank=True, verbose_name='Текст')
+    
+    image_full = models.ImageField(upload_to=get_image_pc, blank=True, verbose_name='Изображение для страницы')
+
+    class Meta:
+        db_table = 'hospital'
+        verbose_name = 'Стационар'
+        verbose_name_plural = 'Стационар'
+        ordering = ['-title']

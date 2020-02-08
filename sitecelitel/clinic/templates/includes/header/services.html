@@ -3,6 +3,7 @@
         <ul class="mainMenu__tabs mainMenu__tabs--services">
             <li class="mainMenu__activeTab"><a href="#" data-tab="menuAdult">Взрослым</a></li>
             <li><a href="#" data-tab="menuProgramm">Программы</a></li>
+            <li><a href="#" data-tab="menuHospital">Стационар</a></li>
         </ul>
         <div class="menuServices__wrap">
             <div class="menuServices__section menuServices__section--services menuServices__section--adult menuServices__section--active" data-tab="menuAdult">
@@ -40,6 +41,22 @@
 
                     {% endfor %}
                 </ul>
+            </div>
+            <div class="menuServices__section menuServices__section--hospital" data-tab="menuHospital">
+            	<div class="menuServices__images">
+            	    {% if hospital.image_one %}
+                	    <img src="{{ hospital.image_one.url }}" alt="" width="580" height="300">
+                    {% endif %}
+                    {% if hospital.image_two %}
+                	    <img src="{{ hospital.image_two.url }}" alt="" width="580" height="300">
+                    {% endif %}
+                    {% if hospital.image_three %}
+                	    <img src="{{ hospital.image_three.url }}" alt="" width="580" height="300">
+                    {% endif %}
+        	    </div>
+        	    {% autoescape off %}
+            	    {{ hospital.description }}
+                {% endautoescape %}
             </div>
         </div>
     </div>
