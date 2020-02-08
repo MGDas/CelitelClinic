@@ -1,4 +1,4 @@
-DEBUG = False           # DEBUG MODE
+DEBUG = True           # DEBUG MODE
 
 ALLOWED_HOSTS = ['*']    # your site domen_name
 SITE = ['*']

@@ -250,7 +250,7 @@ var currentPartnersSlider;
 window.addEventListener("resize", () => {
 	if(window.innerWidth >= 1024){
 	    if(document.querySelector('.partners__list')){
-	        activateFrontClinicSLiders(document.querySelector('.partners__list'))   
+	        activateFrontPartnersSLiders(document.querySelector('.partners__list'))   
 	    }
 	} else {
 		if(currentPartnersSlider){
@@ -262,20 +262,21 @@ window.addEventListener("resize", () => {
 window.addEventListener("DOMContentLoaded", () => {
 	if(window.innerWidth >= 1024){
 	    if(document.querySelector('.partners__list')){
-    		activateFrontClinicSLiders(document.querySelector('.partners__list'))
+    		activateFrontPartnersSLiders(document.querySelector('.partners__list'))
 	    }
     }
 });
 
 
-function activateFrontClinicSLiders(element){
+function activateFrontPartnersSLiders(element){
 	currentPartnersSlider = new Flickity( element, {
 		// options
 		cellAlign: 'left',
 		contain: true,
 		pageDots: false,
 		arrowShape: 'M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z',
-		groupCells: 4
+		groupCells: 4,
+		imagesLoaded: true
 	});
 }
 
@@ -486,6 +487,7 @@ function activateFrontClinicSLiders(element){
 		contain: true,
 		pageDots: false,
 		arrowShape: 'M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z',
-		groupCells: 5
+		groupCells: 5,
+		imagesLoaded: true
 	});
 }
