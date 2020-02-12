@@ -11,7 +11,7 @@ async def save_in_db(code, name):
 
     organ, status = Organization.objects.update_or_create(
         code=code,
-        defaults={'name':name}
+        defaults={'namefull':name}
     )
     if status:
         print(f"{organ}...................СОЗДАНО!")
@@ -24,7 +24,7 @@ async def main():
     tasks = []
 
     for d in data:
-        task = asyncio.create_task(save_in_db(d['code'], d['name']))
+        task = asyncio.create_task(save_in_db(d['code'], d['namefull']))
         tasks.append(task)
 
     await asyncio.gather(*tasks)

@@ -250,6 +250,9 @@ document.addEventListener("DOMContentLoaded", () => {
 								if (responseServer["Services"][0]["Status"] == "Подтверждена") {
 									console.log("Записан")
 									orderModalSuccess.classList.add('orderModal--view')
+									var submit_order_form = new Event("submit_order_form");
+									makeAnAppointment.dispatchEvent(submit_order_form);
+
 								} else if (responseServer["Services"][0]["Status"] == "Время занято") {
 									console.log("Время занято")
 									alert("Время занято. Пожалуйста, выберите другое время")
@@ -318,7 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 <!-- Форма отправляется по адресу в data-action и ожидает ответа "1", если всё нормально. В action указывается адрес, куда надо перекидывать для оплаты. В data-name прописывается имя врача. В data-desk - описание. В data-photo - адрес его фотографии.-->
-<form class="doctorPage__order makeAnAppointment" action="https://studiovector.art/celitel.php" data-action="https://studiovector.art/celitel.php" method="POST">
+<form class="doctorPage__order makeAnAppointment" id="makeAnAppointment" action="https://studiovector.art/celitel.php" data-action="https://studiovector.art/celitel.php" method="POST">
   {% csrf_token %}
   <input type="hidden" id="doctorAgreement" name="doctorAgreement" value="" />
   <input type="hidden" id="doctorCode" name="doctorCode" value="{{ doctor.code }}&{{ doctor.full_name }}" />
