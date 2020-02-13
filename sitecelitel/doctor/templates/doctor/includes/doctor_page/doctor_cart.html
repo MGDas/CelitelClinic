@@ -1,6 +1,12 @@
 <input type="hidden" id="doctorFetchID" name="doctorFetchID" value="{{ doctor.id }}" />
 
 <script>
+    setTimeout(() => {
+        alert('Расписание устарело. Пожалуйста, обновите страницу')
+    }, 300000)
+</script>
+
+<script>
 document.addEventListener("DOMContentLoaded", () => {
 	var doctorID = document.querySelector('#doctorFetchID').value
 	fetch("/doctors/api/v0/all/" + doctorID)
@@ -239,8 +245,13 @@ document.addEventListener("DOMContentLoaded", () => {
 				function sendDataAppointment(fileName, form) {
 					var XHR = new XMLHttpRequest();
 					var FD = new FormData(form);
+					
+					document.body.classList.add('waitingForServer')
+					
 					XHR.addEventListener("load", function(event) {
 						var responseServer = JSON.parse(this.responseText);
+                        
+                        document.body.classList.remove('waitingForServer')
 
 						try {
 							if (!responseServer["Services"].length) {
