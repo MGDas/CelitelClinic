@@ -1016,6 +1016,9 @@ section.articles {
   font-size: 14px;
   color: #666;
 }
+.doctorPreview__degree {
+	text-transform: lowercase;
+}
 .doctorPreview__label {
   display: inline;
   vertical-align: baseline;
@@ -1875,10 +1878,7 @@ div.subMenu {
     text-align: left;
   }
   .menuDoctors li.orderOneForMobile {
-    -webkit-box-ordinal-group: 11;
-        -ms-flex-order: 10;
-            order: 10;
-    margin-top: 7px;
+	margin-bottom: 7px;
   }
   .menuDoctors li.orderOneForMobile + li {
     margin-top: 0;
@@ -4077,6 +4077,7 @@ div.subMenu {
   top: 0;
   width: 100%;
   height: 100%;
+  border: none;
 }
 @media (min-width: 720px) {
   .video {

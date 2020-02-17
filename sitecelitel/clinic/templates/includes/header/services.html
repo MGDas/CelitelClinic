@@ -2,7 +2,7 @@
     <div class="subMenu menuServices">
         <ul class="mainMenu__tabs mainMenu__tabs--services">
             <li class="mainMenu__activeTab"><a href="#" data-tab="menuAdult">Взрослым</a></li>
-            <li><a href="#" data-tab="menuProgramm">Программы</a></li>
+            <!-- <li><a href="#" data-tab="menuProgramm">Программы</a></li> -->
             <li><a href="#" data-tab="menuHospital">Стационар</a></li>
         </ul>
         <div class="menuServices__wrap">
@@ -24,24 +24,24 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div class="menuServices__section menuServices__section--programm" data-tab="menuProgramm">
-                <ul>
-                    {% for service_group in service_groups %}
-                        <li>
-                            {% if service_group.get_active in request.get_full_path %}
-                                <a class="subMenu__active" href="{% url 'service_detail_url' pk=service_group.pk %}">
-                                    {{ service_group.name }}
-                                </a>
-                            {% else %}
-                                <a href="{% url 'service_detail_url' pk=service_group.pk %}">
-                                    {{ service_group.name }}
-                                </a>
-                            {% endif %}
-                        </li>
-
-                    {% endfor %}
-                </ul>
-            </div>
+           <!--  <div class="menuServices__section menuServices__section--programm" data-tab="menuProgramm">
+               <ul>
+                   {% for service_group in service_groups %}
+                       <li>
+                           {% if service_group.get_active in request.get_full_path %}
+                               <a class="subMenu__active" href="{% url 'service_detail_url' pk=service_group.pk %}">
+                                   {{ service_group.name }}
+                               </a>
+                           {% else %}
+                               <a href="{% url 'service_detail_url' pk=service_group.pk %}">
+                                   {{ service_group.name }}
+                               </a>
+                           {% endif %}
+                       </li>
+           
+                   {% endfor %}
+               </ul>
+           </div> -->
             <div class="menuServices__section menuServices__section--hospital" data-tab="menuHospital">
             	<div class="menuServices__images">
             	    {% if hospital.image_one %}

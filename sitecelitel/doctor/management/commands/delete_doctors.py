@@ -7,8 +7,8 @@ class Command(BaseCommand):
 
 #        Doctor.objects.all().delete()
 #        print("УСПЕШНО — удалены с сайта Доктора")
-        Specialization.objects.all().delete()
-        print("УСПЕШНО — удалены с сайта Специализации")
+#        Specialization.objects.all().delete()
+#        print("УСПЕШНО — удалены с сайта Специализации")
         Timing.objects.all().delete()
         print("УСПЕШНО — удалены с сайта Часы приема!")
         DoctorTiming.objects.all().delete()

@@ -17,7 +17,7 @@ class DoctorAdmin(SummernoteModelAdmin):
     search_fields = ['full_name']
 
     fields = (
-        ('id', 'code', 'main_code',),
+        ('public', 'id', 'code', 'main_code',),
         ("full_name", "the_best",),
         "gender",
         ("childish", "adult",),

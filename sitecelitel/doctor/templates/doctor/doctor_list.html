@@ -22,7 +22,7 @@
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#filter"></use>
                                     </svg>
                         </button>
-                        <input autocomplete="off" class="orderFilters__input orderFilters__input--name" type="text" name="orderFiltersName" placeholder="ФИО" id="orderFiltersName">
+                        <input autocomplete="off" class="orderFilters__input orderFilters__input--name" type="text" name="orderFiltersName" placeholder="Фамилия Имя Отчество" id="orderFiltersName">
                         <div class="smallHidden orderFilters__dropDown">
                             <input class="visually-hidden orderFilters__input orderFilters__input--checkbox" type="checkbox" name="orderFiltersChild" id="orderFiltersChild0">
                             <label class="orderFilters__checkbox orderFilters__checkbox--desktop" for="orderFiltersChild0">Только детские врачи</label>
@@ -36,7 +36,7 @@
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#down"></use>
                                     </svg>
                         </button>
-                        <input autocomplete="off" class="orderFilters__input orderFilters__input--popup" type="text" placeholder="Специализация" name="orderFiltersSpecialization" id="orderFiltersSpecialization">
+                        <input autocomplete="off" class="orderFilters__input orderFilters__input--popup" type="text" placeholder="Специальность" name="orderFiltersSpecialization" id="orderFiltersSpecialization">
                         <button class="orderFilters__close" type="button" tabindex="-1">
                                     <svg width="15" height="15" aria-hidden="true">
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
@@ -58,7 +58,7 @@
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#down"></use>
                                     </svg>
                         </button>
-                        <input autocomplete="off" class="orderFilters__input orderFilters__input--popup" type="text" placeholder="Поликлиника" name="orderFiltersAddress" id="orderFiltersAddress">
+                        <input autocomplete="off" class="orderFilters__input orderFilters__input--popup" type="text" placeholder="Филиал" name="orderFiltersAddress" id="orderFiltersAddress">
                         <button class="orderFilters__close" type="button" tabindex="-1">
                                     <svg width="15" height="15" aria-hidden="true">
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
@@ -191,12 +191,12 @@ function sendDoctorListForm(form) {
                     </h3>
                     <div class="doctorPreview__desc">
                         {% if doctor.specialization %}
-                        {% for spec in doctor.specialization.all %}
-                        {{ spec.name }}{% if not forloop.last %},{% endif %}
-                        {% endfor %}
+	                        {% for spec in doctor.specialization.all %}
+	                        	<span class="doctorPreview__spec">{{ spec.name }},</span>
+                        	{% endfor %}
                         {% endif %}
-                        {% if doctor.academic_degree %}{{ doctor.academic_degree }}.{% endif %}
-                        {% if doctor.experience %}{{ doctor.experience }}.{% endif %}
+                        {% if doctor.academic_degree %}<span class="doctorPreview__degree">{{ doctor.academic_degree }},</span>{% endif %}
+                        {% if doctor.experience %}<span class="doctorPreview__experience">cтаж работы: {{ doctor.experience }}</span>{% endif %}
                     </div>
                 </section>
                 {% endfor %}

@@ -2,7 +2,7 @@
 {% load pytils_dt %}
 
 {% block title %}
-    New {% for date in news_dates %}{% if date|slugify in request.path %}{{ date }}{% endif %}{% endfor %}
+    Новости за {% for date in news_dates %}{% if date|slugify in request.path %}{{ date }}{% endif %}{% endfor %} год сети поликлиник Целитель
 {% endblock %}
 
 {% block content %}

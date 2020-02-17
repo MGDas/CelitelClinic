@@ -3,7 +3,7 @@
 <section class="clinic__doctors">
     <h2 class="mdTitle">Врачи поликлиники</h2>
     <div class="mdIntro">Все врачи работающие в поликлинике по адресу {{ organ.address }}</div>
-    <form class="orderFilters orderFilters--large" action="/organization/api/v0/doctors/" method='get'>
+    <!-- <form class="orderFilters orderFilters--large" action="/organization/api/v0/doctors/" method='get'>
         <button type="submit" name="button">SEND</button>
         <div class="orderFilters__item orderFilters__item--name">
             <div class="orderFilters__wrap">
@@ -47,7 +47,7 @@
                 <label class="orderFilters__checkbox" for="orderFiltersChild1">Только детские врачи</label>
             </div>
         </div>
-    </form>
+    </form> -->
     <div class="clinic__doctorsWrap">
         {% for doctor in doctors %}
             <section class="doctorPreview">
@@ -58,16 +58,16 @@
                         <a href="{% url 'doctor_detail_url' pk=doctor.pk %}"><img src="{% static 'images/doctor_without_photo.png' %}" alt="" width="270" height="270"></a>
                     {% endif %}
                 </div>
-                <h3 class="doctorPreview__name"><a href="#">{{ doctor.full_name }}</a>
+                <h3 class="doctorPreview__name"><a href="{% url 'doctor_detail_url' pk=doctor.pk %}">{{ doctor.full_name }}</a>
                 </h3>
                 <div class="doctorPreview__desc">
                     {% if doctor.specialization %}
                         {% for spec in doctor.specialization.all %}
-                            {{ spec.name }}{% if not forloop.last %},{% endif %}
+                            <span class="doctorPreview__name">{{ spec.name }},</span>
                         {% endfor %}
                     {% endif %}
-                    {% if doctor.academic_degree %}{{ doctor.academic_degree }}.{% endif %}
-                    {% if doctor.experience %}Опыт работы — {{ doctor.experience }}.{% endif %}
+                    {% if doctor.academic_degree %}<span class="doctorPreview__degree">{{ doctor.academic_degree }},</span>{% endif %}
+                    {% if doctor.experience %}<span class="doctorPreview__experience">стаж работы: {{ doctor.experience }}</span>{% endif %}
                 </div>
             </section>
         {% endfor %}
