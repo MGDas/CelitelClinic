@@ -9,6 +9,7 @@ from doctor.models import Consultation
 from clinic.models import Slider
 from clinic.models import Partner
 from clinic.models import Hospital
+from clinic.models import MedicalCertificates
 
 
 class IndexView(TemplateView):
@@ -37,6 +38,18 @@ class HospitalView(TemplateView):
 
         return context
 
+class MedicalCertificatesView(TemplateView):
+    model = MedicalCertificates
+    template_name = 'certificates.html'
+    context_object_name = "certificates"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        hospital = list(Hospital.pub_objects.all())
+        context['certificates'] = MedicalCertificates.pub_objects.all()[0]
+        context['hospital'] = hospital[0]
+
+        return context
 
 def error_404(request, exception):
     return render(request, '404.html', {})

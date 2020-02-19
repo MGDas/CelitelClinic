@@ -95,3 +95,14 @@ class Hospital(PublicModel):
         verbose_name = 'Стационар'
         verbose_name_plural = 'Стационар'
         ordering = ['-title']
+
+class MedicalCertificates(PublicModel):
+    title = models.CharField(max_length=500, verbose_name='Название')
+    url = models.SlugField(max_length=500, blank=True, verbose_name='URL')
+    content = models.TextField(blank=True, verbose_name='Текст')
+    
+    class Meta:
+        db_table = 'medicalCertificates'
+        verbose_name = 'Медицинская справка'
+        verbose_name_plural = 'Медицинские справки'
+        ordering = ['-title']

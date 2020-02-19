@@ -1,0 +1,22 @@
+{% extends 'index.html' %}
+
+{% block title %}
+  {{ certificates.title }}
+{% endblock %}
+
+{% block content %}
+    <main>
+      <article class="material">
+        <div class="container">
+          <div class="material__body">
+            <h1 class="h1">{{ certificates.title }}</h1>
+
+            {% autoescape off %}
+              {{ certificates.content}}
+            {% endautoescape %}
+
+          </div>
+        </div>
+      </article>
+    </main>
+{% endblock %}

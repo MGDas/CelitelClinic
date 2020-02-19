@@ -55,7 +55,7 @@ if(menuClinicsTabs.length){
 	})
 }
 
-var mainMenuLinks = document.querySelectorAll('.mainMenu__link')
+var mainMenuLinks = document.querySelectorAll('.mainMenu__link:not(.mainMenu__link--clicked)')
 
 if(mainMenuLinks.length){
 	mainMenuLinks.forEach((link) => {

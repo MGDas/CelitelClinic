@@ -6,6 +6,7 @@ from adminsortable2.admin import SortableAdminMixin
 from clinic.models import Slider
 from clinic.models import Partner
 from clinic.models import Hospital
+from clinic.models import MedicalCertificates
 
 
 @admin.register(Slider)
@@ -21,5 +22,11 @@ class PartnerAdmin(SortableAdminMixin, admin.ModelAdmin):
 @admin.register(Hospital)
 class HospitalAdmin(SummernoteModelAdmin):
     summernote_fields = ('content', 'description',)
+    list_display = ['title', 'url', 'public']
+    list_editable = ['public']
+
+@admin.register(MedicalCertificates)
+class MedicalCertificatesAdmin(SummernoteModelAdmin):
+    summernote_fields = ('content',)
     list_display = ['title', 'url', 'public']
     list_editable = ['public']
