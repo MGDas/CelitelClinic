@@ -1,9 +1,10 @@
 from django.urls import path, include
-from clinic.views import IndexView
+from clinic.views import IndexView, HospitalView
 
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index_url'),
+    path('hospital/', HospitalView.as_view(), name='hospital_url'),
     path('articles/', include('article.urls')),
     path('tags/', include('tag.urls')),
     path('doctors/', include('doctor.urls')),

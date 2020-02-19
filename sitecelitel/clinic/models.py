@@ -81,7 +81,7 @@ class Partner(PublicModel):
 
 class Hospital(PublicModel):
     title = models.CharField(max_length=500, verbose_name='Название')
-    url = models.CharField(max_length=500, blank=True, verbose_name='URL')
+    url = models.SlugField(max_length=500, blank=True, verbose_name='URL')
     image_one = models.ImageField(upload_to=get_image_pc, blank=True, verbose_name='Изображение для шапки 1')
     image_two = models.ImageField(upload_to=get_image_pc, blank=True, verbose_name='Изображение для шапки 2')
     image_three = models.ImageField(upload_to=get_image_pc, blank=True, verbose_name='Изображение для шапки 3')

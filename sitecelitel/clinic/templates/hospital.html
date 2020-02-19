@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+
+{% block title %}
+  {{ hospital.title }}
+{% endblock %}
+
+{% block content %}
+    <main>
+      <article class="material">
+        <div class="container">
+          <div class="material__body">
+            <h1 class="h1">{{ hospital.title }}</h1>
+
+            {% if hospital.image_full %}
+              {% if hospital.image_full.url %}
+                  <img class="material__img" src="{{ hospital.image_full.url }}" alt="">
+              {% endif %}
+            {% endif %}
+
+            {% autoescape off %}
+              {{ hospital.content}}
+            {% endautoescape %}
+
+          </div>
+        </div>
+      </article>
+    </main>
+{% endblock %}

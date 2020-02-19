@@ -57,6 +57,9 @@
         	    {% autoescape off %}
             	    {{ hospital.description }}
                 {% endautoescape %}
+                {% if hospital %}
+                    <p><a href="{% url 'hospital_url' %}">Подробнее</a></p>
+                {% endif %}
             </div>
         </div>
     </div>

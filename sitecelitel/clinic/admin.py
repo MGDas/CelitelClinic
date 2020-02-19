@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django_summernote.admin import SummernoteModelAdmin
 
 from adminsortable2.admin import SortableAdminMixin
 
@@ -18,6 +19,7 @@ class PartnerAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_editable = ['public']
 
 @admin.register(Hospital)
-class HospitalAdmin(admin.ModelAdmin):
+class HospitalAdmin(SummernoteModelAdmin):
+    summernote_fields = ('content', 'description',)
     list_display = ['title', 'url', 'public']
     list_editable = ['public']
