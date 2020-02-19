@@ -1,7 +1,7 @@
 from django.views.generic import ListView, DetailView
 from django.shortcuts import render
 from new.models import New
-
+from clinic.models import Hospital
 
 
 class NewListView(ListView):
@@ -14,6 +14,7 @@ class NewListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['years'] = list(reversed(New.pub_objects.values_list('updated__year', flat=True).distinct()))
+        context['hospital'] = Hospital.objects.all()[0]
         return context
 
 
@@ -30,6 +31,7 @@ class NewListViewYear(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['news_dates'] = list(reversed(New.pub_objects.values_list('updated__year', flat=True).distinct()))
+        context['hospital'] = Hospital.objects.all()[0]
         return context
 
 
@@ -40,6 +42,7 @@ class NewDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['hospital'] = Hospital.objects.all()[0]
 
         news = list(New.pub_objects.all().order_by('-updated'))
         try:

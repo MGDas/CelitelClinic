@@ -11,6 +11,7 @@ from django.views.generic import TemplateView
 from doctor.models import Doctor, Specialization
 from organization.models import Organization, Department
 from service.models import Price
+from clinic.models import Hospital
 
 
 class DoctorListView(ListView):
@@ -23,6 +24,7 @@ class DoctorListView(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['specializations'] = Specialization.objects.all().only('name').order_by('name')
+        context['hospital'] = Hospital.objects.all()[0]
         return context
 
     def get(self, request, *args, **kwargs):
@@ -81,6 +83,7 @@ class DoctorDetailView(DetailView):
         context['consultations'] = self.object.consultation.all()[:5]
         context['other_doctors'] = Doctor.pub_objects.filter(specialization__in=self.object.specialization.all()).exclude(pk=self.object.pk).distinct()[:8]
         context['promotions'] = self.object.promotions.filter(public=True).filter(data_end__gt=timezone.now())
+        context['hospital'] = Hospital.objects.all()[0]
 
         try:
             price = self.object.services.aggregate(Min("price"))
@@ -99,4 +102,5 @@ class OrderView(TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['specializations'] = Specialization.objects.all().only('name').order_by('name')
+        context['hospital'] = Hospital.objects.all()[0]
         return context

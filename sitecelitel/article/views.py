@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 from django.views.generic import DetailView
 from article.models import Article, About
 from article.utils import other_articles
+from clinic.models import Hospital
 
 
 class ArticleListView(ListView):
@@ -11,6 +12,12 @@ class ArticleListView(ListView):
     context_object_name = "articles"
     queryset = Article.pub_objects.all()
     paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['hospital'] = Hospital.objects.all()[0]
+        return context
+
 
 class ArticleDetailView(DetailView):
     model = Article
@@ -23,6 +30,7 @@ class ArticleDetailView(DetailView):
 
         context['tags'] = tags
         context['other_articles'] = other_articles(tags, self.object)
+        context['hospital'] = Hospital.objects.all()[0]
 
         articles = list(Article.pub_objects.all())
 
@@ -39,4 +47,5 @@ class AboutTemplateView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['about'] = About.pub_objects.only('title', 'content').first()
+        context['hospital'] = Hospital.objects.all()[0]
         return context

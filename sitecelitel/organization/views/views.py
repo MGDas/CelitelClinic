@@ -5,6 +5,7 @@ from organization.models import Department
 
 from doctor.models import Specialization
 from doctor.models import Doctor
+from clinic.models import Hospital
 
 
 class OrganDetailView(DetailView):
@@ -15,6 +16,7 @@ class OrganDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['reg_phone'] = [phone.strip() for phone in self.object.phone_registry.split(',') if phone]
+        context['hospital'] = Hospital.objects.all()[0]
 
         departments = Department.pub_objects.filter(organization=self.object)
         doctors = Doctor.pub_objects.filter(department__in=departments)

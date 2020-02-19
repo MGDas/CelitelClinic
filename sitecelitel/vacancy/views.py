@@ -1,5 +1,6 @@
 from django.views.generic import ListView
 from vacancy.models import Group, Vacancy
+from clinic.models import Hospital
 
 
 class VacancyListView(ListView):
@@ -10,6 +11,7 @@ class VacancyListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['cities'] = Vacancy.pub_objects.values_list('city', flat=True).distinct()
+        context['hospital'] = Hospital.objects.all()[0]
         return context
 
 
@@ -21,6 +23,7 @@ class VacancyCityListView(ListView):
         context = super().get_context_data(**kwargs)
         context['cities'] = Vacancy.pub_objects.values_list('city', flat=True).distinct()
         context['title'] = self.kwargs['city']
+        context['hospital'] = Hospital.objects.all()[0]
         return context
 
     def get_queryset(self):
