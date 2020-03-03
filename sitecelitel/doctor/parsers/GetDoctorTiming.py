@@ -2,6 +2,8 @@ import asyncio
 import requests
 import json
 import os
+import string
+
 
 from datetime import datetime
 
@@ -9,6 +11,9 @@ from doctor.models import DoctorTiming, Doctor, Timing
 from organization.models import Department
 
 path_to = os.path.dirname(__file__)
+
+def is_not_blank(s):
+    return bool(s and s.strip())
 
 def connect(url):
     response = requests.get(url)
@@ -25,12 +30,18 @@ def date_comparison(date_reception):
     return True
 
 
-async def save_db(doc_code, depart_code, days):
-
-    try:
-        doctor = Doctor.objects.get(code=doc_code)
-    except:
-        doctor = False
+async def save_db(doc_code, depart_code, days,main_code):
+    
+    if not is_not_blank(main_code):
+        try:
+            doctor = Doctor.objects.get(code=doc_code)
+        except:
+            doctor = False
+    else:
+        try:
+            doctor = Doctor.objects.get(code=main_code) 
+        except:
+            doctor = False
 
     try:
         depart_code = Department.objects.get(code=depart_code).organization
@@ -69,7 +80,7 @@ async def main():
     tasks = []
 
     for d in data:
-        task = asyncio.create_task(save_db(d['code'], d['department_id'], d['days']))
+        task = asyncio.create_task(save_db(d['code'], d['department_id'], d['days'],d['main_code']))
         tasks.append(task)
 
     await asyncio.gather(*tasks)
