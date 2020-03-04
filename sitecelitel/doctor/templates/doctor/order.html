@@ -183,6 +183,9 @@
 
             
 <script>
+var orderModal1 = document.querySelector('.orderModal--step1');
+var orderModalSuccess = document.querySelector('.orderModal--success');
+								
 function sendDoctorListForm(form) {
 	var XHR = new XMLHttpRequest();
 	var FD = new FormData(form);
@@ -408,8 +411,6 @@ function sendDoctorListForm(form) {
 							}
 							var makeAnAppointmentHoursInputs = document.querySelectorAll('.makeAnAppointment__hoursInput')
 							if (makeAnAppointmentHoursInputs.length) {
-								var orderModal1 = document.querySelector('.orderModal--step1');
-								var orderModalSuccess = document.querySelector('.orderModal--success');
 								makeAnAppointmentHoursInputs.forEach((input) => {
 									input.addEventListener('click', (evt) => {
 										var temp = evt.currentTarget.parentNode.parentNode.querySelector('.makeAnAppointment__time--selected');
@@ -444,71 +445,6 @@ function sendDoctorListForm(form) {
 										})
 									});
 								}
-								var orderModalPay = document.querySelector('#orderModalPay')
-								var orderModalNoPay = document.querySelector('#orderModalNoPay')
-
-								function sendDataAppointment(fileName, form) {
-									var XHR = new XMLHttpRequest();
-									var FD = new FormData(form);
-									document.body.classList.add('waitingForServer')
-									XHR.addEventListener("load", function(event) {
-										var responseServer = JSON.parse(this.responseText);
-										document.body.classList.remove('waitingForServer')
-										try {
-											if (!responseServer["Services"].length) {
-												console.error("Ошибка: ", responseServer)
-												alert("Ошибка")
-											} else {
-												if (responseServer["Services"][0]["Status"] == "Подтверждена") {
-													console.log("Записан")
-													orderModalSuccess.classList.add('orderModal--view')
-													var submit_order_form = new Event("submit_order_form");
-												} else if (responseServer["Services"][0]["Status"] == "Время занято") {
-													console.log("Время занято")
-													alert("Время занято. Пожалуйста, выберите другое время")
-												} else {
-													console.error("Ошибка!")
-													alert("Ошибка")
-												}
-											}
-										} catch (e) {
-											alert("Ошибка!")
-											console.error("Ошибка: ", e)
-										}
-									});
-									XHR.addEventListener("error", function(event) {
-										alert('Ошибка!');
-									});
-									XHR.open("POST", fileName);
-									XHR.send(FD);
-								}
-
-								function checkModalPaymentFields(action, form) {
-									if (orderModalName.value.split(" ").length < 3 || !orderModalPhone.value || !orderModalBirthday.value) {
-										if (orderModalName.value.split(" ").length < 3) {
-											orderModalName.classList.add('error')
-										} else {
-											orderModalName.classList.remove('error')
-										}
-										if (!orderModalPhone.value) {
-											orderModalPhone.classList.add('error')
-										} else {
-											orderModalPhone.classList.remove('error')
-										}
-										if (!orderModalBirthday.value) {
-											orderModalBirthday.classList.add('error')
-										} else {
-											orderModalBirthday.classList.remove('error')
-										}
-									} else {
-										orderModal1.classList.remove('orderModal--view')
-										sendDataAppointment(action, form)
-									}
-								}
-								orderModalNoPay.addEventListener('click', () => {
-									var form = document.querySelector('.makeAnAppointment');
-									checkModalPaymentFields(form.getAttribute('data-action'), form)
-								})
 							}
 						}, 300)
 					doctorsList.append(temp)
@@ -550,6 +486,72 @@ document.addEventListener("DOMContentLoaded", () => {
 		evt.preventDefault()
 		sendDoctorListForm(orderFilters)
 	})
+})
+
+var orderModalPay = document.querySelector('#orderModalPay')
+var orderModalNoPay = document.querySelector('#orderModalNoPay')
+
+function sendDataAppointment(fileName, form) {
+	var XHR = new XMLHttpRequest();
+	var FD = new FormData(form);
+	document.body.classList.add('waitingForServer')
+	XHR.addEventListener("load", function(event) {
+		var responseServer = JSON.parse(this.responseText);
+		document.body.classList.remove('waitingForServer')
+		try {
+			if (!responseServer["Services"].length) {
+				console.error("Ошибка: ", responseServer)
+				alert("Ошибка")
+			} else {
+				if (responseServer["Services"][0]["Status"] == "Подтверждена") {
+					console.log("Записан")
+					orderModalSuccess.classList.add('orderModal--view')
+					var submit_order_form = new Event("submit_order_form");
+				} else if (responseServer["Services"][0]["Status"] == "Время занято") {
+					console.log("Время занято")
+					alert("Время занято. Пожалуйста, выберите другое время")
+				} else {
+					console.error("Ошибка!")
+					alert("Ошибка")
+				}
+			}
+		} catch (e) {
+			alert("Ошибка!")
+			console.error("Ошибка: ", e)
+		}
+	});
+	XHR.addEventListener("error", function(event) {
+		alert('Ошибка!');
+	});
+	XHR.open("POST", fileName);
+	XHR.send(FD);
+}
+
+function checkModalPaymentFields(action, form) {
+	if (orderModalName.value.split(" ").length < 3 || !orderModalPhone.value || !orderModalBirthday.value) {
+		if (orderModalName.value.split(" ").length < 3) {
+			orderModalName.classList.add('error')
+		} else {
+			orderModalName.classList.remove('error')
+		}
+		if (!orderModalPhone.value) {
+			orderModalPhone.classList.add('error')
+		} else {
+			orderModalPhone.classList.remove('error')
+		}
+		if (!orderModalBirthday.value) {
+			orderModalBirthday.classList.add('error')
+		} else {
+			orderModalBirthday.classList.remove('error')
+		}
+	} else {
+		orderModal1.classList.remove('orderModal--view')
+		sendDataAppointment(action, form)
+	}
+}
+orderModalNoPay.addEventListener('click', () => {
+	var form = document.querySelector('.makeAnAppointment');
+	checkModalPaymentFields(form.getAttribute('data-action'), form)
 })
 </script>
 
