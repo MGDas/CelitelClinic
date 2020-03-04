@@ -210,6 +210,7 @@ function sendDoctorListForm(form) {
 						temp.className = 'order__item doctorCardWrapper doctorCardWrapper--grey'
 						temp.innerHTML = `<section class="doctorCard">
                         <input type="hidden" id="doctorAgreement" name="doctorAgreement" value="" />
+                    	<select hidden name="doctorAgreementServicesHidden" id="doctorAgreementServicesHidden" disabled></select>
                         <input type="hidden" id="doctorCode" name="doctorCode" value="" />
                         <input type="hidden" id="doctorID" name="doctorID" value="" />
                         <select hidden id="orderModalService" name="orderModalService"></select>
@@ -239,7 +240,7 @@ function sendDoctorListForm(form) {
 						temp.querySelector('#doctorID').setAttribute('value', responseServer[i].id)
 						
 						// // Заполняем селект услугами.
-						var serviceSelect = document.querySelector("#orderModalService");
+						var serviceSelect = temp.querySelector("#doctorAgreementServicesHidden");
 						serviceSelect.innerHTML = ""
 						for (var ii = 0; ii < responseServer[i].services.length; ii++) {
 							var serviceOption = document.createElement('option')
@@ -425,6 +426,9 @@ function sendDoctorListForm(form) {
 										
 										orderModal1.querySelector('#orderModalAddress').value = evt.target.closest('.doctorCardWrapper').querySelector('.makeAnAppointment__input:checked').value
 										
+										orderModal1.querySelector('#orderModalService').innerHTML = ""
+										orderModal1.querySelector('#orderModalService').innerHTML = evt.target.closest('.doctorCardWrapper').querySelector("#doctorAgreementServicesHidden").innerHTML
+
 										orderModal1.querySelector('#doctorCode').value = "-&" + evt.target.closest('.doctorCardWrapper').querySelector('.doctorCard__name').innerHTML
 										orderModal1.querySelector('#appointmentTime').value = evt.target.value
 
